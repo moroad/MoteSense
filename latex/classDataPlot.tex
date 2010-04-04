@@ -1,0 +1,224 @@
+\hypertarget{classDataPlot}{
+\section{DataPlot Class Reference}
+\label{classDataPlot}\index{DataPlot@{DataPlot}}
+}
+
+
+The widget class that graphs the data.  
+
+
+
+
+{\ttfamily \#include $<$data\_\-plot.h$>$}
+
+
+
+Collaboration diagram for DataPlot:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=400pt]{classDataPlot__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classDataPlot_a926020e0c49d78d3d5d282848368651e}{setTimerInterval} (double interval)
+\item 
+void \hyperlink{classDataPlot_a642185fdad89b1b075bc00670242fa0b}{setRange} (double range)
+\item 
+void \hyperlink{classDataPlot_ad101ac80563ee10322788946d791ea09}{setMinRange} (double range)
+\item 
+void \hyperlink{classDataPlot_a36fe7e25f67a168d4f7dd2eaa2627003}{newReading} (\hyperlink{classMoteReading}{MoteReading} r)
+\item 
+void \hyperlink{classDataPlot_a78920a414abdfa954fd34c662f39d09e}{disconnected} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classDataPlot_a1343acbd6095212532c4315d6e9f1711}{DataPlot} (QWidget $\ast$=NULL)
+\begin{DoxyCompactList}\small\item\em Default constructor. \item\end{DoxyCompactList}\item 
+void \hyperlink{classDataPlot_ab6af06dfac3585a7dc669ea333a0869d}{setId} (int i)
+\item 
+void \hyperlink{classDataPlot_aace03b9e68e11042c0fade588e2869a7}{setSource} (\hyperlink{classpacketHandler}{packetHandler} $\ast$p)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classDataPlot_a41c9c4bc12d8d3e3abdf893c4fcfad7b}{timerEvent} (QTimerEvent $\ast$e)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The widget class that graphs the data. \begin{DoxyAuthor}{Author}
+Jharrod LaFon 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Spring 2010 
+\end{DoxyDate}
+\begin{DoxyRemark}{Remarks}
+This class is used to plot data on a moving canvas. The data are acquired from an instance of the packet handler class. 
+\end{DoxyRemark}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classDataPlot_a1343acbd6095212532c4315d6e9f1711}{
+\index{DataPlot@{DataPlot}!DataPlot@{DataPlot}}
+\index{DataPlot@{DataPlot}!DataPlot@{DataPlot}}
+\subsubsection[{DataPlot}]{\setlength{\rightskip}{0pt plus 5cm}DataPlot::DataPlot (QWidget $\ast$ {\em parent} = {\ttfamily NULL})}}
+\label{classDataPlot_a1343acbd6095212532c4315d6e9f1711}
+
+
+Default constructor. 
+
+Constructor.
+
+Initializes the Main Window 
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000001}{Todo}]Change line thickness \end{Desc}
+
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=154pt]{classDataPlot_a1343acbd6095212532c4315d6e9f1711_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classDataPlot_a78920a414abdfa954fd34c662f39d09e}{
+\index{DataPlot@{DataPlot}!disconnected@{disconnected}}
+\index{disconnected@{disconnected}!DataPlot@{DataPlot}}
+\subsubsection[{disconnected}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::disconnected ()\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
+\label{classDataPlot_a78920a414abdfa954fd34c662f39d09e}
+Slot for notifying the datagraph that it's been disconnected from the packet source \hypertarget{classDataPlot_a36fe7e25f67a168d4f7dd2eaa2627003}{
+\index{DataPlot@{DataPlot}!newReading@{newReading}}
+\index{newReading@{newReading}!DataPlot@{DataPlot}}
+\subsubsection[{newReading}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::newReading ({\bf MoteReading} {\em r})\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
+\label{classDataPlot_a36fe7e25f67a168d4f7dd2eaa2627003}
+Slot for informing the graph of a new reading 
+\begin{DoxyParams}{Parameters}
+\item[{\em r}]The new mote reading \end{DoxyParams}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=149pt]{classDataPlot_a36fe7e25f67a168d4f7dd2eaa2627003_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classDataPlot_ab6af06dfac3585a7dc669ea333a0869d}{
+\index{DataPlot@{DataPlot}!setId@{setId}}
+\index{setId@{setId}!DataPlot@{DataPlot}}
+\subsubsection[{setId}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::setId (int {\em i})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classDataPlot_ab6af06dfac3585a7dc669ea333a0869d}
+Sets the dataGraph's id. Used to demultiplex mote readings. 
+\begin{DoxyParams}{Parameters}
+\item[{\em i}]\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{classDataPlot_ad101ac80563ee10322788946d791ea09}{
+\index{DataPlot@{DataPlot}!setMinRange@{setMinRange}}
+\index{setMinRange@{setMinRange}!DataPlot@{DataPlot}}
+\subsubsection[{setMinRange}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::setMinRange (double {\em range})\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
+\label{classDataPlot_ad101ac80563ee10322788946d791ea09}
+Slot for setting the lower range of the graph 
+\begin{DoxyParams}{Parameters}
+\item[{\em range}]is the lower bound of the viewing window \end{DoxyParams}
+
+
+\begin{Desc}
+\item[\hyperlink{bug__bug000001}{Bug}]Qt Doesn't capture this event for some reason \end{Desc}
+
+
+\hypertarget{classDataPlot_a642185fdad89b1b075bc00670242fa0b}{
+\index{DataPlot@{DataPlot}!setRange@{setRange}}
+\index{setRange@{setRange}!DataPlot@{DataPlot}}
+\subsubsection[{setRange}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::setRange (double {\em range})\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
+\label{classDataPlot_a642185fdad89b1b075bc00670242fa0b}
+Slot for setting the upper range of the graph 
+\begin{DoxyParams}{Parameters}
+\item[{\em range}]The upper bound of the viewing window \end{DoxyParams}
+\hypertarget{classDataPlot_aace03b9e68e11042c0fade588e2869a7}{
+\index{DataPlot@{DataPlot}!setSource@{setSource}}
+\index{setSource@{setSource}!DataPlot@{DataPlot}}
+\subsubsection[{setSource}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::setSource ({\bf packetHandler} $\ast$ {\em p})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classDataPlot_aace03b9e68e11042c0fade588e2869a7}
+Mutator for packetHander Use this to set the \hyperlink{classpacketHandler}{packetHandler} (server) for this plot 
+\begin{DoxyParams}{Parameters}
+\item[{\em p}]Pointer to the \hyperlink{classpacketHandler}{packetHandler} \end{DoxyParams}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=155pt]{classDataPlot_aace03b9e68e11042c0fade588e2869a7_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classDataPlot_a926020e0c49d78d3d5d282848368651e}{
+\index{DataPlot@{DataPlot}!setTimerInterval@{setTimerInterval}}
+\index{setTimerInterval@{setTimerInterval}!DataPlot@{DataPlot}}
+\subsubsection[{setTimerInterval}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::setTimerInterval (double {\em interval})\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
+\label{classDataPlot_a926020e0c49d78d3d5d282848368651e}
+Slot for changing the timer frequency 
+\begin{DoxyParams}{Parameters}
+\item[{\em interval}]The frequency of sampling \end{DoxyParams}
+
+
+\begin{DoxyRemark}{Remarks}
+Units are in ms 
+\end{DoxyRemark}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=154pt]{classDataPlot_a926020e0c49d78d3d5d282848368651e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classDataPlot_a41c9c4bc12d8d3e3abdf893c4fcfad7b}{
+\index{DataPlot@{DataPlot}!timerEvent@{timerEvent}}
+\index{timerEvent@{timerEvent}!DataPlot@{DataPlot}}
+\subsubsection[{timerEvent}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::timerEvent (QTimerEvent $\ast$ {\em e})\hspace{0.3cm}{\ttfamily  \mbox{[}protected, virtual\mbox{]}}}}
+\label{classDataPlot_a41c9c4bc12d8d3e3abdf893c4fcfad7b}
+Timer event function
+
+\begin{DoxyRemark}{Remarks}
+This gets called to update the graph. 
+\end{DoxyRemark}
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{classDataPlot_a41c9c4bc12d8d3e3abdf893c4fcfad7b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{data__plot_8h}{data\_\-plot.h}\item 
+\hyperlink{data__plot_8cpp}{data\_\-plot.cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" href="$classMoteReading.html#ad79a65f84dfaacc9b5c179fb66a5545f" title="Accessor for acclerometer x." alt="" coords="208,5,360,35"/>
+<area shape="rect" href="$classMoteReading.html#af918c7ca6c9fea98a3d608b61dbaffae" title="Accessor for accelerometer y." alt="" coords="208,59,360,88"/>
+<area shape="rect" href="$classMoteReading.html#aff0d87f9c667d01f7e37a114afa321fa" title="Accessor for infrared." alt="" coords="219,112,349,141"/>
+<area shape="rect" href="$classMoteReading.html#a318b7e6afba062ee3df207495070e277" title="Accessor for magnetometer x." alt="" coords="211,165,357,195"/>
+<area shape="rect" href="$classMoteReading.html#a4344f67449dbd79febac0c4795b185f4" title="Accessor for magnetometer y." alt="" coords="211,219,357,248"/>
+<area shape="rect" href="$classMoteReading.html#a348cb45f4613499385a354fe6857ef5d" title="Accessor for microphone." alt="" coords="212,272,356,301"/>
+<area shape="rect" href="$classpacketHandler.html#aec6fa94602daa18227491b76001152cb" title="packetHandler::getReading" alt="" coords="196,325,372,355"/>
+<area shape="rect" href="$classMoteReading.html#a3f7526c29f2bf61feeb5e24298133332" title="Accessor for temperature." alt="" coords="207,379,361,408"/>
+<area shape="rect" href="$classMoteReading.html#a88ed6ea245c7af79e38ff8976f849f36" title="Accessor for visual light." alt="" coords="216,432,352,461"/>
+<area shape="rect" href="$classDataPlot.html#a36fe7e25f67a168d4f7dd2eaa2627003" title="DataPlot::newReading" alt="" coords="209,485,359,515"/>
+</map>

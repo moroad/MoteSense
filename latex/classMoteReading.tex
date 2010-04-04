@@ -1,0 +1,305 @@
+\hypertarget{classMoteReading}{
+\section{MoteReading Class Reference}
+\label{classMoteReading}\index{MoteReading@{MoteReading}}
+}
+
+
+Class to encapsulate a sensor reading.  
+
+
+
+
+{\ttfamily \#include $<$motereading.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMoteReading_ad2555254ab4fd4ce31ebafeea362d255}{MoteReading} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \item\end{DoxyCompactList}\item 
+\hyperlink{classMoteReading_aea4d9a40d3999ed29eb6044146a5dabc}{MoteReading} (int id, int mgx, int mgy, int accx, int accy, int temp, int ir, int mic, int vl)
+\item 
+int \hyperlink{classMoteReading_a123a08348d6a1ba80a4055cb5f5afaa6}{getId} ()
+\begin{DoxyCompactList}\small\item\em Accessor for id. \item\end{DoxyCompactList}\item 
+int \hyperlink{classMoteReading_a318b7e6afba062ee3df207495070e277}{getMgx} ()
+\begin{DoxyCompactList}\small\item\em Accessor for magnetometer x. \item\end{DoxyCompactList}\item 
+int \hyperlink{classMoteReading_a4344f67449dbd79febac0c4795b185f4}{getMgy} ()
+\begin{DoxyCompactList}\small\item\em Accessor for magnetometer y. \item\end{DoxyCompactList}\item 
+int \hyperlink{classMoteReading_af918c7ca6c9fea98a3d608b61dbaffae}{getAccy} ()
+\begin{DoxyCompactList}\small\item\em Accessor for accelerometer y. \item\end{DoxyCompactList}\item 
+int \hyperlink{classMoteReading_ad79a65f84dfaacc9b5c179fb66a5545f}{getAccx} ()
+\begin{DoxyCompactList}\small\item\em Accessor for acclerometer x. \item\end{DoxyCompactList}\item 
+int \hyperlink{classMoteReading_a3f7526c29f2bf61feeb5e24298133332}{getTemp} ()
+\begin{DoxyCompactList}\small\item\em Accessor for temperature. \item\end{DoxyCompactList}\item 
+int \hyperlink{classMoteReading_aff0d87f9c667d01f7e37a114afa321fa}{getIr} ()
+\begin{DoxyCompactList}\small\item\em Accessor for infrared. \item\end{DoxyCompactList}\item 
+int \hyperlink{classMoteReading_a348cb45f4613499385a354fe6857ef5d}{getMic} ()
+\begin{DoxyCompactList}\small\item\em Accessor for microphone. \item\end{DoxyCompactList}\item 
+int \hyperlink{classMoteReading_a88ed6ea245c7af79e38ff8976f849f36}{getVl} ()
+\begin{DoxyCompactList}\small\item\em Accessor for visual light. \item\end{DoxyCompactList}\item 
+void \hyperlink{classMoteReading_a61f08f015a9f833ff7352c378b7799c2}{setId} (int i)
+\begin{DoxyCompactList}\small\item\em Mutator for id. \item\end{DoxyCompactList}\item 
+QString \hyperlink{classMoteReading_a5e60715c001c14f3e3f4cff6f886f0ad}{toString} ()
+\begin{DoxyCompactList}\small\item\em Accessor for string representation of reading. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class to encapsulate a sensor reading. \begin{DoxyAuthor}{Author}
+Jharrod LaFon 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Spring 2010 
+\end{DoxyDate}
+\begin{DoxyRemark}{Remarks}
+Class to encapsulate mote readings. 
+\end{DoxyRemark}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classMoteReading_ad2555254ab4fd4ce31ebafeea362d255}{
+\index{MoteReading@{MoteReading}!MoteReading@{MoteReading}}
+\index{MoteReading@{MoteReading}!MoteReading@{MoteReading}}
+\subsubsection[{MoteReading}]{\setlength{\rightskip}{0pt plus 5cm}MoteReading::MoteReading ()}}
+\label{classMoteReading_ad2555254ab4fd4ce31ebafeea362d255}
+
+
+Default constructor. 
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000002}{Todo}]Create copy constructor \end{Desc}
+\hypertarget{classMoteReading_aea4d9a40d3999ed29eb6044146a5dabc}{
+\index{MoteReading@{MoteReading}!MoteReading@{MoteReading}}
+\index{MoteReading@{MoteReading}!MoteReading@{MoteReading}}
+\subsubsection[{MoteReading}]{\setlength{\rightskip}{0pt plus 5cm}MoteReading::MoteReading (int {\em id}, \/  int {\em mgx}, \/  int {\em mgy}, \/  int {\em accx}, \/  int {\em accy}, \/  int {\em temp}, \/  int {\em ir}, \/  int {\em mic}, \/  int {\em vl})}}
+\label{classMoteReading_aea4d9a40d3999ed29eb6044146a5dabc}
+Constructor, takes all readings as parameters 
+\begin{DoxyParams}{Parameters}
+\item[{\em id,mgx,mgy,accx,accy,temp,ir,mic,vl}]\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classMoteReading_ad79a65f84dfaacc9b5c179fb66a5545f}{
+\index{MoteReading@{MoteReading}!getAccx@{getAccx}}
+\index{getAccx@{getAccx}!MoteReading@{MoteReading}}
+\subsubsection[{getAccx}]{\setlength{\rightskip}{0pt plus 5cm}int MoteReading::getAccx ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classMoteReading_ad79a65f84dfaacc9b5c179fb66a5545f}
+
+
+Accessor for acclerometer x. 
+
+\begin{DoxyReturn}{Returns}
+accx 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=151pt]{classMoteReading_ad79a65f84dfaacc9b5c179fb66a5545f_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classMoteReading_af918c7ca6c9fea98a3d608b61dbaffae}{
+\index{MoteReading@{MoteReading}!getAccy@{getAccy}}
+\index{getAccy@{getAccy}!MoteReading@{MoteReading}}
+\subsubsection[{getAccy}]{\setlength{\rightskip}{0pt plus 5cm}int MoteReading::getAccy ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classMoteReading_af918c7ca6c9fea98a3d608b61dbaffae}
+
+
+Accessor for accelerometer y. 
+
+\begin{DoxyReturn}{Returns}
+mgy 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=151pt]{classMoteReading_af918c7ca6c9fea98a3d608b61dbaffae_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classMoteReading_a123a08348d6a1ba80a4055cb5f5afaa6}{
+\index{MoteReading@{MoteReading}!getId@{getId}}
+\index{getId@{getId}!MoteReading@{MoteReading}}
+\subsubsection[{getId}]{\setlength{\rightskip}{0pt plus 5cm}int MoteReading::getId ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classMoteReading_a123a08348d6a1ba80a4055cb5f5afaa6}
+
+
+Accessor for id. 
+
+\begin{DoxyReturn}{Returns}
+id 
+\end{DoxyReturn}
+\hypertarget{classMoteReading_aff0d87f9c667d01f7e37a114afa321fa}{
+\index{MoteReading@{MoteReading}!getIr@{getIr}}
+\index{getIr@{getIr}!MoteReading@{MoteReading}}
+\subsubsection[{getIr}]{\setlength{\rightskip}{0pt plus 5cm}int MoteReading::getIr ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classMoteReading_aff0d87f9c667d01f7e37a114afa321fa}
+
+
+Accessor for infrared. 
+
+\begin{DoxyReturn}{Returns}
+ir 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=143pt]{classMoteReading_aff0d87f9c667d01f7e37a114afa321fa_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classMoteReading_a318b7e6afba062ee3df207495070e277}{
+\index{MoteReading@{MoteReading}!getMgx@{getMgx}}
+\index{getMgx@{getMgx}!MoteReading@{MoteReading}}
+\subsubsection[{getMgx}]{\setlength{\rightskip}{0pt plus 5cm}int MoteReading::getMgx ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classMoteReading_a318b7e6afba062ee3df207495070e277}
+
+
+Accessor for magnetometer x. 
+
+\begin{DoxyReturn}{Returns}
+mgx 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=149pt]{classMoteReading_a318b7e6afba062ee3df207495070e277_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classMoteReading_a4344f67449dbd79febac0c4795b185f4}{
+\index{MoteReading@{MoteReading}!getMgy@{getMgy}}
+\index{getMgy@{getMgy}!MoteReading@{MoteReading}}
+\subsubsection[{getMgy}]{\setlength{\rightskip}{0pt plus 5cm}int MoteReading::getMgy ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classMoteReading_a4344f67449dbd79febac0c4795b185f4}
+
+
+Accessor for magnetometer y. 
+
+\begin{DoxyReturn}{Returns}
+mgy 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=149pt]{classMoteReading_a4344f67449dbd79febac0c4795b185f4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classMoteReading_a348cb45f4613499385a354fe6857ef5d}{
+\index{MoteReading@{MoteReading}!getMic@{getMic}}
+\index{getMic@{getMic}!MoteReading@{MoteReading}}
+\subsubsection[{getMic}]{\setlength{\rightskip}{0pt plus 5cm}int MoteReading::getMic ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classMoteReading_a348cb45f4613499385a354fe6857ef5d}
+
+
+Accessor for microphone. 
+
+\begin{DoxyReturn}{Returns}
+mic 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=147pt]{classMoteReading_a348cb45f4613499385a354fe6857ef5d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classMoteReading_a3f7526c29f2bf61feeb5e24298133332}{
+\index{MoteReading@{MoteReading}!getTemp@{getTemp}}
+\index{getTemp@{getTemp}!MoteReading@{MoteReading}}
+\subsubsection[{getTemp}]{\setlength{\rightskip}{0pt plus 5cm}int MoteReading::getTemp ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classMoteReading_a3f7526c29f2bf61feeb5e24298133332}
+
+
+Accessor for temperature. 
+
+\begin{DoxyReturn}{Returns}
+temp 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=152pt]{classMoteReading_a3f7526c29f2bf61feeb5e24298133332_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classMoteReading_a88ed6ea245c7af79e38ff8976f849f36}{
+\index{MoteReading@{MoteReading}!getVl@{getVl}}
+\index{getVl@{getVl}!MoteReading@{MoteReading}}
+\subsubsection[{getVl}]{\setlength{\rightskip}{0pt plus 5cm}int MoteReading::getVl ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classMoteReading_a88ed6ea245c7af79e38ff8976f849f36}
+
+
+Accessor for visual light. 
+
+\begin{DoxyReturn}{Returns}
+int visual\_\-light 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=144pt]{classMoteReading_a88ed6ea245c7af79e38ff8976f849f36_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classMoteReading_a61f08f015a9f833ff7352c378b7799c2}{
+\index{MoteReading@{MoteReading}!setId@{setId}}
+\index{setId@{setId}!MoteReading@{MoteReading}}
+\subsubsection[{setId}]{\setlength{\rightskip}{0pt plus 5cm}void MoteReading::setId (int {\em i})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classMoteReading_a61f08f015a9f833ff7352c378b7799c2}
+
+
+Mutator for id. 
+
+
+\begin{DoxyParams}{Parameters}
+\item[{\em i}]\end{DoxyParams}
+\hypertarget{classMoteReading_a5e60715c001c14f3e3f4cff6f886f0ad}{
+\index{MoteReading@{MoteReading}!toString@{toString}}
+\index{toString@{toString}!MoteReading@{MoteReading}}
+\subsubsection[{toString}]{\setlength{\rightskip}{0pt plus 5cm}QString MoteReading::toString ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classMoteReading_a5e60715c001c14f3e3f4cff6f886f0ad}
+
+
+Accessor for string representation of reading. 
+
+\begin{DoxyReturn}{Returns}
+QString 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{motereading_8h}{motereading.h}\item 
+\hyperlink{motereading_8cpp}{motereading.cpp}\end{DoxyCompactItemize}

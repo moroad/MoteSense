@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" href="$classDataPlot.html" title="The widget class that graphs the data." alt="" coords="68,533,204,1088"/>
+<area shape="rect" href="$classMoteReading.html" title="Class to encapsulate a sensor reading." alt="" coords="5,5,123,467"/>
+<area shape="rect" href="$classpacketHandler.html" title="Class the serve packets to the DataPlot." alt="" coords="147,43,269,429"/>
+</map>

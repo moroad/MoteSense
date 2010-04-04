@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" href="$data__plot_8cpp.html" title="Implementation of DataPlot class." alt="" coords="5,160,104,189"/>
+<area shape="rect" href="$data__plot_8h.html" title="Widget to graph data." alt="" coords="376,160,461,189"/>
+<area shape="rect" href="$motereading_8cpp.html" title="Implementation of the MoteReading class." alt="" coords="489,83,607,112"/>
+<area shape="rect" href="$packethandler_8cpp.html" title="Implementation of packetHandler class." alt="" coords="485,160,613,189"/>
+<area shape="rect" href="$packethandler_8h.html" title="Class to serve packets to the DataPlot class." alt="" coords="235,83,347,112"/>
+<area shape="rect" href="$graphwindow_8cpp.html" title="Implementation of the GraphWindow class." alt="" coords="219,237,339,267"/>
+<area shape="rect" href="$graphwindow_8h.html" title="Window to display the DataPlot." alt="" coords="387,237,493,267"/>
+<area shape="rect" href="$mainwindow_8cpp.html" title="Implementation of the MainWindow class." alt="" coords="235,315,349,344"/>
+<area shape="rect" href="$main_8cpp.html" title="Main application, entry point." alt="" coords="253,160,328,189"/>
+<area shape="rect" href="$mainwindow_8h.html" title="Main Program Window." alt="" coords="93,237,195,267"/>
+</map>

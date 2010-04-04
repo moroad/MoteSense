@@ -1,0 +1,216 @@
+\hypertarget{classpacketHandler}{
+\section{packetHandler Class Reference}
+\label{classpacketHandler}\index{packetHandler@{packetHandler}}
+}
+
+
+Class the serve packets to the \hyperlink{classDataPlot}{DataPlot}.  
+
+
+
+
+{\ttfamily \#include $<$packethandler.h$>$}
+
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classpacketHandler_ab1a61d0c1deef1885e31b9a6aebdcc2f}{
+void \hyperlink{classpacketHandler_ab1a61d0c1deef1885e31b9a6aebdcc2f}{connected} ()}
+\label{classpacketHandler_ab1a61d0c1deef1885e31b9a6aebdcc2f}
+
+\begin{DoxyCompactList}\small\item\em Slot for when a connection is established. This also initializes communication with the serial forwarder. \item\end{DoxyCompactList}\item 
+void \hyperlink{classpacketHandler_a43223a8930a6af8c40c5889d8e4b9d4b}{disconnected} ()
+\begin{DoxyCompactList}\small\item\em Slot for when we are disconnected from the serial forwarder. \item\end{DoxyCompactList}\item 
+void \hyperlink{classpacketHandler_a9085a61a51eccc7acb240a7b68601686}{dataReady} ()
+\begin{DoxyCompactList}\small\item\em Slot for when there is new data ready from the serial forwarder. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classpacketHandler_a0e8f4d081f531b5e568c052f5b8babb9}{
+void \hyperlink{classpacketHandler_a0e8f4d081f531b5e568c052f5b8babb9}{nodesChanged} ()}
+\label{classpacketHandler_a0e8f4d081f531b5e568c052f5b8babb9}
+
+\begin{DoxyCompactList}\small\item\em Signal emitted when a new node is detected. \item\end{DoxyCompactList}\item 
+\hypertarget{classpacketHandler_a033895b001ec68791c5d0872df03e626}{
+void \hyperlink{classpacketHandler_a033895b001ec68791c5d0872df03e626}{disconnectNotice} ()}
+\label{classpacketHandler_a033895b001ec68791c5d0872df03e626}
+
+\begin{DoxyCompactList}\small\item\em Signal emitted when disconnected from the serial forwarder. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classpacketHandler_a02936b9105618ed38701274efcfa0dfb}{packetHandler} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \item\end{DoxyCompactList}\item 
+QList$<$ int $>$ \hyperlink{classpacketHandler_a7d07166d577b014234ad311599ac3291}{getNodeList} ()
+\item 
+\hyperlink{classMoteReading}{MoteReading} \hyperlink{classpacketHandler_aec6fa94602daa18227491b76001152cb}{getReading} (int i)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class the serve packets to the \hyperlink{classDataPlot}{DataPlot}. \begin{DoxyAuthor}{Author}
+Jharrod LaFon 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Spring 2010 
+\end{DoxyDate}
+\begin{DoxyRemark}{Remarks}
+This class connects to the serial forwarder, and demultiplexes packets for the datagraph class. 
+\end{DoxyRemark}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classpacketHandler_a02936b9105618ed38701274efcfa0dfb}{
+\index{packetHandler@{packetHandler}!packetHandler@{packetHandler}}
+\index{packetHandler@{packetHandler}!packetHandler@{packetHandler}}
+\subsubsection[{packetHandler}]{\setlength{\rightskip}{0pt plus 5cm}packetHandler::packetHandler ()}}
+\label{classpacketHandler_a02936b9105618ed38701274efcfa0dfb}
+
+
+Default constructor. 
+
+
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000004}{Todo}]Make this connection user configurable. \end{Desc}
+
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=283pt]{classpacketHandler_a02936b9105618ed38701274efcfa0dfb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classpacketHandler_a9085a61a51eccc7acb240a7b68601686}{
+\index{packetHandler@{packetHandler}!dataReady@{dataReady}}
+\index{dataReady@{dataReady}!packetHandler@{packetHandler}}
+\subsubsection[{dataReady}]{\setlength{\rightskip}{0pt plus 5cm}void packetHandler::dataReady ()\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
+\label{classpacketHandler_a9085a61a51eccc7acb240a7b68601686}
+
+
+Slot for when there is new data ready from the serial forwarder. 
+
+
+
+\begin{DoxyRemark}{Remarks}
+Up to MAX\_\-BUFFER packets are stored in a ringBuffer for each mote. 
+\end{DoxyRemark}
+
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=181pt]{classpacketHandler_a9085a61a51eccc7acb240a7b68601686_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=180pt]{classpacketHandler_a9085a61a51eccc7acb240a7b68601686_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classpacketHandler_a43223a8930a6af8c40c5889d8e4b9d4b}{
+\index{packetHandler@{packetHandler}!disconnected@{disconnected}}
+\index{disconnected@{disconnected}!packetHandler@{packetHandler}}
+\subsubsection[{disconnected}]{\setlength{\rightskip}{0pt plus 5cm}void packetHandler::disconnected ()\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
+\label{classpacketHandler_a43223a8930a6af8c40c5889d8e4b9d4b}
+
+
+Slot for when we are disconnected from the serial forwarder. 
+
+\begin{DoxyRemark}{Remarks}
+This gets called when the TcpSocket is disconnected, so we tell the dataGraph class also. 
+\end{DoxyRemark}
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{classpacketHandler_a43223a8930a6af8c40c5889d8e4b9d4b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=185pt]{classpacketHandler_a43223a8930a6af8c40c5889d8e4b9d4b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classpacketHandler_a7d07166d577b014234ad311599ac3291}{
+\index{packetHandler@{packetHandler}!getNodeList@{getNodeList}}
+\index{getNodeList@{getNodeList}!packetHandler@{packetHandler}}
+\subsubsection[{getNodeList}]{\setlength{\rightskip}{0pt plus 5cm}QList$<$ int $>$ packetHandler::getNodeList ()}}
+\label{classpacketHandler_a7d07166d577b014234ad311599ac3291}
+Function to return the list of nodes from which we have received packets. \begin{DoxyReturn}{Returns}
+QList$<$int$>$ 
+\end{DoxyReturn}
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{classpacketHandler_a7d07166d577b014234ad311599ac3291_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classpacketHandler_aec6fa94602daa18227491b76001152cb}{
+\index{packetHandler@{packetHandler}!getReading@{getReading}}
+\index{getReading@{getReading}!packetHandler@{packetHandler}}
+\subsubsection[{getReading}]{\setlength{\rightskip}{0pt plus 5cm}{\bf MoteReading} packetHandler::getReading (int {\em i})}}
+\label{classpacketHandler_aec6fa94602daa18227491b76001152cb}
+Function to get the most recent reading for node i 
+\begin{DoxyParams}{Parameters}
+\item[{\em i}]The id of the mote. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{classMoteReading}{MoteReading} 
+\end{DoxyReturn}
+
+
+\begin{Desc}
+\item[\hyperlink{bug__bug000002}{Bug}]I need to get this working correctly, but I'm not sure on the logic yet. \end{Desc}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{classpacketHandler_aec6fa94602daa18227491b76001152cb_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{packethandler_8h}{packethandler.h}\item 
+\hyperlink{packethandler_8cpp}{packethandler.cpp}\end{DoxyCompactItemize}

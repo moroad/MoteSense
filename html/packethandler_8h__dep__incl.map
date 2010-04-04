@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" href="$data__plot_8cpp.html" title="Implementation of DataPlot class." alt="" coords="5,83,104,112"/>
+<area shape="rect" href="$data__plot_8h.html" title="Widget to graph data." alt="" coords="203,83,288,112"/>
+<area shape="rect" href="$graphwindow_8cpp.html" title="Implementation of the GraphWindow class." alt="" coords="101,160,221,189"/>
+<area shape="rect" href="$main_8cpp.html" title="Main application, entry point." alt="" coords="312,83,387,112"/>
+<area shape="rect" href="$mainwindow_8h.html" title="Main Program Window." alt="" coords="400,160,501,189"/>
+<area shape="rect" href="$packethandler_8cpp.html" title="Implementation of packetHandler class." alt="" coords="485,83,613,112"/>
+<area shape="rect" href="$graphwindow_8h.html" title="Window to display the DataPlot." alt="" coords="269,160,376,189"/>
+<area shape="rect" href="$mainwindow_8cpp.html" title="Implementation of the MainWindow class." alt="" coords="329,237,444,267"/>
+</map>
