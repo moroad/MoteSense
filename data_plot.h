@@ -24,6 +24,10 @@
 //! Size of the plot
 const int PLOT_SIZE = 201;
 
+//! Used for turning them on or off on the plot
+enum { MGX, MGY, ACCX, ACCY, IR, TEMP, VL, MIC };
+
+
 //! The widget class that graphs the data
 class DataPlot : public QwtPlot
 {
@@ -69,6 +73,36 @@ public slots:
     /*! Slot for notifying the datagraph that it's been disconnected from the packet source
      */
     void disconnected();
+
+    /*! Slot for detaching MGx
+     */
+    void detachMgx(){ detach(MGX); }
+    /*! Slot for detaching MGy
+     */
+    void detachMgy(){ detach(MGY); }
+    /*! Slot for detaching ACCX
+     */
+    void detachAccx(){ detach(ACCX); }
+    /*! Slot for detaching ACCY
+     */
+    void detachAccy(){ detach(ACCY); }
+    /*! Slot for detaching IR
+     */
+    void detachIr(){ detach(IR); }
+    /*! Slot for detaching Temp
+     */
+    void detachTemp(){ detach(TEMP); }
+    /*! Slot for detaching VL
+     */
+    void detachVl(){ detach(VL); }
+    /*! Slot for detaching MIC
+     */
+    void detachMic(){ detach(MIC); }
+
+    /*! Slot for detaching a data type.
+      * \param item is from the enumeration defined in data_plot.h
+      */
+    void detach(int item);
 
 protected:
     /*! Timer event function */
@@ -126,6 +160,18 @@ private:
     int min;
     int max;
 
+    bool plotMgx, plotMgy, plotAccx, plotAccy, plotIr, plotTemp, plotVl, plotMic;
+
+    QwtPlotCurve *mgxPlot;
+    QwtPlotCurve *mgyPlot;
+    QwtPlotCurve *AccyPlot;
+    QwtPlotCurve *AccxPlot;
+    QwtPlotCurve *tempPlot;
+    QwtPlotCurve *irPlot;
+    QwtPlotCurve *micPlot;
+    QwtPlotCurve *vlPlot;
+
+    bool attached[8];
 };
 
 #endif

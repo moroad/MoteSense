@@ -27,8 +27,12 @@ DataPlot::DataPlot(QWidget *parent):
     max(10)
 
 
+
 {
     id = 0;
+    plotAccx = plotAccy = plotMgx = plotMgy = plotTemp = plotMic = plotVl = plotIr = true;
+    for(int i = 0; i < 8; i++)
+        attached[i] = true;
     // Disable polygon clipping
     QwtPainter::setDeviceClipping(false);
     running = false;
@@ -67,14 +71,15 @@ DataPlot::DataPlot(QWidget *parent):
     insertLegend(new QwtLegend(), QwtPlot::BottomLegend);
 
     // Insert new curves
-    QwtPlotCurve *mgxPlot = new QwtPlotCurve("MGx");
-    QwtPlotCurve *mgyPlot = new QwtPlotCurve("MGy");
-    QwtPlotCurve *AccyPlot = new QwtPlotCurve("ACCy");
-    QwtPlotCurve *AccxPlot = new QwtPlotCurve("ACCx");
-    QwtPlotCurve *tempPlot = new QwtPlotCurve("Temp");
-    QwtPlotCurve *irPlot = new QwtPlotCurve("IR");
-    QwtPlotCurve *micPlot = new QwtPlotCurve("MIC");
-    QwtPlotCurve *vlPlot = new QwtPlotCurve("VL");
+    mgxPlot = new QwtPlotCurve("MGx");
+    mgyPlot = new QwtPlotCurve("MGy");
+    AccyPlot = new QwtPlotCurve("ACCy");
+    AccxPlot = new QwtPlotCurve("ACCx");
+    tempPlot = new QwtPlotCurve("Temp");
+    irPlot = new QwtPlotCurve("IR");
+    micPlot = new QwtPlotCurve("MIC");
+    vlPlot = new QwtPlotCurve("VL");
+
     AccyPlot->attach(this);
     AccxPlot->attach(this);
     mgxPlot->attach(this);
@@ -83,6 +88,7 @@ DataPlot::DataPlot(QWidget *parent):
     irPlot->attach(this);
     micPlot->attach(this);
     vlPlot->attach(this);
+
 
     //! \todo Change line thickness
     // Set curve styles
@@ -161,6 +167,110 @@ void DataPlot::alignScales()
         QwtScaleDraw *scaleDraw = (QwtScaleDraw *)axisScaleDraw(i);
         if ( scaleDraw )
             scaleDraw->enableComponent(QwtAbstractScaleDraw::Backbone, false);
+    }
+}
+
+
+void DataPlot::detach(int item)
+{
+    switch(item)
+    {
+    case MGX:
+        if(attached[MGX])
+        {
+            mgxPlot->detach();
+            attached[MGX] = false;
+        }
+        else
+        {
+            mgxPlot->attach(this);
+            attached[MGX] = true;
+        }
+        break;
+    case MGY:
+        if(attached[MGY])
+        {
+            mgyPlot->detach();
+            attached[MGY] = false;
+        }
+        else
+        {
+            mgyPlot->attach(this);
+            attached[MGY] = true;
+        }
+        break;
+    case ACCX:
+        if(attached[ACCX])
+        {
+            AccxPlot->detach();
+            attached[ACCX] = false;
+        }
+        else
+        {
+            AccxPlot->attach(this);
+            attached[ACCX] = true;
+        }
+        break;
+    case ACCY:
+        if(attached[ACCY])
+        {
+            AccyPlot->detach();
+            attached[ACCY] = false;
+        }
+        else
+        {
+            AccyPlot->attach(this);
+            attached[ACCY] = true;
+        }
+        break;
+    case TEMP:
+        if(attached[TEMP])
+        {
+            tempPlot->detach();
+            attached[TEMP] = false;
+        }
+        else
+        {
+            tempPlot->attach(this);
+            attached[TEMP] = true;
+        }
+        break;
+    case IR:
+        if(attached[IR])
+        {
+            irPlot->detach();
+            attached[IR] = false;
+        }
+        else
+        {
+            irPlot->attach(this);
+            attached[IR] = true;
+        }
+        break;
+    case VL:
+        if(attached[VL])
+        {
+            vlPlot->detach();
+            attached[VL] = false;
+        }
+        else
+        {
+            vlPlot->attach(this);
+            attached[VL] = true;
+        }
+        break;
+    case MIC:
+        if(attached[MIC])
+        {
+            micPlot->detach();
+            attached[MIC] = false;
+        }
+        else
+        {
+            micPlot->attach(this);
+            attached[MIC] = true;
+        }
+        break;
     }
 }
 

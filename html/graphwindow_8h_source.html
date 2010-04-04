@@ -47,23 +47,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00010"></a>00010 <span class="preprocessor">#ifndef GRAPHWINDOW_H</span>
 <a name="l00011"></a>00011 <span class="preprocessor"></span><span class="preprocessor">#define GRAPHWINDOW_H</span>
 <a name="l00012"></a>00012 <span class="preprocessor"></span><span class="preprocessor">#include &lt;qmainwindow.h&gt;</span>
-<a name="l00013"></a>00013 <span class="preprocessor">#include &quot;<a class="code" href="data__plot_8h.html" title="Widget to graph data.">data_plot.h</a>&quot;</span>
-<a name="l00014"></a>00014 
+<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;QString&gt;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="data__plot_8h.html" title="Widget to graph data.">data_plot.h</a>&quot;</span>
 <a name="l00015"></a>00015 
-<a name="l00017"></a><a class="code" href="classGraphWindow.html">00017</a> <span class="keyword">class </span><a class="code" href="classGraphWindow.html" title="Window class that contains the DataPlot widget.">GraphWindow</a>: <span class="keyword">public</span> QMainWindow
-<a name="l00018"></a>00018 {
-<a name="l00019"></a>00019 <span class="keyword">public</span>:
+<a name="l00016"></a>00016 
+<a name="l00018"></a><a class="code" href="classGraphWindow.html">00018</a> <span class="keyword">class </span><a class="code" href="classGraphWindow.html" title="Window class that contains the DataPlot widget.">GraphWindow</a>: <span class="keyword">public</span> QMainWindow
+<a name="l00019"></a>00019 {
 <a name="l00020"></a>00020 
-<a name="l00022"></a>00022     <a class="code" href="classGraphWindow.html#ab8ca84cf6fe5a68e7fb87b7f47636d7d" title="Default constructor.">GraphWindow</a>();
-<a name="l00023"></a>00023 
-<a name="l00025"></a>00025     <span class="keywordtype">void</span> <a class="code" href="classGraphWindow.html#a07a46e21184c287ba49db8145047e420" title="Sets the data source.">setSource</a>(<a class="code" href="classpacketHandler.html" title="Class the serve packets to the DataPlot.">packetHandler</a> * p);
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027 <span class="keyword">private</span>:
-<a name="l00029"></a>00029     <a class="code" href="classDataPlot.html" title="The widget class that graphs the data.">DataPlot</a> *plot; 
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031 };
+<a name="l00021"></a>00021 <span class="keyword">public</span>:
+<a name="l00022"></a>00022 
+<a name="l00024"></a>00024     <a class="code" href="classGraphWindow.html#ab8ca84cf6fe5a68e7fb87b7f47636d7d" title="Default constructor.">GraphWindow</a>();
+<a name="l00025"></a>00025 
+<a name="l00027"></a>00027     <span class="keywordtype">void</span> <a class="code" href="classGraphWindow.html#a07a46e21184c287ba49db8145047e420" title="Sets the data source.">setSource</a>(<a class="code" href="classpacketHandler.html" title="Class the serve packets to the DataPlot.">packetHandler</a> * p);
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029 <span class="keyword">private</span>:
+<a name="l00031"></a>00031     <a class="code" href="classDataPlot.html" title="The widget class that graphs the data.">DataPlot</a> *plot; 
 <a name="l00032"></a>00032 
-<a name="l00033"></a>00033 <span class="preprocessor">#endif // GRAPHWINDOW_H</span>
+<a name="l00033"></a>00033 };
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035 <span class="preprocessor">#endif // GRAPHWINDOW_H</span>
 </pre></div></div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -79,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Apr 3 20:05:31 2010 for MoteSense by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Apr 3 22:42:45 2010 for MoteSense by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

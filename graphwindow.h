@@ -10,12 +10,14 @@
 #ifndef GRAPHWINDOW_H
 #define GRAPHWINDOW_H
 #include <qmainwindow.h>
+#include <QString>
 #include "data_plot.h"
 
 
 //! Window class that contains the DataPlot widget
 class GraphWindow: public QMainWindow
 {
+
 public:
 
     //! Default constructor
