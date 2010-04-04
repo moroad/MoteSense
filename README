@@ -23,3 +23,8 @@ Installation
       If you have trouble, make sure that the Qwt include path and 
       library path is in the MoteSense.pro file.
 
+Documentation
+-------------
+
+      For class documentation, see html/index.html
+      To generate documentation in another format, use doxygen.
