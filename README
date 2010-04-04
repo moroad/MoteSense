@@ -1,0 +1,25 @@
+
+MoteSense
+----------------------
+
+      The MoteSense application application is designed to plot data
+      in real time from a wireless sensor network.  Development is in 
+      beta.
+
+      The Qt4 framework is required for the application.
+
+      The Qwt package is needed for graphing:
+
+      Qwt is hosted at http://qwt.sf.net
+
+Installation
+------------
+      
+      There is no install script yet.  You can build the application
+      using:
+      qmake
+      make
+
+      If you have trouble, make sure that the Qwt include path and 
+      library path is in the MoteSense.pro file.
+
