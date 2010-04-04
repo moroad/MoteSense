@@ -44,39 +44,39 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 <h1>mainwindow.h</h1><a href="mainwindow_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
 <a name="l00002"></a>00002 
-<a name="l00037"></a>00037 <span class="preprocessor">#ifndef MAINWINDOW_H</span>
-<a name="l00038"></a>00038 <span class="preprocessor"></span><span class="preprocessor">#define MAINWINDOW_H</span>
-<a name="l00039"></a>00039 <span class="preprocessor"></span>
-<a name="l00040"></a>00040 <span class="preprocessor">#include &lt;QMainWindow&gt;</span>
-<a name="l00041"></a>00041 <span class="preprocessor">#include &lt;QList&gt;</span>
-<a name="l00042"></a>00042 <span class="preprocessor">#include &quot;<a class="code" href="packethandler_8h.html" title="Class to serve packets to the DataPlot class.">packethandler.h</a>&quot;</span>
-<a name="l00043"></a>00043 <span class="keyword">namespace </span>Ui {
-<a name="l00044"></a>00044     <span class="keyword">class </span><a class="code" href="classMainWindow.html" title="The main window class.">MainWindow</a>;
-<a name="l00045"></a>00045 }
-<a name="l00047"></a><a class="code" href="classMainWindow.html">00047</a> <span class="keyword">class </span><a class="code" href="classMainWindow.html" title="The main window class.">MainWindow</a> : <span class="keyword">public</span> QMainWindow {
-<a name="l00048"></a>00048     Q_OBJECT
-<a name="l00049"></a>00049 <span class="keyword">public</span>:
-<a name="l00051"></a>00051     <a class="code" href="classMainWindow.html#a8b244be8b7b7db1b08de2a2acb9409db" title="Default constructor.">MainWindow</a>(QWidget *parent = 0);
-<a name="l00053"></a>00053     <a class="code" href="classMainWindow.html#ae98d00a93bc118200eeef9f9bba1dba7" title="Destructor.">~MainWindow</a>();
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055 <span class="keyword">public</span> slots:
-<a name="l00057"></a>00057     <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a5d0ce13b14ee5fe76a4f7ed7f1de81c5" title="Updates the nodeList widget when a node is added or removed from the packet stream...">nodeChange</a>();
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059 <span class="keyword">protected</span>:
-<a name="l00061"></a>00061     <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#af4ca5d0d3d18ddcb7d54b6596bbf4797" title="Needed for Qt.">changeEvent</a>(QEvent *e);
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063 <span class="keyword">private</span>:
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065     Ui::MainWindow *ui;
-<a name="l00066"></a>00066     <a class="code" href="classpacketHandler.html" title="Class the serve packets to the DataPlot.">packetHandler</a> * server;
-<a name="l00067"></a>00067     QList&lt;int&gt; nodeList;
-<a name="l00068"></a>00068 
-<a name="l00069"></a>00069 <span class="keyword">private</span> slots:
-<a name="l00071"></a>00071 
-<a name="l00075"></a>00075     <span class="keywordtype">void</span> on_plotButton_clicked();
-<a name="l00076"></a>00076 };
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078 <span class="preprocessor">#endif // MAINWINDOW_H</span>
+<a name="l00038"></a>00038 <span class="preprocessor">#ifndef MAINWINDOW_H</span>
+<a name="l00039"></a>00039 <span class="preprocessor"></span><span class="preprocessor">#define MAINWINDOW_H</span>
+<a name="l00040"></a>00040 <span class="preprocessor"></span>
+<a name="l00041"></a>00041 <span class="preprocessor">#include &lt;QMainWindow&gt;</span>
+<a name="l00042"></a>00042 <span class="preprocessor">#include &lt;QList&gt;</span>
+<a name="l00043"></a>00043 <span class="preprocessor">#include &quot;<a class="code" href="packethandler_8h.html" title="Class to serve packets to the DataPlot class.">packethandler.h</a>&quot;</span>
+<a name="l00044"></a>00044 <span class="keyword">namespace </span>Ui {
+<a name="l00045"></a>00045     <span class="keyword">class </span><a class="code" href="classMainWindow.html" title="The main window class.">MainWindow</a>;
+<a name="l00046"></a>00046 }
+<a name="l00048"></a><a class="code" href="classMainWindow.html">00048</a> <span class="keyword">class </span><a class="code" href="classMainWindow.html" title="The main window class.">MainWindow</a> : <span class="keyword">public</span> QMainWindow {
+<a name="l00049"></a>00049     Q_OBJECT
+<a name="l00050"></a>00050 <span class="keyword">public</span>:
+<a name="l00052"></a>00052     <a class="code" href="classMainWindow.html#a8b244be8b7b7db1b08de2a2acb9409db" title="Default constructor.">MainWindow</a>(QWidget *parent = 0);
+<a name="l00054"></a>00054     <a class="code" href="classMainWindow.html#ae98d00a93bc118200eeef9f9bba1dba7" title="Destructor.">~MainWindow</a>();
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056 <span class="keyword">public</span> slots:
+<a name="l00058"></a>00058     <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a5d0ce13b14ee5fe76a4f7ed7f1de81c5" title="Updates the nodeList widget when a node is added or removed from the packet stream...">nodeChange</a>();
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060 <span class="keyword">protected</span>:
+<a name="l00062"></a>00062     <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#af4ca5d0d3d18ddcb7d54b6596bbf4797" title="Needed for Qt.">changeEvent</a>(QEvent *e);
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064 <span class="keyword">private</span>:
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066     Ui::MainWindow *ui;
+<a name="l00067"></a>00067     <a class="code" href="classpacketHandler.html" title="Class the serve packets to the DataPlot.">packetHandler</a> * server;
+<a name="l00068"></a>00068     QList&lt;int&gt; nodeList;
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070 <span class="keyword">private</span> slots:
+<a name="l00072"></a>00072 
+<a name="l00076"></a>00076     <span class="keywordtype">void</span> on_plotButton_clicked();
+<a name="l00077"></a>00077 };
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079 <span class="preprocessor">#endif // MAINWINDOW_H</span>
 </pre></div></div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -92,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Apr 3 22:42:45 2010 for MoteSense by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Apr 3 23:06:33 2010 for MoteSense by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

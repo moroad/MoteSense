@@ -7,8 +7,8 @@
   * \mainpage MoteSense Student Project
   * \author Jharrod LaFon, Michael Harris
   * \date Spring 2010
-  * \remarks
-  * This project is designed to acquire, and plot data in real time from a Wireless Sensor Network.  The end goal is to use this data to recognize
+  *
+  * \remarks This project is designed to acquire, and plot data in real time from a Wireless Sensor Network.  The end goal is to use this data to recognize
   * when a vehicle is present at the sensor.  It was written by Jharrod LaFon and Michael Harris
   * at New Mexico State University for our Senior Project in 2010.  This program connects to a tcp socket from which it acquires the data to plot.
   * For our development we have been using the serial forwarder application provided with TinyOS.
@@ -33,6 +33,7 @@
   * \see MoteReading class
   * \see GraphWindow class
   * \see DataPlot class
+  * \see http://github.com/jlafon/MoteSense
   */
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H

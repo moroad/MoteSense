@@ -74,6 +74,8 @@ Collaboration diagram for DataPlot:</div>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataPlot.html#ad350cafabb24a175222744f7c7b3e10e">detachVl</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataPlot.html#a42a2f46b248f64482153739201fc7d2b">detachMic</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataPlot.html#a5521e1760646dbcf90df949e20523803">detach</a> (int item)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataPlot.html#a6409fa9685624b4a453529254e6d943f">autoScale</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataPlot.html#abc77f48da64170d587eda09e5aaf008c">reRange</a> ()</td></tr>
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataPlot.html#a1343acbd6095212532c4315d6e9f1711">DataPlot</a> (QWidget *=NULL)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default constructor.  <a href="#a1343acbd6095212532c4315d6e9f1711"></a><br/></td></tr>
@@ -123,6 +125,24 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a6409fa9685624b4a453529254e6d943f"></a><!-- doxytag: member="DataPlot::autoScale" ref="a6409fa9685624b4a453529254e6d943f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DataPlot::autoScale </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [slot]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Enables or disables autoscaling </p>
+
+</div>
+</div>
 <a class="anchor" id="a5521e1760646dbcf90df949e20523803"></a><!-- doxytag: member="DataPlot::detach" ref="a5521e1760646dbcf90df949e20523803" args="(int item)" -->
 <div class="memitem">
 <div class="memproto">
@@ -145,6 +165,7 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>This is actually a bad name. If the graph is already detached, it reattaches the graph. </dd></dl>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -425,6 +446,33 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a class="anchor" id="abc77f48da64170d587eda09e5aaf008c"></a><!-- doxytag: member="DataPlot::reRange" ref="abc77f48da64170d587eda09e5aaf008c" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DataPlot::reRange </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [slot]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Resets the viewing window of the graph </p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dynsection">
+<div class="center"><img src="classDataPlot_abc77f48da64170d587eda09e5aaf008c_icgraph.png" border="0" usemap="#classDataPlot_abc77f48da64170d587eda09e5aaf008c_icgraph_map" alt=""></div>
+<map name="classDataPlot_abc77f48da64170d587eda09e5aaf008c_icgraph_map" id="classDataPlot_abc77f48da64170d587eda09e5aaf008c_icgraph">
+<area shape="rect" href="classDataPlot.html#a41c9c4bc12d8d3e3abdf893c4fcfad7b" title="DataPlot::timerEvent" alt="" coords="181,5,323,35"/></map>
+</div>
+</p>
+
+</div>
+</div>
 <a class="anchor" id="ab6af06dfac3585a7dc669ea333a0869d"></a><!-- doxytag: member="DataPlot::setId" ref="ab6af06dfac3585a7dc669ea333a0869d" args="(int i)" -->
 <div class="memitem">
 <div class="memproto">
@@ -474,7 +522,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p><dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>Qt Doesn't capture this event for some reason </dd></dl>
+<p><dl class="note"><dt><b>Note:</b></dt><dd>Old Bug: Qt Doesn't capture this event for some reason. Fixed this bug. </dd></dl>
 </p>
 
 </div>
@@ -593,12 +641,15 @@ Here is the caller graph for this function:</div>
 <p>Timer event function</p>
 <dl class="remark"><dt><b>Remarks:</b></dt><dd>This gets called to update the graph. </dd></dl>
 
+<p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Make this scale more intelligently. </dd></dl>
+</p>
+
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dynsection">
 <div class="center"><img src="classDataPlot_a41c9c4bc12d8d3e3abdf893c4fcfad7b_cgraph.png" border="0" usemap="#classDataPlot_a41c9c4bc12d8d3e3abdf893c4fcfad7b_cgraph_map" alt=""></div>
 <map name="classDataPlot_a41c9c4bc12d8d3e3abdf893c4fcfad7b_cgraph_map" id="classDataPlot_a41c9c4bc12d8d3e3abdf893c4fcfad7b_cgraph">
-<area shape="rect" href="classMoteReading.html#ad79a65f84dfaacc9b5c179fb66a5545f" title="Accessor for acclerometer x." alt="" coords="208,5,360,35"/><area shape="rect" href="classMoteReading.html#af918c7ca6c9fea98a3d608b61dbaffae" title="Accessor for accelerometer y." alt="" coords="208,59,360,88"/><area shape="rect" href="classMoteReading.html#aff0d87f9c667d01f7e37a114afa321fa" title="Accessor for infrared." alt="" coords="219,112,349,141"/><area shape="rect" href="classMoteReading.html#a318b7e6afba062ee3df207495070e277" title="Accessor for magnetometer x." alt="" coords="211,165,357,195"/><area shape="rect" href="classMoteReading.html#a4344f67449dbd79febac0c4795b185f4" title="Accessor for magnetometer y." alt="" coords="211,219,357,248"/><area shape="rect" href="classMoteReading.html#a348cb45f4613499385a354fe6857ef5d" title="Accessor for microphone." alt="" coords="212,272,356,301"/><area shape="rect" href="classpacketHandler.html#aec6fa94602daa18227491b76001152cb" title="packetHandler::getReading" alt="" coords="196,325,372,355"/><area shape="rect" href="classMoteReading.html#a3f7526c29f2bf61feeb5e24298133332" title="Accessor for temperature." alt="" coords="207,379,361,408"/><area shape="rect" href="classMoteReading.html#a88ed6ea245c7af79e38ff8976f849f36" title="Accessor for visual light." alt="" coords="216,432,352,461"/><area shape="rect" href="classDataPlot.html#a36fe7e25f67a168d4f7dd2eaa2627003" title="DataPlot::newReading" alt="" coords="209,485,359,515"/></map>
+<area shape="rect" href="classMoteReading.html#ad79a65f84dfaacc9b5c179fb66a5545f" title="Accessor for acclerometer x." alt="" coords="208,5,360,35"/><area shape="rect" href="classMoteReading.html#af918c7ca6c9fea98a3d608b61dbaffae" title="Accessor for accelerometer y." alt="" coords="208,59,360,88"/><area shape="rect" href="classMoteReading.html#aff0d87f9c667d01f7e37a114afa321fa" title="Accessor for infrared." alt="" coords="219,112,349,141"/><area shape="rect" href="classMoteReading.html#a318b7e6afba062ee3df207495070e277" title="Accessor for magnetometer x." alt="" coords="211,165,357,195"/><area shape="rect" href="classMoteReading.html#a4344f67449dbd79febac0c4795b185f4" title="Accessor for magnetometer y." alt="" coords="211,219,357,248"/><area shape="rect" href="classMoteReading.html#a348cb45f4613499385a354fe6857ef5d" title="Accessor for microphone." alt="" coords="212,272,356,301"/><area shape="rect" href="classpacketHandler.html#aec6fa94602daa18227491b76001152cb" title="packetHandler::getReading" alt="" coords="196,325,372,355"/><area shape="rect" href="classMoteReading.html#a3f7526c29f2bf61feeb5e24298133332" title="Accessor for temperature." alt="" coords="207,379,361,408"/><area shape="rect" href="classMoteReading.html#a88ed6ea245c7af79e38ff8976f849f36" title="Accessor for visual light." alt="" coords="216,432,352,461"/><area shape="rect" href="classDataPlot.html#a36fe7e25f67a168d4f7dd2eaa2627003" title="DataPlot::newReading" alt="" coords="209,485,359,515"/><area shape="rect" href="classDataPlot.html#abc77f48da64170d587eda09e5aaf008c" title="DataPlot::reRange" alt="" coords="220,539,348,568"/></map>
 </div>
 </p>
 
@@ -623,7 +674,7 @@ Here is the call graph for this function:</div>
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Apr 3 22:42:50 2010 for MoteSense by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Apr 3 23:06:33 2010 for MoteSense by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

@@ -1,5 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" href="$data__plot_8h.html" title="Widget to graph data." alt="" coords="719,83,804,112"/>
-<area shape="rect" href="$packethandler_8h.html" title="Class to serve packets to the DataPlot class." alt="" coords="1307,160,1419,189"/>
-<area shape="rect" href="$motereading_8h.html" title="Class to encapsulate sensor readings." alt="" coords="1409,237,1513,267"/>
+<area shape="rect" href="$data__plot_8h.html" title="Widget to graph data." alt="" coords="828,83,913,112"/>
+<area shape="rect" href="$packethandler_8h.html" title="Class to serve packets to the DataPlot class." alt="" coords="1491,160,1603,189"/>
+<area shape="rect" href="$motereading_8h.html" title="Class to encapsulate sensor readings." alt="" coords="1588,237,1692,267"/>
 </map>

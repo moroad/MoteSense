@@ -31,6 +31,7 @@ DataPlot::DataPlot(QWidget *parent):
 {
     id = 0;
     plotAccx = plotAccy = plotMgx = plotMgy = plotTemp = plotMic = plotVl = plotIr = true;
+    auto_scale = false;
     for(int i = 0; i < 8; i++)
         attached[i] = true;
     // Disable polygon clipping
@@ -130,6 +131,10 @@ DataPlot::DataPlot(QWidget *parent):
     setTimerInterval(0.0); 
 }
 
+void DataPlot::reRange()
+{
+    setAxisScale(QwtPlot::yLeft, min, max);
+}
 
 void DataPlot::setRange(double range)
 {
@@ -138,9 +143,9 @@ void DataPlot::setRange(double range)
 }
 void DataPlot::setMinRange(double range)
 {
-    //! \bug Qt Doesn't capture this event for some reason
+    //! \note Old Bug: Qt Doesn't capture this event for some reason. Fixed this bug.
     min = (int) range;
-    setAxisScale(QwtPlot::yRight,min, max);
+    setAxisScale(QwtPlot::yLeft,min, max);
 }
 
 void DataPlot::disconnected()
@@ -293,6 +298,14 @@ void DataPlot::newReading(MoteReading r)
     currentReading = r;
 }
 
+void DataPlot::autoScale()
+{
+    if(auto_scale)
+        auto_scale = false;
+    else
+        auto_scale = true;
+}
+
 //! \remark This gets called to update the graph.
 void DataPlot::timerEvent(QTimerEvent *)
 {
@@ -323,6 +336,100 @@ void DataPlot::timerEvent(QTimerEvent *)
         d_mic[PLOT_SIZE -1] = currentReading.getMic();
         d_vl[PLOT_SIZE -1] = currentReading.getVl();
 
+        //! \todo Make this scale more intelligently.
+        if(auto_scale)
+        {
+            if(attached[MGX])
+            {
+                if(currentReading.getMgx() > max)
+                {
+                    max = currentReading.getMgx();
+                }
+                if(currentReading.getMgx() < min)
+                {
+                    min = currentReading.getMgx();
+                }
+            }
+            if(attached[MGY])
+            {
+                if(currentReading.getMgy() > max)
+                {
+                    max = currentReading.getMgy();
+                }
+                if(currentReading.getMgy() < min)
+                {
+                    min = currentReading.getMgy();
+                }
+            }
+            if(attached[ACCX])
+            {
+                if(currentReading.getAccx() > max)
+                {
+                    max = currentReading.getAccx();
+                }
+                if(currentReading.getAccx() < min)
+                {
+                    min = currentReading.getAccx();
+                }
+            }
+            if(attached[ACCY])
+            {
+                if(currentReading.getAccy() > max)
+                {
+                    max = currentReading.getAccy();
+                }
+                if(currentReading.getAccy() < min)
+                {
+                    min = currentReading.getAccy();
+                }
+            }
+            if(attached[TEMP])
+            {
+                if(currentReading.getTemp() > max)
+                {
+                    max = currentReading.getTemp();
+                }
+                if(currentReading.getTemp() < min)
+                {
+                    min = currentReading.getTemp();
+                }
+            }
+            if(attached[IR])
+            {
+                if(currentReading.getIr() > max)
+                {
+                    max = currentReading.getIr();
+                }
+                if(currentReading.getIr() < min)
+                {
+                    min = currentReading.getIr();
+                }
+            }
+            if(attached[VL])
+            {
+                if(currentReading.getVl() > max)
+                {
+                    max = currentReading.getVl();
+                }
+                if(currentReading.getVl() < min)
+                {
+                    min = currentReading.getVl();
+                }
+            }
+            if(attached[MIC])
+            {
+                if(currentReading.getMic() > max)
+                {
+                    max = currentReading.getMic();
+                }
+                if(currentReading.getMic() < min)
+                {
+                    min = currentReading.getMic();
+                }
+            }
+
+            reRange();
+        }
        // update the display
     replot();
 

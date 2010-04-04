@@ -101,8 +101,18 @@ public slots:
 
     /*! Slot for detaching a data type.
       * \param item is from the enumeration defined in data_plot.h
+      * \note This is actually a bad name.  If the graph is already detached,
+      * it reattaches the graph.
       */
     void detach(int item);
+
+    /*! Enables or disables autoscaling
+      */
+    void autoScale();
+
+    /*! Resets the viewing window of the graph
+      */
+    void reRange();
 
 protected:
     /*! Timer event function */
@@ -161,6 +171,7 @@ private:
     int max;
 
     bool plotMgx, plotMgy, plotAccx, plotAccy, plotIr, plotTemp, plotVl, plotMic;
+    bool auto_scale;
 
     QwtPlotCurve *mgxPlot;
     QwtPlotCurve *mgyPlot;

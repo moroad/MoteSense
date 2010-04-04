@@ -41,6 +41,7 @@ GraphWindow::GraphWindow()
     QPushButton *micButton = new QPushButton("&Mic", this);
     QPushButton *irButton = new QPushButton("&Ir", this);
     QPushButton *tempButton = new QPushButton("&Temp", this);
+    QPushButton *scaleButton = new QPushButton("&Autoscale", this);
 
 
 
@@ -65,7 +66,7 @@ GraphWindow::GraphWindow()
     layout->addWidget(irButton);
     layout->addWidget(vlButton);
     layout->addWidget(tempButton);
-
+    layout->addWidget(scaleButton);
 
 
   //  layout->addWidget(new QWidget(hBox), 10); // spacer);
@@ -94,7 +95,7 @@ GraphWindow::GraphWindow()
     connect(tempButton, SIGNAL(clicked()), plot, SLOT(detachTemp()));
     connect(vlButton, SIGNAL(clicked()), plot, SLOT(detachVl()));
     connect(irButton, SIGNAL(clicked()), plot, SLOT(detachIr()));
-
+    connect(scaleButton, SIGNAL(clicked()), plot, SLOT(autoScale()));
     counter->setValue(50.0);
     rangeCounter->setValue(4096.0);
     minCounter->setValue(1200);
