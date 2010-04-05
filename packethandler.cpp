@@ -11,17 +11,26 @@
 
 packetHandler::packetHandler()
 {
+    // Initialize variables and objects
     count = 0;
-    source = new QTcpSocket();
-    //! \todo Make this connection user configurable.
-    source->connectToHost("localhost",9002,QIODevice::ReadWrite);
-
     //! \todo Remove this line after debugging
     ringIndex.push_back(0);   QList<MoteReading> temp; ringBuffer.push_back(temp); motes.push_back(0);
+
+    // Initialize socket
+    //! \todo Make this connection user configurable.
+    source = new QTcpSocket();
+    source->connectToHost("localhost",9002,QIODevice::ReadWrite);
+
+    // Connect to Database
+    connectToDatabase();
+
     // Connect signals
     connect(source, SIGNAL(connected()), this, SLOT(connected()));
     connect(source, SIGNAL(readyRead()),this, SLOT(dataReady()));
     connect(source, SIGNAL(disconnected()), this, SLOT(disconnected()));
+
+
+
 }
 
 // This gets called when the TcpSocket is connected
@@ -51,7 +60,6 @@ MoteReading packetHandler::getReading(int i)
     else
     {
     //! \bug I need to get this working correctly, but I'm not sure on the logic yet.
-
         MoteReading r = ringBuffer[i][0];
     return r;
     }
@@ -68,6 +76,7 @@ QList<int> packetHandler::getNodeList()
 void packetHandler::dataReady()
 {
     QByteArray bytes = source->readAll();
+// Uncomment this to view the data
 //    for(int j = 0; j < bytes.length(); j++)
 //        printf("%02x   ", ((uint8_t) bytes[j]));
 //    printf("\n");
@@ -159,3 +168,31 @@ void packetHandler::dataReady()
 //      printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n\n\n",tempReading->getVl(), tempReading->getMic(),tempReading->getIr(),tempReading->getTemp(),tempReading->getAccx(),tempReading->getAccy(),tempReading->getMgx(),tempReading->getMgy());
       //fflush(stdout);
 }
+
+bool packetHandler::connectToDatabase()
+{
+        db = QSqlDatabase::addDatabase("QSQLITE");
+        db.setDatabaseName(":memory:");
+        if (!db.open()) {
+            QMessageBox::critical(0, tr("Cannot open database"),
+                tr("Unable to establish a database connection.\n"
+                         "This example needs SQLite support. Please read "
+                         "the Qt SQL driver documentation for information how "
+                         "to build it.\n\n"
+                         "Click Cancel to exit."), QMessageBox::Cancel);
+            return false;
+        }
+
+        QSqlQuery query;
+
+        query.exec("create table if not exists readings (id int primary key, "
+                   "seq int, mgx int, mgy int, accx int, accy int, vl int, ir int, mic int, timeStamp date)");
+        qDebug() << "Success: " << query.exec("create trigger insert_readings_timeStamp AFTER INSERT ON readings "
+                   "BEGIN"
+                   " UPDATE readings SET timeStamp = DATETIME('NOW')"
+                   " WHERE rowid = new.rowid;"
+                   " END;");
+
+    return true;
+}
+

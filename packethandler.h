@@ -7,6 +7,11 @@
   */
 #ifndef PACKETHANDLER_H
 #define PACKETHANDLER_H
+#include <QMessageBox>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QSqlTableModel>
 #include <QTcpSocket>
 #include <QHostAddress>
 #include <QList>
@@ -33,6 +38,12 @@ public:
       * \returns MoteReading
       */
     MoteReading getReading(int i);
+
+    /*! Function to connect to database
+     *  Also initializes the database.
+     * \returns true if successful
+     */
+    bool connectToDatabase();
 
 signals:
     //! Signal emitted when a new node is detected.
@@ -65,6 +76,9 @@ private:
 
     int mgx, mgy, accx, accy, temp, ir, vl, mic, seq;
     unsigned long count;
+
+    QSqlDatabase db;
+    QSqlTableModel model;
 };
 
 #endif // PACKETHANDLER_H

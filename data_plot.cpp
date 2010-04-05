@@ -90,7 +90,7 @@ DataPlot::DataPlot(QWidget *parent):
     AccyPlot->attach(this);
     AccxPlot->attach(this);
     mgxPlot->attach(this);
-    //mgxFilteredPlot->attach(this);
+    mgxFilteredPlot->attach(this);
     mgyPlot->attach(this);
     tempPlot->attach(this);
     irPlot->attach(this);
@@ -374,6 +374,7 @@ void DataPlot::timerEvent(QTimerEvent *)
             d_mic[j] = d_mic[j+1];
             d_vl[j] = d_vl[j+1];
         }
+
 
         d_mgx[PLOT_SIZE -1] = currentReading.getMgx();
         d_fmgx[PLOT_SIZE -1] = filter->getFilteredData(currentReading.getSeq(),(double) currentReading.getMgx());

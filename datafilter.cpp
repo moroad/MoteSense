@@ -21,8 +21,11 @@ double dataFilter::getFilteredData(int c, double d)
     double dt = (double)(clock[1] - clock[0]);
     scaling_factor = double(dt /(rc + dt));
     double result = scaling_factor * d + (1.0 - scaling_factor) * last_result;
+    //qDebug() << "scaling_factor = " << scaling_factor;
+    //qDebug() << "dt = " << dt;
     //qDebug() << "Unfiltered = " << d << " Filtered = " << result;
     last_result = result;
     clock[0] = clock[1];
     return result;
+
 }

@@ -15,8 +15,8 @@ SimServer::SimServer()
     sa = new QTcpServer();
     connect(sa, SIGNAL(newConnection()), SLOT(connected()));
     sa->listen(QHostAddress::Any,9002);
-    qDebug() << sa->serverError();
-    qDebug() << sa->isListening();
+    //qDebug() << sa->serverError();
+    //qDebug() << sa->isListening();
 
 }
 SimServer::~SimServer()
@@ -58,13 +58,13 @@ void SimServer::sendRandom()
     data->append((char)0x00); //always 0xff       3
     data->append((char)0x00); //id                4
     data->append(rand() % 2); //always 14         5
-    data->append(seq++ & 0xff); //seq       6
+    data->append((char)0x00); //                  6
     data->append((char)0x00); //                  7
     data->append((char)0x00); //                  8
     data->append((char)0x00); //                  9
     data->append((char)0x00); //                  10
     data->append((char)0x00); //                  11
-    data->append((char)0x00); //                  12
+    data->append(seq++ & 0xff); //seq             12
     data->append(rand() % range); //        13 mic
     data->append(rand() % range); //        14 mic
     data->append(rand() % range); //        15 vl
