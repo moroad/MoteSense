@@ -54,7 +54,7 @@ Collaboration diagram for GraphWindow:</div>
 <div class="dynsection">
 <div class="center"><img src="classGraphWindow__coll__graph.png" border="0" usemap="#GraphWindow_coll__map" alt="Collaboration graph"/></div>
 <map name="GraphWindow_coll__map" id="GraphWindow_coll__map">
-<area shape="rect" href="classDataPlot.html" title="The widget class that graphs the data." alt="" coords="68,533,204,1629"/><area shape="rect" href="classMoteReading.html" title="Class to encapsulate a sensor reading." alt="" coords="5,5,123,467"/><area shape="rect" href="classpacketHandler.html" title="Class the serve packets to the DataPlot." alt="" coords="147,43,269,429"/></map>
+<area shape="rect" href="classDataPlot.html" title="The widget class that graphs the data." alt="" coords="68,533,204,1629"/><area shape="rect" href="classMoteReading.html" title="Class to encapsulate a sensor reading." alt="" coords="5,5,123,467"/><area shape="rect" href="classpacketHandler.html" title="Class the serve packets to the DataPlot." alt="" coords="147,33,269,439"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classGraphWindow-members.html">List of all members.</a></p>
@@ -65,11 +65,16 @@ Collaboration diagram for GraphWindow:</div>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default constructor. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphWindow.html#a07a46e21184c287ba49db8145047e420">setSource</a> (<a class="el" href="classpacketHandler.html">packetHandler</a> *p)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Sets the data source.  <a href="#a07a46e21184c287ba49db8145047e420"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a36355629ca00fac24a8b5e1a4f251624"></a><!-- doxytag: member="GraphWindow::setId" ref="a36355629ca00fac24a8b5e1a4f251624" args="(int i)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraphWindow.html#a36355629ca00fac24a8b5e1a4f251624">setId</a> (int i)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Sets the ID of the Mote we are monitoring. <br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>Window class that contains the <a class="el" href="classDataPlot.html" title="The widget class that graphs the data.">DataPlot</a> widget. </p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Jharrod LaFon </dd></dl>
 <dl class="date"><dt><b>Date:</b></dt><dd>Spring 2010 </dd></dl>
+
+<p>Definition at line <a class="el" href="graphwindow_8h_source.html#l00018">18</a> of file <a class="el" href="graphwindow_8h_source.html">graphwindow.h</a>.</p>
 <hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a07a46e21184c287ba49db8145047e420"></a><!-- doxytag: member="GraphWindow::setSource" ref="a07a46e21184c287ba49db8145047e420" args="(packetHandler *p)" -->
 <div class="memitem">
@@ -90,6 +95,15 @@ Collaboration diagram for GraphWindow:</div>
 <p>Sets the data source. </p>
 <dl class="remark"><dt><b>Remarks:</b></dt><dd>This also sets the source for the dataplot class. </dd></dl>
 
+<p>Definition at line <a class="el" href="graphwindow_8cpp_source.html#l00111">111</a> of file <a class="el" href="graphwindow_8cpp_source.html">graphwindow.cpp</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00112"></a>00112 {
+<a name="l00113"></a>00113     connect(p, SIGNAL(disconnectNotice()), plot, SLOT(disconnected()));
+<a name="l00114"></a>00114     plot-&gt;<a class="code" href="classDataPlot.html#aace03b9e68e11042c0fade588e2869a7">setSource</a>(p);
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116 }
+</pre></div></p>
+
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dynsection">
@@ -103,7 +117,7 @@ Here is the call graph for this function:</div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="graphwindow_8h_source.html">graphwindow.h</a></li>
-<li><a class="el" href="graphwindow_8cpp.html">graphwindow.cpp</a></li>
+<li><a class="el" href="graphwindow_8cpp_source.html">graphwindow.cpp</a></li>
 </ul>
 </div>
 <!--- window showing the filter options -->
@@ -120,7 +134,7 @@ Here is the call graph for this function:</div>
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Apr 3 23:06:33 2010 for MoteSense by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Apr 4 19:47:33 2010 for MoteSense by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

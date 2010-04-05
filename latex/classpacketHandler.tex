@@ -35,7 +35,12 @@ void \hyperlink{classpacketHandler_a0e8f4d081f531b5e568c052f5b8babb9}{nodesChang
 void \hyperlink{classpacketHandler_a033895b001ec68791c5d0872df03e626}{disconnectNotice} ()}
 \label{classpacketHandler_a033895b001ec68791c5d0872df03e626}
 
-\begin{DoxyCompactList}\small\item\em Signal emitted when disconnected from the serial forwarder. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Signal emitted when disconnected from the serial forwarder. \item\end{DoxyCompactList}\item 
+\hypertarget{classpacketHandler_ad3e95ebbb80274b826502fb84f8f100b}{
+void \hyperlink{classpacketHandler_ad3e95ebbb80274b826502fb84f8f100b}{sFconnected} ()}
+\label{classpacketHandler_ad3e95ebbb80274b826502fb84f8f100b}
+
+\begin{DoxyCompactList}\small\item\em Signal emitted when connected to the serial forwarder. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -59,6 +64,10 @@ This class connects to the serial forwarder, and demultiplexes packets for the d
 \end{DoxyRemark}
 
 
+Definition at line 19 of file packethandler.h.
+
+
+
 \subsection{Constructor \& Destructor Documentation}
 \hypertarget{classpacketHandler_a02936b9105618ed38701274efcfa0dfb}{
 \index{packetHandler@{packetHandler}!packetHandler@{packetHandler}}
@@ -73,6 +82,33 @@ Default constructor.
 
 \begin{Desc}
 \item[\hyperlink{todo__todo000005}{Todo}]Make this connection user configurable. \end{Desc}
+
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000006}{Todo}]Remove this line after debugging \end{Desc}
+
+
+
+
+Definition at line 12 of file packethandler.cpp.
+
+
+
+
+\begin{DoxyCode}
+13 {
+14     count = 0;
+15     source = new QTcpSocket();
+17     source->connectToHost("localhost",9002,QIODevice::ReadWrite);
+18 
+20     ringIndex.push_back(0);   QList<MoteReading> temp; ringBuffer.push_back(temp)
+      ; motes.push_back(0);
+21     // Connect signals
+22     connect(source, SIGNAL(connected()), this, SLOT(connected()));
+23     connect(source, SIGNAL(readyRead()),this, SLOT(dataReady()));
+24     connect(source, SIGNAL(disconnected()), this, SLOT(disconnected()));
+25 }
+\end{DoxyCode}
 
 
 
@@ -100,9 +136,114 @@ Slot for when there is new data ready from the serial forwarder.
 
 
 
+{\itshape Check\/} to see if the mote is already in the list, but mote id's must be sequential.
+
 \begin{DoxyRemark}{Remarks}
 Up to MAX\_\-BUFFER packets are stored in a ringBuffer for each mote. 
 \end{DoxyRemark}
+
+
+
+
+Definition at line 68 of file packethandler.cpp.
+
+
+
+
+\begin{DoxyCode}
+69 {
+70     QByteArray bytes = source->readAll();
+71 //    for(int j = 0; j < bytes.length(); j++)
+72 //        printf("%02x   ", ((uint8_t) bytes[j]));
+73 //    printf("\n");
+74 //
+75 //    fflush(stdout);
+76 
+77     count++;
+78 
+79     if((int) bytes[0] != 0x1c)
+80         return;
+81 //      printf("Length = %d ", bytes.length());
+82       int id = (int) (uint8_t) bytes[5];
+83     //  qDebug() << "Count = " << motes.count() << "ID = " << id;
+85       if(motes.count() <= id)
+86       {
+87           qDebug() << "Adding node " << id;
+88           QList<MoteReading> temp;
+89           ringBuffer.push_back(temp);
+90           ringIndex.push_back(0);
+91           motes.push_back(id);
+92           emit this->nodesChanged();
+93       }
+94 // This doesnt work:
+95 //      vl = ((uint8_t) bytes[14] & 0xf)*256  + ((uint8_t) (bytes[15]));
+96 //      mic = ((uint8_t) bytes[16] & 0xf)*256 + ((uint8_t) (bytes[17]));
+97 //      ir = ((uint8_t) bytes[18] & 0xf)*256 + ((uint8_t) (bytes[19]));
+98 //      temp = ((uint8_t) bytes[19] & 0xf)*256 + ((uint8_t) (bytes[20]));
+99 //      accx = ((uint8_t) bytes[21] & 0xf)*256  + ((uint8_t) (bytes[22]));
+100 //      accy = ((uint8_t) bytes[23] & 0xf)*256 + ((uint8_t) (bytes[24]));
+101 //      mgx = ((uint8_t) bytes[25] & 0xf) * 256 + ((uint8_t) (bytes[26]));
+102 //      mgy = ((uint8_t) (bytes[27] & 0xf)) * 256 + ((uint8_t) (bytes[28]));
+103 
+104 
+105       mgx = ((uint16_t) bytes[25]);
+106       mgx = mgx << 8;
+107       mgx ^= ((uint16_t) (bytes[26] & 0xff));
+108 
+109 
+110       mgy = ((uint16_t) bytes[27]);
+111       mgy = mgy << 8;
+112       mgy ^= ((uint16_t) (bytes[28] & 0xff));
+113 
+114       accy = ((uint16_t) bytes[23]);
+115       accy = accy << 8;
+116       accy ^= ((uint16_t) (bytes[24] & 0xff));
+117 
+118       accx = ((uint16_t) bytes[21]);
+119       accx = accx << 8;
+120       accx ^= ((uint16_t) (bytes[22] & 0xff));
+121 
+122       temp = ((uint16_t) bytes[19]);
+123       temp = temp << 8;
+124       temp ^= ((uint16_t) (bytes[20] & 0xff));
+125 
+126       ir = ((uint16_t) bytes[17]);
+127       ir = ir << 8;
+128       ir ^= ((uint16_t) (bytes[18] & 0xff));
+129 
+130       vl = ((uint16_t) bytes[15]);
+131       vl = vl << 8;
+132       vl ^= ((uint16_t) (bytes[16] & 0xff));
+133 
+134       mic = ((uint16_t) bytes[13]);
+135       mic = mic << 8;
+136       mic ^= ((uint16_t) (bytes[14] & 0xff));
+137 
+138       MoteReading *tempReading = new MoteReading(id, mgx, mgy, accx, accy, temp, 
+      ir, mic, vl);
+139 
+141       // Added the first case for input validation
+142       if(id < ringBuffer.count() && ringBuffer[id].count() < MAX_BUFFER)
+143       {
+144         ringBuffer[id].push_back(*tempReading);
+145       }
+146       else
+147       {
+148         if(ringIndex.count()-1 >= id && ringIndex[id] == MAX_BUFFER)
+149           {
+150               ringIndex[id] = 0;
+151           }
+152 
+153           ringBuffer[id].replace(ringIndex[id], *tempReading);
+154           ringIndex[id] = ringIndex[id] + 1;
+155       }
+156 
+157 //      printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n\n\n",tempReading->getVl(), tempR
+      eading->getMic(),tempReading->getIr(),tempReading->getTemp(),tempReading->getAccx
+      (),tempReading->getAccy(),tempReading->getMgx(),tempReading->getMgy());
+158       //fflush(stdout);
+159 }
+\end{DoxyCode}
 
 
 
@@ -141,6 +282,20 @@ This gets called when the TcpSocket is disconnected, so we tell the dataGraph cl
 \end{DoxyRemark}
 
 
+Definition at line 39 of file packethandler.cpp.
+
+
+
+
+\begin{DoxyCode}
+40 {
+41     emit disconnectNotice();
+42 }
+\end{DoxyCode}
+
+
+
+
 Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -171,6 +326,22 @@ QList$<$int$>$
 \end{DoxyReturn}
 
 
+Definition at line 61 of file packethandler.cpp.
+
+
+
+
+\begin{DoxyCode}
+62 {
+63 
+64     QList<int> list = QList<int>(motes);
+65     return list;
+66 }
+\end{DoxyCode}
+
+
+
+
 Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -195,6 +366,30 @@ Function to get the most recent reading for node i
 
 \begin{Desc}
 \item[\hyperlink{bug__bug000001}{Bug}]I need to get this working correctly, but I'm not sure on the logic yet. \end{Desc}
+
+
+
+
+Definition at line 44 of file packethandler.cpp.
+
+
+
+
+\begin{DoxyCode}
+45 {
+46         if(ringBuffer.count() > 0 && ringBuffer[i].count() < 0)
+47     {
+48         MoteReading *r = new MoteReading(0,0,0,0,0,0,0,0,0);
+49         return *r;
+50     }
+51     else
+52     {
+54 
+55         MoteReading r = ringBuffer[i][0];
+56     return r;
+57     }
+58 }
+\end{DoxyCode}
 
 
 

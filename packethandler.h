@@ -8,6 +8,7 @@
 #ifndef PACKETHANDLER_H
 #define PACKETHANDLER_H
 #include <QTcpSocket>
+#include <QHostAddress>
 #include <QList>
 #include "motereading.h"
 
@@ -40,6 +41,9 @@ signals:
     //! Signal emitted when disconnected from the serial forwarder
     void disconnectNotice();
 
+    //! Signal emitted when connected to the serial forwarder
+    void sFconnected();
+
 public slots:
     //! Slot for when a connection is established.  This also initializes communication with the serial forwarder.
     void connected();
@@ -58,7 +62,9 @@ private:
     QList<int> ringIndex;
     QList<int> motes;
 
+
     int mgx, mgy, accx, accy, temp, ir, vl, mic;
+    unsigned long count;
 };
 
 #endif // PACKETHANDLER_H

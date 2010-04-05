@@ -13,12 +13,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
+
     // Instantiate packetHandler
     server = new packetHandler();
 
-    // Connect signal
+    // Connect signals
     connect(server, SIGNAL(nodesChanged()), this, SLOT(nodeChange()));
-
+    connect(server, SIGNAL(sFconnected()), this, SLOT(connected()));
+    connect(server, SIGNAL(disconnectNotice()), this, SLOT(disconnected()));
 }
 
 
@@ -29,6 +32,16 @@ MainWindow::~MainWindow()
 
 }
 
+void MainWindow::disconnected()
+{
+    ui->statusBar->showMessage("Disconnected from server");
+}
+
+void MainWindow::connected()
+{
+    ui->statusBar->showMessage("Connected to server", 0);
+}
+
 void MainWindow::nodeChange()
 {
     // Get new list of nodes
@@ -37,6 +50,7 @@ void MainWindow::nodeChange()
     // Update user list
     for(int i = 0; i < nodeList.count(); i++)
     {
+        qDebug() << "Adding " << nodeList[i] << " to list.";
         ui->nodeList->addItem(QString("%1").arg(nodeList[i]));
     }
 }
@@ -60,12 +74,13 @@ void MainWindow::on_plotButton_clicked()
 
     if(ui->nodeList->selectedItems().count() < 1)
         return;
-    //int id = ui->nodeList->selectedItems().at(0)->text().toInt();
+    int id = ui->nodeList->selectedItems().at(0)->text().toInt();
 
     // Create new graphWindow
     GraphWindow * graphWindow = new GraphWindow();
     graphWindow->setSource(this->server);
     graphWindow->resize(800,600);
+    graphWindow->setId(id);
     graphWindow->show();
 
 }

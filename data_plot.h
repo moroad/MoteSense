@@ -25,6 +25,7 @@
 const int PLOT_SIZE = 201;
 
 //! Used for turning them on or off on the plot
+//! \enum
 enum { MGX, MGY, ACCX, ACCY, IR, TEMP, VL, MIC };
 
 

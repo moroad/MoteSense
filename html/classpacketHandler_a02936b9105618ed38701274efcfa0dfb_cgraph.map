@@ -2,6 +2,7 @@
 <area shape="rect" href="$classpacketHandler.html#ab1a61d0c1deef1885e31b9a6aebdcc2f" title="Slot for when a connection is established. This also initializes communication with..." alt="" coords="260,5,431,35"/>
 <area shape="rect" href="$classpacketHandler.html#a9085a61a51eccc7acb240a7b68601686" title="Slot for when there is new data ready from the serial forwarder." alt="" coords="259,59,432,88"/>
 <area shape="rect" href="$classpacketHandler.html#a43223a8930a6af8c40c5889d8e4b9d4b" title="Slot for when we are disconnected from the serial forwarder." alt="" coords="251,112,440,141"/>
+<area shape="rect" href="$classpacketHandler.html#ad3e95ebbb80274b826502fb84f8f100b" title="Signal emitted when connected to the serial forwarder." alt="" coords="501,5,688,35"/>
 <area shape="rect" href="$classpacketHandler.html#a0e8f4d081f531b5e568c052f5b8babb9" title="Signal emitted when a new node is detected." alt="" coords="496,59,693,88"/>
 <area shape="rect" href="$classpacketHandler.html#a033895b001ec68791c5d0872df03e626" title="Signal emitted when disconnected from the serial forwarder." alt="" coords="489,112,700,141"/>
 </map>

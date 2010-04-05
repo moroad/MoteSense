@@ -83,6 +83,10 @@ This class is used to plot data on a moving canvas. The data are acquired from a
 \end{DoxyRemark}
 
 
+Definition at line 33 of file data\_\-plot.h.
+
+
+
 \subsection{Constructor \& Destructor Documentation}
 \hypertarget{classDataPlot_a1343acbd6095212532c4315d6e9f1711}{
 \index{DataPlot@{DataPlot}!DataPlot@{DataPlot}}
@@ -99,6 +103,154 @@ Initializes the Main Window
 
 \begin{Desc}
 \item[\hyperlink{todo__todo000001}{Todo}]Change line thickness \end{Desc}
+
+
+
+
+Definition at line 22 of file data\_\-plot.cpp.
+
+
+
+
+\begin{DoxyCode}
+22                                  :
+23     QwtPlot(parent),
+24     d_interval(0),
+25     d_timerId(-1),
+26     min(0),
+27     max(10)
+28 
+29 
+30 
+31 {
+32 
+33     id = 0;
+34     plotAccx = plotAccy = plotMgx = plotMgy = plotTemp = plotMic = plotVl = plotI
+      r = true;
+35     auto_scale = false;
+36     for(int i = 0; i < 8; i++)
+37         attached[i] = true;
+38     // Disable polygon clipping
+39     QwtPainter::setDeviceClipping(false);
+40     running = false;
+41     // We don't need the cache here
+42     canvas()->setPaintAttribute(QwtPlotCanvas::PaintCached, false);
+43     canvas()->setPaintAttribute(QwtPlotCanvas::PaintPacked, false);
+44 
+45 #if QT_VERSION >= 0x040000
+46 #ifdef Q_WS_X11
+47     /*
+48        Qt::WA_PaintOnScreen is only supported for X11, but leads
+49        to substantial bugs with Qt 4.2.x/Windows
+50      */
+51     canvas()->setAttribute(Qt::WA_PaintOnScreen, true);
+52 #endif
+53 #endif
+54 
+55     alignScales();
+56     
+57     //  Initialize data
+58     for (int i = 0; i< PLOT_SIZE; i++)
+59     {
+60         d_x[i] = 0.5 * i;     // time axis
+61         d_mgx[i] = 0;
+62         d_mgy[i] = 0;
+63         d_accx[i] = 0;
+64         d_accy[i] = 0;
+65         d_mic[i] = 0;
+66         d_ir[i] = 0;
+67         d_temp[i] = 0;
+68     }
+69 
+70 
+71     // Assign a title
+72     setTitle(QString("Sensors for Node %1").arg(id));
+73     insertLegend(new QwtLegend(), QwtPlot::BottomLegend);
+74 
+75     // Insert new curves
+76     mgxPlot = new QwtPlotCurve("MGx");
+77     mgyPlot = new QwtPlotCurve("MGy");
+78     AccyPlot = new QwtPlotCurve("ACCy");
+79     AccxPlot = new QwtPlotCurve("ACCx");
+80     tempPlot = new QwtPlotCurve("Temp");
+81     irPlot = new QwtPlotCurve("IR");
+82     micPlot = new QwtPlotCurve("MIC");
+83     vlPlot = new QwtPlotCurve("VL");
+84 
+85     AccyPlot->attach(this);
+86     AccxPlot->attach(this);
+87     mgxPlot->attach(this);
+88     mgyPlot->attach(this);
+89     tempPlot->attach(this);
+90     irPlot->attach(this);
+91     micPlot->attach(this);
+92     vlPlot->attach(this);
+93 
+94 //    const QColor bgColor(30,30,50);
+95 //#if QT_VERSION < 0x040000
+96 //    setPaletteBackgroundColor(bgColor);
+97 //#else
+98 //    QPalette p = palette();
+99 //    p.setColor(backgroundRole(), bgColor);
+100 //    setPalette(p);
+101 //#endif
+102 
+104     // Set curve styles
+105 
+106     QPen *pen = new QPen(Qt::darkBlue);
+107     pen->setWidth(2);
+108     mgxPlot->setPen(*pen);
+109 
+110     pen->setColor(Qt::red);
+111     mgyPlot->setPen(*pen);
+112 
+113     pen->setColor(Qt::green);
+114     AccyPlot->setPen(*pen);
+115 
+116     pen->setColor(Qt::darkGray);
+117     AccxPlot->setPen(*pen);
+118 
+119     pen->setColor(Qt::yellow);
+120     tempPlot->setPen(*pen);
+121 
+122     pen->setColor(Qt::darkGreen);
+123     irPlot->setPen(*pen);
+124 
+125     pen->setColor(Qt::magenta);
+126     micPlot->setPen(*pen);
+127 
+128     pen->setColor(Qt::darkRed);
+129     vlPlot->setPen(*pen);
+130 
+131     // Attach (don't copy) data. Both curves use the same x array.
+132     mgxPlot->setRawData(d_x, d_mgx, PLOT_SIZE);
+133     mgyPlot->setRawData(d_x, d_mgy, PLOT_SIZE);
+134     AccyPlot->setRawData(d_x, d_accy, PLOT_SIZE);
+135     AccxPlot->setRawData(d_x, d_accx, PLOT_SIZE);
+136     tempPlot->setRawData(d_x, d_temp, PLOT_SIZE);
+137     irPlot->setRawData(d_x, d_ir, PLOT_SIZE);
+138     micPlot->setRawData(d_x, d_mic, PLOT_SIZE);
+139     vlPlot->setRawData(d_x, d_vl, PLOT_SIZE);
+140 
+141 #if 0
+142     //  Insert zero line at y = 0
+143     QwtPlotMarker *mY = new QwtPlotMarker();
+144     mY->setLabelAlignment(Qt::AlignRight|Qt::AlignTop);
+145     mY->setLineStyle(QwtPlotMarker::HLine);
+146     mY->setYValue(0.0);
+147     mY->attach(this);
+148 #endif
+149 
+150     // Axis 
+151     setAxisTitle(QwtPlot::xBottom, "Time/seconds");
+152     setAxisScale(QwtPlot::xBottom, 0, 100);
+153 
+154     setAxisTitle(QwtPlot::yLeft, "Values");
+155     setAxisScale(QwtPlot::yLeft, 0, 10);
+156     
+157     setTimerInterval(0.0); 
+158 }
+\end{DoxyCode}
 
 
 
@@ -120,7 +272,24 @@ Here is the call graph for this function:\nopagebreak
 \index{autoScale@{autoScale}!DataPlot@{DataPlot}}
 \subsubsection[{autoScale}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::autoScale ()\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
 \label{classDataPlot_a6409fa9685624b4a453529254e6d943f}
-Enables or disables autoscaling \hypertarget{classDataPlot_a5521e1760646dbcf90df949e20523803}{
+Enables or disables autoscaling 
+
+Definition at line 327 of file data\_\-plot.cpp.
+
+
+
+
+\begin{DoxyCode}
+328 {
+329     if(auto_scale)
+330         auto_scale = false;
+331     else
+332         auto_scale = true;
+333 }
+\end{DoxyCode}
+
+
+\hypertarget{classDataPlot_a5521e1760646dbcf90df949e20523803}{
 \index{DataPlot@{DataPlot}!detach@{detach}}
 \index{detach@{detach}!DataPlot@{DataPlot}}
 \subsubsection[{detach}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::detach (int {\em item})\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
@@ -131,6 +300,118 @@ Slot for detaching a data type.
 \begin{DoxyNote}{Note}
 This is actually a bad name. If the graph is already detached, it reattaches the graph. 
 \end{DoxyNote}
+
+
+Definition at line 205 of file data\_\-plot.cpp.
+
+
+
+
+\begin{DoxyCode}
+206 {
+207     switch(item)
+208     {
+209     case MGX:
+210         if(attached[MGX])
+211         {
+212             mgxPlot->detach();
+213             attached[MGX] = false;
+214         }
+215         else
+216         {
+217             mgxPlot->attach(this);
+218             attached[MGX] = true;
+219         }
+220         break;
+221     case MGY:
+222         if(attached[MGY])
+223         {
+224             mgyPlot->detach();
+225             attached[MGY] = false;
+226         }
+227         else
+228         {
+229             mgyPlot->attach(this);
+230             attached[MGY] = true;
+231         }
+232         break;
+233     case ACCX:
+234         if(attached[ACCX])
+235         {
+236             AccxPlot->detach();
+237             attached[ACCX] = false;
+238         }
+239         else
+240         {
+241             AccxPlot->attach(this);
+242             attached[ACCX] = true;
+243         }
+244         break;
+245     case ACCY:
+246         if(attached[ACCY])
+247         {
+248             AccyPlot->detach();
+249             attached[ACCY] = false;
+250         }
+251         else
+252         {
+253             AccyPlot->attach(this);
+254             attached[ACCY] = true;
+255         }
+256         break;
+257     case TEMP:
+258         if(attached[TEMP])
+259         {
+260             tempPlot->detach();
+261             attached[TEMP] = false;
+262         }
+263         else
+264         {
+265             tempPlot->attach(this);
+266             attached[TEMP] = true;
+267         }
+268         break;
+269     case IR:
+270         if(attached[IR])
+271         {
+272             irPlot->detach();
+273             attached[IR] = false;
+274         }
+275         else
+276         {
+277             irPlot->attach(this);
+278             attached[IR] = true;
+279         }
+280         break;
+281     case VL:
+282         if(attached[VL])
+283         {
+284             vlPlot->detach();
+285             attached[VL] = false;
+286         }
+287         else
+288         {
+289             vlPlot->attach(this);
+290             attached[VL] = true;
+291         }
+292         break;
+293     case MIC:
+294         if(attached[MIC])
+295         {
+296             micPlot->detach();
+297             attached[MIC] = false;
+298         }
+299         else
+300         {
+301             micPlot->attach(this);
+302             attached[MIC] = true;
+303         }
+304         break;
+305     }
+306 }
+\end{DoxyCode}
+
+
 
 
 Here is the caller graph for this function:\nopagebreak
@@ -149,6 +430,18 @@ Here is the caller graph for this function:\nopagebreak
 \label{classDataPlot_a5dbafea843c682d18d77e1903e3c372b}
 Slot for detaching ACCX 
 
+Definition at line 86 of file data\_\-plot.h.
+
+
+
+
+\begin{DoxyCode}
+86 { detach(ACCX); }
+\end{DoxyCode}
+
+
+
+
 Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -164,6 +457,18 @@ Here is the call graph for this function:\nopagebreak
 \subsubsection[{detachAccy}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::detachAccy ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline, slot\mbox{]}}}}
 \label{classDataPlot_ab9a27391ec25592f1126f672716ab161}
 Slot for detaching ACCY 
+
+Definition at line 89 of file data\_\-plot.h.
+
+
+
+
+\begin{DoxyCode}
+89 { detach(ACCY); }
+\end{DoxyCode}
+
+
+
 
 Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
@@ -181,6 +486,18 @@ Here is the call graph for this function:\nopagebreak
 \label{classDataPlot_a63ee85d95a1ce9b0ac889ea16c4827c7}
 Slot for detaching IR 
 
+Definition at line 92 of file data\_\-plot.h.
+
+
+
+
+\begin{DoxyCode}
+92 { detach(IR); }
+\end{DoxyCode}
+
+
+
+
 Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -196,6 +513,18 @@ Here is the call graph for this function:\nopagebreak
 \subsubsection[{detachMgx}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::detachMgx ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline, slot\mbox{]}}}}
 \label{classDataPlot_a74bc8f9c94caa90e092e1b3235c2c6ec}
 Slot for detaching MGx 
+
+Definition at line 80 of file data\_\-plot.h.
+
+
+
+
+\begin{DoxyCode}
+80 { detach(MGX); }
+\end{DoxyCode}
+
+
+
 
 Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
@@ -213,6 +542,18 @@ Here is the call graph for this function:\nopagebreak
 \label{classDataPlot_a309a9e4dc84f977bc54f30d0e2cf2350}
 Slot for detaching MGy 
 
+Definition at line 83 of file data\_\-plot.h.
+
+
+
+
+\begin{DoxyCode}
+83 { detach(MGY); }
+\end{DoxyCode}
+
+
+
+
 Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -228,6 +569,18 @@ Here is the call graph for this function:\nopagebreak
 \subsubsection[{detachMic}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::detachMic ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline, slot\mbox{]}}}}
 \label{classDataPlot_a42a2f46b248f64482153739201fc7d2b}
 Slot for detaching MIC 
+
+Definition at line 101 of file data\_\-plot.h.
+
+
+
+
+\begin{DoxyCode}
+101 { detach(MIC); }
+\end{DoxyCode}
+
+
+
 
 Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
@@ -245,6 +598,18 @@ Here is the call graph for this function:\nopagebreak
 \label{classDataPlot_a21893fd1f06b11e7e3286fa74e8c618f}
 Slot for detaching Temp 
 
+Definition at line 95 of file data\_\-plot.h.
+
+
+
+
+\begin{DoxyCode}
+95 { detach(TEMP); }
+\end{DoxyCode}
+
+
+
+
 Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -261,6 +626,18 @@ Here is the call graph for this function:\nopagebreak
 \label{classDataPlot_ad350cafabb24a175222744f7c7b3e10e}
 Slot for detaching VL 
 
+Definition at line 98 of file data\_\-plot.h.
+
+
+
+
+\begin{DoxyCode}
+98 { detach(VL); }
+\end{DoxyCode}
+
+
+
+
 Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -275,7 +652,22 @@ Here is the call graph for this function:\nopagebreak
 \index{disconnected@{disconnected}!DataPlot@{DataPlot}}
 \subsubsection[{disconnected}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::disconnected ()\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
 \label{classDataPlot_a78920a414abdfa954fd34c662f39d09e}
-Slot for notifying the datagraph that it's been disconnected from the packet source \hypertarget{classDataPlot_a36fe7e25f67a168d4f7dd2eaa2627003}{
+Slot for notifying the datagraph that it's been disconnected from the packet source 
+
+Definition at line 177 of file data\_\-plot.cpp.
+
+
+
+
+\begin{DoxyCode}
+178 {
+179       // This happens when we get disconnected from the packetHandler
+180       running = false;
+181 }
+\end{DoxyCode}
+
+
+\hypertarget{classDataPlot_a36fe7e25f67a168d4f7dd2eaa2627003}{
 \index{DataPlot@{DataPlot}!newReading@{newReading}}
 \index{newReading@{newReading}!DataPlot@{DataPlot}}
 \subsubsection[{newReading}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::newReading ({\bf MoteReading} {\em r})\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
@@ -283,6 +675,20 @@ Slot for notifying the datagraph that it's been disconnected from the packet sou
 Slot for informing the graph of a new reading 
 \begin{DoxyParams}{Parameters}
 \item[{\em r}]The new mote reading \end{DoxyParams}
+
+
+Definition at line 322 of file data\_\-plot.cpp.
+
+
+
+
+\begin{DoxyCode}
+323 {
+324     currentReading = r;
+325 }
+\end{DoxyCode}
+
+
 
 
 Here is the caller graph for this function:\nopagebreak
@@ -300,6 +706,20 @@ Here is the caller graph for this function:\nopagebreak
 \subsubsection[{reRange}]{\setlength{\rightskip}{0pt plus 5cm}void DataPlot::reRange ()\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
 \label{classDataPlot_abc77f48da64170d587eda09e5aaf008c}
 Resets the viewing window of the graph 
+
+Definition at line 160 of file data\_\-plot.cpp.
+
+
+
+
+\begin{DoxyCode}
+161 {
+162     setAxisScale(QwtPlot::yLeft, min, max);
+163 }
+\end{DoxyCode}
+
+
+
 
 Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
@@ -321,6 +741,29 @@ Sets the dataGraph's id. Used to demultiplex mote readings.
 \begin{DoxyReturn}{Returns}
 void 
 \end{DoxyReturn}
+
+
+Definition at line 44 of file data\_\-plot.h.
+
+
+
+
+\begin{DoxyCode}
+44 { id = i; }
+\end{DoxyCode}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=133pt]{classDataPlot_ab6af06dfac3585a7dc669ea333a0869d_icgraph}
+\end{center}
+\end{figure}
+
+
 \hypertarget{classDataPlot_ad101ac80563ee10322788946d791ea09}{
 \index{DataPlot@{DataPlot}!setMinRange@{setMinRange}}
 \index{setMinRange@{setMinRange}!DataPlot@{DataPlot}}
@@ -336,6 +779,21 @@ Old Bug: Qt Doesn't capture this event for some reason. Fixed this bug.
 \end{DoxyNote}
 
 
+
+
+Definition at line 170 of file data\_\-plot.cpp.
+
+
+
+
+\begin{DoxyCode}
+171 {
+173     min = (int) range;
+174     setAxisScale(QwtPlot::yLeft,min, max);
+175 }
+\end{DoxyCode}
+
+
 \hypertarget{classDataPlot_a642185fdad89b1b075bc00670242fa0b}{
 \index{DataPlot@{DataPlot}!setRange@{setRange}}
 \index{setRange@{setRange}!DataPlot@{DataPlot}}
@@ -344,6 +802,21 @@ Old Bug: Qt Doesn't capture this event for some reason. Fixed this bug.
 Slot for setting the upper range of the graph 
 \begin{DoxyParams}{Parameters}
 \item[{\em range}]The upper bound of the viewing window \end{DoxyParams}
+
+
+Definition at line 165 of file data\_\-plot.cpp.
+
+
+
+
+\begin{DoxyCode}
+166 {
+167     max = (int) range;
+168     setAxisScale(QwtPlot::yLeft, min, max);
+169 }
+\end{DoxyCode}
+
+
 \hypertarget{classDataPlot_aace03b9e68e11042c0fade588e2869a7}{
 \index{DataPlot@{DataPlot}!setSource@{setSource}}
 \index{setSource@{setSource}!DataPlot@{DataPlot}}
@@ -352,6 +825,18 @@ Slot for setting the upper range of the graph
 Mutator for packetHander Use this to set the \hyperlink{classpacketHandler}{packetHandler} (server) for this plot 
 \begin{DoxyParams}{Parameters}
 \item[{\em p}]Pointer to the \hyperlink{classpacketHandler}{packetHandler} \end{DoxyParams}
+
+
+Definition at line 50 of file data\_\-plot.h.
+
+
+
+
+\begin{DoxyCode}
+50 { mySource = p; running = true; }
+\end{DoxyCode}
+
+
 
 
 Here is the caller graph for this function:\nopagebreak
@@ -380,6 +865,28 @@ Units are in ms
 
 
 
+Definition at line 308 of file data\_\-plot.cpp.
+
+
+
+
+\begin{DoxyCode}
+309 {
+311     d_interval = qRound(ms);
+312 
+313     if ( d_timerId >= 0 )
+314     {
+315         killTimer(d_timerId);
+316         d_timerId = -1;
+317     }
+318     if (d_interval >= 0 )
+319         d_timerId = startTimer(d_interval);
+320 }
+\end{DoxyCode}
+
+
+
+
 Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -403,6 +910,142 @@ This gets called to update the graph.
 
 \begin{Desc}
 \item[\hyperlink{todo__todo000002}{Todo}]Make this scale more intelligently. \end{Desc}
+
+
+
+
+Definition at line 336 of file data\_\-plot.cpp.
+
+
+
+
+\begin{DoxyCode}
+337 {
+338     if(!running)
+339         return;
+340 
+341     // Get new reading
+342     this->newReading(mySource->getReading(this->id));
+343 
+344         for ( int j = 0; j < PLOT_SIZE - 1; j++ )
+345         {
+346             d_mgx[j] = d_mgx[j+1];
+347             d_mgy[j] = d_mgy[j+1];
+348             d_accx[j] = d_accx[j+1];
+349             d_accy[j] = d_accy[j+1];
+350             d_temp[j] = d_temp[j+1];
+351             d_ir[j] = d_ir[j+1];
+352             d_mic[j] = d_mic[j+1];
+353             d_vl[j] = d_vl[j+1];
+354         }
+355 
+356         d_mgx[PLOT_SIZE -1] = currentReading.getMgx();
+357         d_mgy[PLOT_SIZE -1] = currentReading.getMgy();
+358         d_accx[PLOT_SIZE -1] = currentReading.getAccx();
+359         d_accy[PLOT_SIZE -1] = currentReading.getAccy();
+360         d_temp[PLOT_SIZE -1] = currentReading.getTemp();
+361         d_ir[PLOT_SIZE -1] = currentReading.getIr();
+362         d_mic[PLOT_SIZE -1] = currentReading.getMic();
+363         d_vl[PLOT_SIZE -1] = currentReading.getVl();
+364 
+366         if(auto_scale)
+367         {
+368             if(attached[MGX])
+369             {
+370                 if(currentReading.getMgx() > max)
+371                 {
+372                     max = currentReading.getMgx();
+373                 }
+374                 if(currentReading.getMgx() < min)
+375                 {
+376                     min = currentReading.getMgx();
+377                 }
+378             }
+379             if(attached[MGY])
+380             {
+381                 if(currentReading.getMgy() > max)
+382                 {
+383                     max = currentReading.getMgy();
+384                 }
+385                 if(currentReading.getMgy() < min)
+386                 {
+387                     min = currentReading.getMgy();
+388                 }
+389             }
+390             if(attached[ACCX])
+391             {
+392                 if(currentReading.getAccx() > max)
+393                 {
+394                     max = currentReading.getAccx();
+395                 }
+396                 if(currentReading.getAccx() < min)
+397                 {
+398                     min = currentReading.getAccx();
+399                 }
+400             }
+401             if(attached[ACCY])
+402             {
+403                 if(currentReading.getAccy() > max)
+404                 {
+405                     max = currentReading.getAccy();
+406                 }
+407                 if(currentReading.getAccy() < min)
+408                 {
+409                     min = currentReading.getAccy();
+410                 }
+411             }
+412             if(attached[TEMP])
+413             {
+414                 if(currentReading.getTemp() > max)
+415                 {
+416                     max = currentReading.getTemp();
+417                 }
+418                 if(currentReading.getTemp() < min)
+419                 {
+420                     min = currentReading.getTemp();
+421                 }
+422             }
+423             if(attached[IR])
+424             {
+425                 if(currentReading.getIr() > max)
+426                 {
+427                     max = currentReading.getIr();
+428                 }
+429                 if(currentReading.getIr() < min)
+430                 {
+431                     min = currentReading.getIr();
+432                 }
+433             }
+434             if(attached[VL])
+435             {
+436                 if(currentReading.getVl() > max)
+437                 {
+438                     max = currentReading.getVl();
+439                 }
+440                 if(currentReading.getVl() < min)
+441                 {
+442                     min = currentReading.getVl();
+443                 }
+444             }
+445             if(attached[MIC])
+446             {
+447                 if(currentReading.getMic() > max)
+448                 {
+449                     max = currentReading.getMic();
+450                 }
+451                 if(currentReading.getMic() < min)
+452                 {
+453                     min = currentReading.getMic();
+454                 }
+455             }
+456 
+457             reRange();
+458         }
+459        // update the display
+460     replot();
+461 
+462     }
+\end{DoxyCode}
 
 
 

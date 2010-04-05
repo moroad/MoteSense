@@ -8,12 +8,16 @@
 #include <stdint.h>
 #include <QDebug>
 
+
 packetHandler::packetHandler()
 {
+    count = 0;
     source = new QTcpSocket();
     //! \todo Make this connection user configurable.
     source->connectToHost("localhost",9002,QIODevice::ReadWrite);
 
+    //! \todo Remove this line after debugging
+    ringIndex.push_back(0);   QList<MoteReading> temp; ringBuffer.push_back(temp); motes.push_back(0);
     // Connect signals
     connect(source, SIGNAL(connected()), this, SLOT(connected()));
     connect(source, SIGNAL(readyRead()),this, SLOT(dataReady()));
@@ -27,7 +31,8 @@ void packetHandler::connected()
     data->append(0x55);
     data->append(0x32);
     source->write(*data);
-    qDebug() << "Connected to server";
+    emit sFconnected();
+    qDebug() << "Connected to " << source->localAddress() << ":" << source->localPort();
 }
 
 //! \remarks This gets called when the TcpSocket is disconnected, so we tell the dataGraph class also.
@@ -40,13 +45,14 @@ MoteReading packetHandler::getReading(int i)
 {
         if(ringBuffer.count() > 0 && ringBuffer[i].count() < 0)
     {
-        MoteReading *r = new MoteReading();
+        MoteReading *r = new MoteReading(0,0,0,0,0,0,0,0,0);
         return *r;
     }
     else
     {
     //! \bug I need to get this working correctly, but I'm not sure on the logic yet.
-    MoteReading r = ringBuffer[1][0];
+
+        MoteReading r = ringBuffer[i][0];
     return r;
     }
 }
@@ -54,29 +60,36 @@ MoteReading packetHandler::getReading(int i)
 
 QList<int> packetHandler::getNodeList()
 {
+
     QList<int> list = QList<int>(motes);
     return list;
 }
 
 void packetHandler::dataReady()
 {
-     QByteArray bytes = source->readAll();
-    //  for(int j = 0; j < 29; j++)
-      //    printf("%02x   ", ((uint8_t) bytes[j]));
-      //printf("\n");
+    QByteArray bytes = source->readAll();
+//    for(int j = 0; j < bytes.length(); j++)
+//        printf("%02x   ", ((uint8_t) bytes[j]));
+//    printf("\n");
+//
+//    fflush(stdout);
+
+    count++;
+
+    if((int) bytes[0] != 0x1c)
+        return;
+//      printf("Length = %d ", bytes.length());
       int id = (int) (uint8_t) bytes[5];
-
-      if(id == 20)
-          return;
-
-      if(!motes.contains(id))
+    //  qDebug() << "Count = " << motes.count() << "ID = " << id;
+      //! \a Check to see if the mote is already in the list, but mote id's must be sequential.
+      if(motes.count() <= id)
       {
           qDebug() << "Adding node " << id;
-          emit this->nodesChanged();
           QList<MoteReading> temp;
           ringBuffer.push_back(temp);
           ringIndex.push_back(0);
           motes.push_back(id);
+          emit this->nodesChanged();
       }
 // This doesnt work:
 //      vl = ((uint8_t) bytes[14] & 0xf)*256  + ((uint8_t) (bytes[15]));
@@ -89,7 +102,6 @@ void packetHandler::dataReady()
 //      mgy = ((uint8_t) (bytes[27] & 0xf)) * 256 + ((uint8_t) (bytes[28]));
 
 
-      //int i = 29;
       mgx = ((uint16_t) bytes[25]);
       mgx = mgx << 8;
       mgx ^= ((uint16_t) (bytes[26] & 0xff));
@@ -119,16 +131,21 @@ void packetHandler::dataReady()
       vl = vl << 8;
       vl ^= ((uint16_t) (bytes[16] & 0xff));
 
+      mic = ((uint16_t) bytes[13]);
+      mic = mic << 8;
+      mic ^= ((uint16_t) (bytes[14] & 0xff));
+
       MoteReading *tempReading = new MoteReading(id, mgx, mgy, accx, accy, temp, ir, mic, vl);
 
       //! \remarks Up to MAX_BUFFER packets are stored in a ringBuffer for each mote.
-      if(ringBuffer[id].count() < MAX_BUFFER)
+      // Added the first case for input validation
+      if(id < ringBuffer.count() && ringBuffer[id].count() < MAX_BUFFER)
       {
         ringBuffer[id].push_back(*tempReading);
       }
       else
       {
-        if(ringIndex[id] == MAX_BUFFER)
+        if(ringIndex.count()-1 >= id && ringIndex[id] == MAX_BUFFER)
           {
               ringIndex[id] = 0;
           }

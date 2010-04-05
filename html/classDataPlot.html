@@ -54,7 +54,7 @@ Collaboration diagram for DataPlot:</div>
 <div class="dynsection">
 <div class="center"><img src="classDataPlot__coll__graph.png" border="0" usemap="#DataPlot_coll__map" alt="Collaboration graph"/></div>
 <map name="DataPlot_coll__map" id="DataPlot_coll__map">
-<area shape="rect" href="classMoteReading.html" title="Class to encapsulate a sensor reading." alt="" coords="5,5,123,467"/><area shape="rect" href="classpacketHandler.html" title="Class the serve packets to the DataPlot." alt="" coords="147,43,269,429"/></map>
+<area shape="rect" href="classMoteReading.html" title="Class to encapsulate a sensor reading." alt="" coords="5,5,123,467"/><area shape="rect" href="classpacketHandler.html" title="Class the serve packets to the DataPlot." alt="" coords="147,33,269,439"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classDataPlot-members.html">List of all members.</a></p>
@@ -89,6 +89,8 @@ Collaboration diagram for DataPlot:</div>
 <dl class="author"><dt><b>Author:</b></dt><dd>Jharrod LaFon </dd></dl>
 <dl class="date"><dt><b>Date:</b></dt><dd>Spring 2010 </dd></dl>
 <dl class="remark"><dt><b>Remarks:</b></dt><dd>This class is used to plot data on a moving canvas. The data are acquired from an instance of the packet handler class. </dd></dl>
+
+<p>Definition at line <a class="el" href="data__plot_8h_source.html#l00033">33</a> of file <a class="el" href="data__plot_8h_source.html">data_plot.h</a>.</p>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a1343acbd6095212532c4315d6e9f1711"></a><!-- doxytag: member="DataPlot::DataPlot" ref="a1343acbd6095212532c4315d6e9f1711" args="(QWidget *=NULL)" -->
 <div class="memitem">
@@ -112,6 +114,146 @@ Collaboration diagram for DataPlot:</div>
 
 <p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Change line thickness </dd></dl>
 </p>
+
+<p>Definition at line <a class="el" href="data__plot_8cpp_source.html#l00022">22</a> of file <a class="el" href="data__plot_8cpp_source.html">data_plot.cpp</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00022"></a>00022                                  :
+<a name="l00023"></a>00023     QwtPlot(parent),
+<a name="l00024"></a>00024     d_interval(0),
+<a name="l00025"></a>00025     d_timerId(-1),
+<a name="l00026"></a>00026     min(0),
+<a name="l00027"></a>00027     max(10)
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 {
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033     <span class="keywordtype">id</span> = 0;
+<a name="l00034"></a>00034     plotAccx = plotAccy = plotMgx = plotMgy = plotTemp = plotMic = plotVl = plotIr = <span class="keyword">true</span>;
+<a name="l00035"></a>00035     auto_scale = <span class="keyword">false</span>;
+<a name="l00036"></a>00036     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; 8; i++)
+<a name="l00037"></a>00037         attached[i] = <span class="keyword">true</span>;
+<a name="l00038"></a>00038     <span class="comment">// Disable polygon clipping</span>
+<a name="l00039"></a>00039     QwtPainter::setDeviceClipping(<span class="keyword">false</span>);
+<a name="l00040"></a>00040     running = <span class="keyword">false</span>;
+<a name="l00041"></a>00041     <span class="comment">// We don&#39;t need the cache here</span>
+<a name="l00042"></a>00042     canvas()-&gt;setPaintAttribute(QwtPlotCanvas::PaintCached, <span class="keyword">false</span>);
+<a name="l00043"></a>00043     canvas()-&gt;setPaintAttribute(QwtPlotCanvas::PaintPacked, <span class="keyword">false</span>);
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045 <span class="preprocessor">#if QT_VERSION &gt;= 0x040000</span>
+<a name="l00046"></a>00046 <span class="preprocessor"></span><span class="preprocessor">#ifdef Q_WS_X11</span>
+<a name="l00047"></a>00047 <span class="preprocessor"></span>    <span class="comment">/*</span>
+<a name="l00048"></a>00048 <span class="comment">       Qt::WA_PaintOnScreen is only supported for X11, but leads</span>
+<a name="l00049"></a>00049 <span class="comment">       to substantial bugs with Qt 4.2.x/Windows</span>
+<a name="l00050"></a>00050 <span class="comment">     */</span>
+<a name="l00051"></a>00051     canvas()-&gt;setAttribute(Qt::WA_PaintOnScreen, <span class="keyword">true</span>);
+<a name="l00052"></a>00052 <span class="preprocessor">#endif</span>
+<a name="l00053"></a>00053 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
+<a name="l00054"></a>00054 <span class="preprocessor"></span>
+<a name="l00055"></a>00055     alignScales();
+<a name="l00056"></a>00056     
+<a name="l00057"></a>00057     <span class="comment">//  Initialize data</span>
+<a name="l00058"></a>00058     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i&lt; <a class="code" href="data__plot_8h.html#aa335ff27182dcf42a50b762e32d8c184" title="Size of the plot.">PLOT_SIZE</a>; i++)
+<a name="l00059"></a>00059     {
+<a name="l00060"></a>00060         d_x[i] = 0.5 * i;     <span class="comment">// time axis</span>
+<a name="l00061"></a>00061         d_mgx[i] = 0;
+<a name="l00062"></a>00062         d_mgy[i] = 0;
+<a name="l00063"></a>00063         d_accx[i] = 0;
+<a name="l00064"></a>00064         d_accy[i] = 0;
+<a name="l00065"></a>00065         d_mic[i] = 0;
+<a name="l00066"></a>00066         d_ir[i] = 0;
+<a name="l00067"></a>00067         d_temp[i] = 0;
+<a name="l00068"></a>00068     }
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071     <span class="comment">// Assign a title</span>
+<a name="l00072"></a>00072     setTitle(QString(<span class="stringliteral">&quot;Sensors for Node %1&quot;</span>).arg(<span class="keywordtype">id</span>));
+<a name="l00073"></a>00073     insertLegend(<span class="keyword">new</span> QwtLegend(), QwtPlot::BottomLegend);
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075     <span class="comment">// Insert new curves</span>
+<a name="l00076"></a>00076     mgxPlot = <span class="keyword">new</span> QwtPlotCurve(<span class="stringliteral">&quot;MGx&quot;</span>);
+<a name="l00077"></a>00077     mgyPlot = <span class="keyword">new</span> QwtPlotCurve(<span class="stringliteral">&quot;MGy&quot;</span>);
+<a name="l00078"></a>00078     AccyPlot = <span class="keyword">new</span> QwtPlotCurve(<span class="stringliteral">&quot;ACCy&quot;</span>);
+<a name="l00079"></a>00079     AccxPlot = <span class="keyword">new</span> QwtPlotCurve(<span class="stringliteral">&quot;ACCx&quot;</span>);
+<a name="l00080"></a>00080     tempPlot = <span class="keyword">new</span> QwtPlotCurve(<span class="stringliteral">&quot;Temp&quot;</span>);
+<a name="l00081"></a>00081     irPlot = <span class="keyword">new</span> QwtPlotCurve(<span class="stringliteral">&quot;IR&quot;</span>);
+<a name="l00082"></a>00082     micPlot = <span class="keyword">new</span> QwtPlotCurve(<span class="stringliteral">&quot;MIC&quot;</span>);
+<a name="l00083"></a>00083     vlPlot = <span class="keyword">new</span> QwtPlotCurve(<span class="stringliteral">&quot;VL&quot;</span>);
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085     AccyPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00086"></a>00086     AccxPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00087"></a>00087     mgxPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00088"></a>00088     mgyPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00089"></a>00089     tempPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00090"></a>00090     irPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00091"></a>00091     micPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00092"></a>00092     vlPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094 <span class="comment">//    const QColor bgColor(30,30,50);</span>
+<a name="l00095"></a>00095 <span class="comment">//#if QT_VERSION &lt; 0x040000</span>
+<a name="l00096"></a>00096 <span class="comment">//    setPaletteBackgroundColor(bgColor);</span>
+<a name="l00097"></a>00097 <span class="comment">//#else</span>
+<a name="l00098"></a>00098 <span class="comment">//    QPalette p = palette();</span>
+<a name="l00099"></a>00099 <span class="comment">//    p.setColor(backgroundRole(), bgColor);</span>
+<a name="l00100"></a>00100 <span class="comment">//    setPalette(p);</span>
+<a name="l00101"></a>00101 <span class="comment">//#endif</span>
+<a name="l00102"></a>00102 
+<a name="l00104"></a>00104     <span class="comment">// Set curve styles</span>
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106     QPen *pen = <span class="keyword">new</span> QPen(Qt::darkBlue);
+<a name="l00107"></a>00107     pen-&gt;setWidth(2);
+<a name="l00108"></a>00108     mgxPlot-&gt;setPen(*pen);
+<a name="l00109"></a>00109 
+<a name="l00110"></a>00110     pen-&gt;setColor(Qt::red);
+<a name="l00111"></a>00111     mgyPlot-&gt;setPen(*pen);
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113     pen-&gt;setColor(Qt::green);
+<a name="l00114"></a>00114     AccyPlot-&gt;setPen(*pen);
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116     pen-&gt;setColor(Qt::darkGray);
+<a name="l00117"></a>00117     AccxPlot-&gt;setPen(*pen);
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119     pen-&gt;setColor(Qt::yellow);
+<a name="l00120"></a>00120     tempPlot-&gt;setPen(*pen);
+<a name="l00121"></a>00121 
+<a name="l00122"></a>00122     pen-&gt;setColor(Qt::darkGreen);
+<a name="l00123"></a>00123     irPlot-&gt;setPen(*pen);
+<a name="l00124"></a>00124 
+<a name="l00125"></a>00125     pen-&gt;setColor(Qt::magenta);
+<a name="l00126"></a>00126     micPlot-&gt;setPen(*pen);
+<a name="l00127"></a>00127 
+<a name="l00128"></a>00128     pen-&gt;setColor(Qt::darkRed);
+<a name="l00129"></a>00129     vlPlot-&gt;setPen(*pen);
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131     <span class="comment">// Attach (don&#39;t copy) data. Both curves use the same x array.</span>
+<a name="l00132"></a>00132     mgxPlot-&gt;setRawData(d_x, d_mgx, PLOT_SIZE);
+<a name="l00133"></a>00133     mgyPlot-&gt;setRawData(d_x, d_mgy, PLOT_SIZE);
+<a name="l00134"></a>00134     AccyPlot-&gt;setRawData(d_x, d_accy, PLOT_SIZE);
+<a name="l00135"></a>00135     AccxPlot-&gt;setRawData(d_x, d_accx, PLOT_SIZE);
+<a name="l00136"></a>00136     tempPlot-&gt;setRawData(d_x, d_temp, PLOT_SIZE);
+<a name="l00137"></a>00137     irPlot-&gt;setRawData(d_x, d_ir, PLOT_SIZE);
+<a name="l00138"></a>00138     micPlot-&gt;setRawData(d_x, d_mic, PLOT_SIZE);
+<a name="l00139"></a>00139     vlPlot-&gt;setRawData(d_x, d_vl, PLOT_SIZE);
+<a name="l00140"></a>00140 
+<a name="l00141"></a>00141 <span class="preprocessor">#if 0</span>
+<a name="l00142"></a>00142 <span class="preprocessor"></span>    <span class="comment">//  Insert zero line at y = 0</span>
+<a name="l00143"></a>00143     QwtPlotMarker *mY = <span class="keyword">new</span> QwtPlotMarker();
+<a name="l00144"></a>00144     mY-&gt;setLabelAlignment(Qt::AlignRight|Qt::AlignTop);
+<a name="l00145"></a>00145     mY-&gt;setLineStyle(QwtPlotMarker::HLine);
+<a name="l00146"></a>00146     mY-&gt;setYValue(0.0);
+<a name="l00147"></a>00147     mY-&gt;attach(<span class="keyword">this</span>);
+<a name="l00148"></a>00148 <span class="preprocessor">#endif</span>
+<a name="l00149"></a>00149 <span class="preprocessor"></span>
+<a name="l00150"></a>00150     <span class="comment">// Axis </span>
+<a name="l00151"></a>00151     setAxisTitle(QwtPlot::xBottom, <span class="stringliteral">&quot;Time/seconds&quot;</span>);
+<a name="l00152"></a>00152     setAxisScale(QwtPlot::xBottom, 0, 100);
+<a name="l00153"></a>00153 
+<a name="l00154"></a>00154     setAxisTitle(QwtPlot::yLeft, <span class="stringliteral">&quot;Values&quot;</span>);
+<a name="l00155"></a>00155     setAxisScale(QwtPlot::yLeft, 0, 10);
+<a name="l00156"></a>00156     
+<a name="l00157"></a>00157     <a class="code" href="classDataPlot.html#a926020e0c49d78d3d5d282848368651e">setTimerInterval</a>(0.0); 
+<a name="l00158"></a>00158 }
+</pre></div></p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -141,6 +283,16 @@ Here is the call graph for this function:</div>
 <div class="memdoc">
 <p>Enables or disables autoscaling </p>
 
+<p>Definition at line <a class="el" href="data__plot_8cpp_source.html#l00327">327</a> of file <a class="el" href="data__plot_8cpp_source.html">data_plot.cpp</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00328"></a>00328 {
+<a name="l00329"></a>00329     <span class="keywordflow">if</span>(auto_scale)
+<a name="l00330"></a>00330         auto_scale = <span class="keyword">false</span>;
+<a name="l00331"></a>00331     <span class="keywordflow">else</span>
+<a name="l00332"></a>00332         auto_scale = <span class="keyword">true</span>;
+<a name="l00333"></a>00333 }
+</pre></div></p>
+
 </div>
 </div>
 <a class="anchor" id="a5521e1760646dbcf90df949e20523803"></a><!-- doxytag: member="DataPlot::detach" ref="a5521e1760646dbcf90df949e20523803" args="(int item)" -->
@@ -166,6 +318,111 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 <dl class="note"><dt><b>Note:</b></dt><dd>This is actually a bad name. If the graph is already detached, it reattaches the graph. </dd></dl>
+
+<p>Definition at line <a class="el" href="data__plot_8cpp_source.html#l00205">205</a> of file <a class="el" href="data__plot_8cpp_source.html">data_plot.cpp</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00206"></a>00206 {
+<a name="l00207"></a>00207     <span class="keywordflow">switch</span>(item)
+<a name="l00208"></a>00208     {
+<a name="l00209"></a>00209     <span class="keywordflow">case</span> MGX:
+<a name="l00210"></a>00210         <span class="keywordflow">if</span>(attached[MGX])
+<a name="l00211"></a>00211         {
+<a name="l00212"></a>00212             mgxPlot-&gt;detach();
+<a name="l00213"></a>00213             attached[MGX] = <span class="keyword">false</span>;
+<a name="l00214"></a>00214         }
+<a name="l00215"></a>00215         <span class="keywordflow">else</span>
+<a name="l00216"></a>00216         {
+<a name="l00217"></a>00217             mgxPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00218"></a>00218             attached[MGX] = <span class="keyword">true</span>;
+<a name="l00219"></a>00219         }
+<a name="l00220"></a>00220         <span class="keywordflow">break</span>;
+<a name="l00221"></a>00221     <span class="keywordflow">case</span> MGY:
+<a name="l00222"></a>00222         <span class="keywordflow">if</span>(attached[MGY])
+<a name="l00223"></a>00223         {
+<a name="l00224"></a>00224             mgyPlot-&gt;detach();
+<a name="l00225"></a>00225             attached[MGY] = <span class="keyword">false</span>;
+<a name="l00226"></a>00226         }
+<a name="l00227"></a>00227         <span class="keywordflow">else</span>
+<a name="l00228"></a>00228         {
+<a name="l00229"></a>00229             mgyPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00230"></a>00230             attached[MGY] = <span class="keyword">true</span>;
+<a name="l00231"></a>00231         }
+<a name="l00232"></a>00232         <span class="keywordflow">break</span>;
+<a name="l00233"></a>00233     <span class="keywordflow">case</span> ACCX:
+<a name="l00234"></a>00234         <span class="keywordflow">if</span>(attached[ACCX])
+<a name="l00235"></a>00235         {
+<a name="l00236"></a>00236             AccxPlot-&gt;detach();
+<a name="l00237"></a>00237             attached[ACCX] = <span class="keyword">false</span>;
+<a name="l00238"></a>00238         }
+<a name="l00239"></a>00239         <span class="keywordflow">else</span>
+<a name="l00240"></a>00240         {
+<a name="l00241"></a>00241             AccxPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00242"></a>00242             attached[ACCX] = <span class="keyword">true</span>;
+<a name="l00243"></a>00243         }
+<a name="l00244"></a>00244         <span class="keywordflow">break</span>;
+<a name="l00245"></a>00245     <span class="keywordflow">case</span> ACCY:
+<a name="l00246"></a>00246         <span class="keywordflow">if</span>(attached[ACCY])
+<a name="l00247"></a>00247         {
+<a name="l00248"></a>00248             AccyPlot-&gt;detach();
+<a name="l00249"></a>00249             attached[ACCY] = <span class="keyword">false</span>;
+<a name="l00250"></a>00250         }
+<a name="l00251"></a>00251         <span class="keywordflow">else</span>
+<a name="l00252"></a>00252         {
+<a name="l00253"></a>00253             AccyPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00254"></a>00254             attached[ACCY] = <span class="keyword">true</span>;
+<a name="l00255"></a>00255         }
+<a name="l00256"></a>00256         <span class="keywordflow">break</span>;
+<a name="l00257"></a>00257     <span class="keywordflow">case</span> TEMP:
+<a name="l00258"></a>00258         <span class="keywordflow">if</span>(attached[TEMP])
+<a name="l00259"></a>00259         {
+<a name="l00260"></a>00260             tempPlot-&gt;detach();
+<a name="l00261"></a>00261             attached[TEMP] = <span class="keyword">false</span>;
+<a name="l00262"></a>00262         }
+<a name="l00263"></a>00263         <span class="keywordflow">else</span>
+<a name="l00264"></a>00264         {
+<a name="l00265"></a>00265             tempPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00266"></a>00266             attached[TEMP] = <span class="keyword">true</span>;
+<a name="l00267"></a>00267         }
+<a name="l00268"></a>00268         <span class="keywordflow">break</span>;
+<a name="l00269"></a>00269     <span class="keywordflow">case</span> IR:
+<a name="l00270"></a>00270         <span class="keywordflow">if</span>(attached[IR])
+<a name="l00271"></a>00271         {
+<a name="l00272"></a>00272             irPlot-&gt;detach();
+<a name="l00273"></a>00273             attached[IR] = <span class="keyword">false</span>;
+<a name="l00274"></a>00274         }
+<a name="l00275"></a>00275         <span class="keywordflow">else</span>
+<a name="l00276"></a>00276         {
+<a name="l00277"></a>00277             irPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00278"></a>00278             attached[IR] = <span class="keyword">true</span>;
+<a name="l00279"></a>00279         }
+<a name="l00280"></a>00280         <span class="keywordflow">break</span>;
+<a name="l00281"></a>00281     <span class="keywordflow">case</span> VL:
+<a name="l00282"></a>00282         <span class="keywordflow">if</span>(attached[VL])
+<a name="l00283"></a>00283         {
+<a name="l00284"></a>00284             vlPlot-&gt;detach();
+<a name="l00285"></a>00285             attached[VL] = <span class="keyword">false</span>;
+<a name="l00286"></a>00286         }
+<a name="l00287"></a>00287         <span class="keywordflow">else</span>
+<a name="l00288"></a>00288         {
+<a name="l00289"></a>00289             vlPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00290"></a>00290             attached[VL] = <span class="keyword">true</span>;
+<a name="l00291"></a>00291         }
+<a name="l00292"></a>00292         <span class="keywordflow">break</span>;
+<a name="l00293"></a>00293     <span class="keywordflow">case</span> MIC:
+<a name="l00294"></a>00294         <span class="keywordflow">if</span>(attached[MIC])
+<a name="l00295"></a>00295         {
+<a name="l00296"></a>00296             micPlot-&gt;detach();
+<a name="l00297"></a>00297             attached[MIC] = <span class="keyword">false</span>;
+<a name="l00298"></a>00298         }
+<a name="l00299"></a>00299         <span class="keywordflow">else</span>
+<a name="l00300"></a>00300         {
+<a name="l00301"></a>00301             micPlot-&gt;attach(<span class="keyword">this</span>);
+<a name="l00302"></a>00302             attached[MIC] = <span class="keyword">true</span>;
+<a name="l00303"></a>00303         }
+<a name="l00304"></a>00304         <span class="keywordflow">break</span>;
+<a name="l00305"></a>00305     }
+<a name="l00306"></a>00306 }
+</pre></div></p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -194,6 +451,11 @@ Here is the caller graph for this function:</div>
 <div class="memdoc">
 <p>Slot for detaching ACCX </p>
 
+<p>Definition at line <a class="el" href="data__plot_8h_source.html#l00086">86</a> of file <a class="el" href="data__plot_8h_source.html">data_plot.h</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00086"></a>00086 { <a class="code" href="classDataPlot.html#a5521e1760646dbcf90df949e20523803">detach</a>(ACCX); }
+</pre></div></p>
+
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dynsection">
@@ -220,6 +482,11 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 <p>Slot for detaching ACCY </p>
+
+<p>Definition at line <a class="el" href="data__plot_8h_source.html#l00089">89</a> of file <a class="el" href="data__plot_8h_source.html">data_plot.h</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00089"></a>00089 { <a class="code" href="classDataPlot.html#a5521e1760646dbcf90df949e20523803">detach</a>(ACCY); }
+</pre></div></p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -248,6 +515,11 @@ Here is the call graph for this function:</div>
 <div class="memdoc">
 <p>Slot for detaching IR </p>
 
+<p>Definition at line <a class="el" href="data__plot_8h_source.html#l00092">92</a> of file <a class="el" href="data__plot_8h_source.html">data_plot.h</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00092"></a>00092 { <a class="code" href="classDataPlot.html#a5521e1760646dbcf90df949e20523803">detach</a>(IR); }
+</pre></div></p>
+
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dynsection">
@@ -274,6 +546,11 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 <p>Slot for detaching MGx </p>
+
+<p>Definition at line <a class="el" href="data__plot_8h_source.html#l00080">80</a> of file <a class="el" href="data__plot_8h_source.html">data_plot.h</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00080"></a>00080 { <a class="code" href="classDataPlot.html#a5521e1760646dbcf90df949e20523803">detach</a>(MGX); }
+</pre></div></p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -302,6 +579,11 @@ Here is the call graph for this function:</div>
 <div class="memdoc">
 <p>Slot for detaching MGy </p>
 
+<p>Definition at line <a class="el" href="data__plot_8h_source.html#l00083">83</a> of file <a class="el" href="data__plot_8h_source.html">data_plot.h</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00083"></a>00083 { <a class="code" href="classDataPlot.html#a5521e1760646dbcf90df949e20523803">detach</a>(MGY); }
+</pre></div></p>
+
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dynsection">
@@ -328,6 +610,11 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 <p>Slot for detaching MIC </p>
+
+<p>Definition at line <a class="el" href="data__plot_8h_source.html#l00101">101</a> of file <a class="el" href="data__plot_8h_source.html">data_plot.h</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00101"></a>00101 { <a class="code" href="classDataPlot.html#a5521e1760646dbcf90df949e20523803">detach</a>(MIC); }
+</pre></div></p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -356,6 +643,11 @@ Here is the call graph for this function:</div>
 <div class="memdoc">
 <p>Slot for detaching Temp </p>
 
+<p>Definition at line <a class="el" href="data__plot_8h_source.html#l00095">95</a> of file <a class="el" href="data__plot_8h_source.html">data_plot.h</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00095"></a>00095 { <a class="code" href="classDataPlot.html#a5521e1760646dbcf90df949e20523803">detach</a>(TEMP); }
+</pre></div></p>
+
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dynsection">
@@ -382,6 +674,11 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 <p>Slot for detaching VL </p>
+
+<p>Definition at line <a class="el" href="data__plot_8h_source.html#l00098">98</a> of file <a class="el" href="data__plot_8h_source.html">data_plot.h</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00098"></a>00098 { <a class="code" href="classDataPlot.html#a5521e1760646dbcf90df949e20523803">detach</a>(VL); }
+</pre></div></p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -410,6 +707,14 @@ Here is the call graph for this function:</div>
 <div class="memdoc">
 <p>Slot for notifying the datagraph that it's been disconnected from the packet source </p>
 
+<p>Definition at line <a class="el" href="data__plot_8cpp_source.html#l00177">177</a> of file <a class="el" href="data__plot_8cpp_source.html">data_plot.cpp</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00178"></a>00178 {
+<a name="l00179"></a>00179       <span class="comment">// This happens when we get disconnected from the packetHandler</span>
+<a name="l00180"></a>00180       running = <span class="keyword">false</span>;
+<a name="l00181"></a>00181 }
+</pre></div></p>
+
 </div>
 </div>
 <a class="anchor" id="a36fe7e25f67a168d4f7dd2eaa2627003"></a><!-- doxytag: member="DataPlot::newReading" ref="a36fe7e25f67a168d4f7dd2eaa2627003" args="(MoteReading r)" -->
@@ -434,6 +739,13 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
+
+<p>Definition at line <a class="el" href="data__plot_8cpp_source.html#l00322">322</a> of file <a class="el" href="data__plot_8cpp_source.html">data_plot.cpp</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00323"></a>00323 {
+<a name="l00324"></a>00324     currentReading = r;
+<a name="l00325"></a>00325 }
+</pre></div></p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -461,6 +773,13 @@ Here is the caller graph for this function:</div>
 </div>
 <div class="memdoc">
 <p>Resets the viewing window of the graph </p>
+
+<p>Definition at line <a class="el" href="data__plot_8cpp_source.html#l00160">160</a> of file <a class="el" href="data__plot_8cpp_source.html">data_plot.cpp</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00161"></a>00161 {
+<a name="l00162"></a>00162     setAxisScale(QwtPlot::yLeft, min, max);
+<a name="l00163"></a>00163 }
+</pre></div></p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -497,6 +816,20 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
 
+<p>Definition at line <a class="el" href="data__plot_8h_source.html#l00044">44</a> of file <a class="el" href="data__plot_8h_source.html">data_plot.h</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00044"></a>00044 { <span class="keywordtype">id</span> = i; }
+</pre></div></p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dynsection">
+<div class="center"><img src="classDataPlot_ab6af06dfac3585a7dc669ea333a0869d_icgraph.png" border="0" usemap="#classDataPlot_ab6af06dfac3585a7dc669ea333a0869d_icgraph_map" alt=""></div>
+<map name="classDataPlot_ab6af06dfac3585a7dc669ea333a0869d_icgraph_map" id="classDataPlot_ab6af06dfac3585a7dc669ea333a0869d_icgraph">
+<area shape="rect" href="classGraphWindow.html#a36355629ca00fac24a8b5e1a4f251624" title="Sets the ID of the Mote we are monitoring." alt="" coords="163,5,301,35"/></map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="ad101ac80563ee10322788946d791ea09"></a><!-- doxytag: member="DataPlot::setMinRange" ref="ad101ac80563ee10322788946d791ea09" args="(double range)" -->
@@ -525,6 +858,14 @@ Here is the caller graph for this function:</div>
 <p><dl class="note"><dt><b>Note:</b></dt><dd>Old Bug: Qt Doesn't capture this event for some reason. Fixed this bug. </dd></dl>
 </p>
 
+<p>Definition at line <a class="el" href="data__plot_8cpp_source.html#l00170">170</a> of file <a class="el" href="data__plot_8cpp_source.html">data_plot.cpp</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00171"></a>00171 {
+<a name="l00173"></a>00173     min = (int) range;
+<a name="l00174"></a>00174     setAxisScale(QwtPlot::yLeft,min, max);
+<a name="l00175"></a>00175 }
+</pre></div></p>
+
 </div>
 </div>
 <a class="anchor" id="a642185fdad89b1b075bc00670242fa0b"></a><!-- doxytag: member="DataPlot::setRange" ref="a642185fdad89b1b075bc00670242fa0b" args="(double range)" -->
@@ -550,6 +891,14 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="data__plot_8cpp_source.html#l00165">165</a> of file <a class="el" href="data__plot_8cpp_source.html">data_plot.cpp</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00166"></a>00166 {
+<a name="l00167"></a>00167     max = (int) range;
+<a name="l00168"></a>00168     setAxisScale(QwtPlot::yLeft, min, max);
+<a name="l00169"></a>00169 }
+</pre></div></p>
+
 </div>
 </div>
 <a class="anchor" id="aace03b9e68e11042c0fade588e2869a7"></a><!-- doxytag: member="DataPlot::setSource" ref="aace03b9e68e11042c0fade588e2869a7" args="(packetHandler *p)" -->
@@ -574,6 +923,11 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
+
+<p>Definition at line <a class="el" href="data__plot_8h_source.html#l00050">50</a> of file <a class="el" href="data__plot_8h_source.html">data_plot.h</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00050"></a>00050 { mySource = p; running = <span class="keyword">true</span>; }
+</pre></div></p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -612,6 +966,21 @@ Here is the caller graph for this function:</div>
 <p><dl class="remark"><dt><b>Remarks:</b></dt><dd>Units are in ms </dd></dl>
 </p>
 
+<p>Definition at line <a class="el" href="data__plot_8cpp_source.html#l00308">308</a> of file <a class="el" href="data__plot_8cpp_source.html">data_plot.cpp</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00309"></a>00309 {
+<a name="l00311"></a>00311     d_interval = qRound(ms);
+<a name="l00312"></a>00312 
+<a name="l00313"></a>00313     <span class="keywordflow">if</span> ( d_timerId &gt;= 0 )
+<a name="l00314"></a>00314     {
+<a name="l00315"></a>00315         killTimer(d_timerId);
+<a name="l00316"></a>00316         d_timerId = -1;
+<a name="l00317"></a>00317     }
+<a name="l00318"></a>00318     <span class="keywordflow">if</span> (d_interval &gt;= 0 )
+<a name="l00319"></a>00319         d_timerId = startTimer(d_interval);
+<a name="l00320"></a>00320 }
+</pre></div></p>
+
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dynsection">
@@ -644,6 +1013,135 @@ Here is the caller graph for this function:</div>
 <p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Make this scale more intelligently. </dd></dl>
 </p>
 
+<p>Definition at line <a class="el" href="data__plot_8cpp_source.html#l00336">336</a> of file <a class="el" href="data__plot_8cpp_source.html">data_plot.cpp</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00337"></a>00337 {
+<a name="l00338"></a>00338     <span class="keywordflow">if</span>(!running)
+<a name="l00339"></a>00339         <span class="keywordflow">return</span>;
+<a name="l00340"></a>00340 
+<a name="l00341"></a>00341     <span class="comment">// Get new reading</span>
+<a name="l00342"></a>00342     this-&gt;<a class="code" href="classDataPlot.html#a36fe7e25f67a168d4f7dd2eaa2627003">newReading</a>(mySource-&gt;<a class="code" href="classpacketHandler.html#aec6fa94602daa18227491b76001152cb">getReading</a>(this-&gt;id));
+<a name="l00343"></a>00343 
+<a name="l00344"></a>00344         <span class="keywordflow">for</span> ( <span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="data__plot_8h.html#aa335ff27182dcf42a50b762e32d8c184" title="Size of the plot.">PLOT_SIZE</a> - 1; j++ )
+<a name="l00345"></a>00345         {
+<a name="l00346"></a>00346             d_mgx[j] = d_mgx[j+1];
+<a name="l00347"></a>00347             d_mgy[j] = d_mgy[j+1];
+<a name="l00348"></a>00348             d_accx[j] = d_accx[j+1];
+<a name="l00349"></a>00349             d_accy[j] = d_accy[j+1];
+<a name="l00350"></a>00350             d_temp[j] = d_temp[j+1];
+<a name="l00351"></a>00351             d_ir[j] = d_ir[j+1];
+<a name="l00352"></a>00352             d_mic[j] = d_mic[j+1];
+<a name="l00353"></a>00353             d_vl[j] = d_vl[j+1];
+<a name="l00354"></a>00354         }
+<a name="l00355"></a>00355 
+<a name="l00356"></a>00356         d_mgx[PLOT_SIZE -1] = currentReading.<a class="code" href="classMoteReading.html#a318b7e6afba062ee3df207495070e277" title="Accessor for magnetometer x.">getMgx</a>();
+<a name="l00357"></a>00357         d_mgy[PLOT_SIZE -1] = currentReading.<a class="code" href="classMoteReading.html#a4344f67449dbd79febac0c4795b185f4" title="Accessor for magnetometer y.">getMgy</a>();
+<a name="l00358"></a>00358         d_accx[PLOT_SIZE -1] = currentReading.<a class="code" href="classMoteReading.html#ad79a65f84dfaacc9b5c179fb66a5545f" title="Accessor for acclerometer x.">getAccx</a>();
+<a name="l00359"></a>00359         d_accy[PLOT_SIZE -1] = currentReading.<a class="code" href="classMoteReading.html#af918c7ca6c9fea98a3d608b61dbaffae" title="Accessor for accelerometer y.">getAccy</a>();
+<a name="l00360"></a>00360         d_temp[PLOT_SIZE -1] = currentReading.<a class="code" href="classMoteReading.html#a3f7526c29f2bf61feeb5e24298133332" title="Accessor for temperature.">getTemp</a>();
+<a name="l00361"></a>00361         d_ir[PLOT_SIZE -1] = currentReading.<a class="code" href="classMoteReading.html#aff0d87f9c667d01f7e37a114afa321fa" title="Accessor for infrared.">getIr</a>();
+<a name="l00362"></a>00362         d_mic[PLOT_SIZE -1] = currentReading.<a class="code" href="classMoteReading.html#a348cb45f4613499385a354fe6857ef5d" title="Accessor for microphone.">getMic</a>();
+<a name="l00363"></a>00363         d_vl[PLOT_SIZE -1] = currentReading.<a class="code" href="classMoteReading.html#a88ed6ea245c7af79e38ff8976f849f36" title="Accessor for visual light.">getVl</a>();
+<a name="l00364"></a>00364 
+<a name="l00366"></a>00366         <span class="keywordflow">if</span>(auto_scale)
+<a name="l00367"></a>00367         {
+<a name="l00368"></a>00368             <span class="keywordflow">if</span>(attached[MGX])
+<a name="l00369"></a>00369             {
+<a name="l00370"></a>00370                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#a318b7e6afba062ee3df207495070e277" title="Accessor for magnetometer x.">getMgx</a>() &gt; max)
+<a name="l00371"></a>00371                 {
+<a name="l00372"></a>00372                     max = currentReading.<a class="code" href="classMoteReading.html#a318b7e6afba062ee3df207495070e277" title="Accessor for magnetometer x.">getMgx</a>();
+<a name="l00373"></a>00373                 }
+<a name="l00374"></a>00374                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#a318b7e6afba062ee3df207495070e277" title="Accessor for magnetometer x.">getMgx</a>() &lt; min)
+<a name="l00375"></a>00375                 {
+<a name="l00376"></a>00376                     min = currentReading.<a class="code" href="classMoteReading.html#a318b7e6afba062ee3df207495070e277" title="Accessor for magnetometer x.">getMgx</a>();
+<a name="l00377"></a>00377                 }
+<a name="l00378"></a>00378             }
+<a name="l00379"></a>00379             <span class="keywordflow">if</span>(attached[MGY])
+<a name="l00380"></a>00380             {
+<a name="l00381"></a>00381                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#a4344f67449dbd79febac0c4795b185f4" title="Accessor for magnetometer y.">getMgy</a>() &gt; max)
+<a name="l00382"></a>00382                 {
+<a name="l00383"></a>00383                     max = currentReading.<a class="code" href="classMoteReading.html#a4344f67449dbd79febac0c4795b185f4" title="Accessor for magnetometer y.">getMgy</a>();
+<a name="l00384"></a>00384                 }
+<a name="l00385"></a>00385                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#a4344f67449dbd79febac0c4795b185f4" title="Accessor for magnetometer y.">getMgy</a>() &lt; min)
+<a name="l00386"></a>00386                 {
+<a name="l00387"></a>00387                     min = currentReading.<a class="code" href="classMoteReading.html#a4344f67449dbd79febac0c4795b185f4" title="Accessor for magnetometer y.">getMgy</a>();
+<a name="l00388"></a>00388                 }
+<a name="l00389"></a>00389             }
+<a name="l00390"></a>00390             <span class="keywordflow">if</span>(attached[ACCX])
+<a name="l00391"></a>00391             {
+<a name="l00392"></a>00392                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#ad79a65f84dfaacc9b5c179fb66a5545f" title="Accessor for acclerometer x.">getAccx</a>() &gt; max)
+<a name="l00393"></a>00393                 {
+<a name="l00394"></a>00394                     max = currentReading.<a class="code" href="classMoteReading.html#ad79a65f84dfaacc9b5c179fb66a5545f" title="Accessor for acclerometer x.">getAccx</a>();
+<a name="l00395"></a>00395                 }
+<a name="l00396"></a>00396                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#ad79a65f84dfaacc9b5c179fb66a5545f" title="Accessor for acclerometer x.">getAccx</a>() &lt; min)
+<a name="l00397"></a>00397                 {
+<a name="l00398"></a>00398                     min = currentReading.<a class="code" href="classMoteReading.html#ad79a65f84dfaacc9b5c179fb66a5545f" title="Accessor for acclerometer x.">getAccx</a>();
+<a name="l00399"></a>00399                 }
+<a name="l00400"></a>00400             }
+<a name="l00401"></a>00401             <span class="keywordflow">if</span>(attached[ACCY])
+<a name="l00402"></a>00402             {
+<a name="l00403"></a>00403                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#af918c7ca6c9fea98a3d608b61dbaffae" title="Accessor for accelerometer y.">getAccy</a>() &gt; max)
+<a name="l00404"></a>00404                 {
+<a name="l00405"></a>00405                     max = currentReading.<a class="code" href="classMoteReading.html#af918c7ca6c9fea98a3d608b61dbaffae" title="Accessor for accelerometer y.">getAccy</a>();
+<a name="l00406"></a>00406                 }
+<a name="l00407"></a>00407                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#af918c7ca6c9fea98a3d608b61dbaffae" title="Accessor for accelerometer y.">getAccy</a>() &lt; min)
+<a name="l00408"></a>00408                 {
+<a name="l00409"></a>00409                     min = currentReading.<a class="code" href="classMoteReading.html#af918c7ca6c9fea98a3d608b61dbaffae" title="Accessor for accelerometer y.">getAccy</a>();
+<a name="l00410"></a>00410                 }
+<a name="l00411"></a>00411             }
+<a name="l00412"></a>00412             <span class="keywordflow">if</span>(attached[TEMP])
+<a name="l00413"></a>00413             {
+<a name="l00414"></a>00414                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#a3f7526c29f2bf61feeb5e24298133332" title="Accessor for temperature.">getTemp</a>() &gt; max)
+<a name="l00415"></a>00415                 {
+<a name="l00416"></a>00416                     max = currentReading.<a class="code" href="classMoteReading.html#a3f7526c29f2bf61feeb5e24298133332" title="Accessor for temperature.">getTemp</a>();
+<a name="l00417"></a>00417                 }
+<a name="l00418"></a>00418                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#a3f7526c29f2bf61feeb5e24298133332" title="Accessor for temperature.">getTemp</a>() &lt; min)
+<a name="l00419"></a>00419                 {
+<a name="l00420"></a>00420                     min = currentReading.<a class="code" href="classMoteReading.html#a3f7526c29f2bf61feeb5e24298133332" title="Accessor for temperature.">getTemp</a>();
+<a name="l00421"></a>00421                 }
+<a name="l00422"></a>00422             }
+<a name="l00423"></a>00423             <span class="keywordflow">if</span>(attached[IR])
+<a name="l00424"></a>00424             {
+<a name="l00425"></a>00425                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#aff0d87f9c667d01f7e37a114afa321fa" title="Accessor for infrared.">getIr</a>() &gt; max)
+<a name="l00426"></a>00426                 {
+<a name="l00427"></a>00427                     max = currentReading.<a class="code" href="classMoteReading.html#aff0d87f9c667d01f7e37a114afa321fa" title="Accessor for infrared.">getIr</a>();
+<a name="l00428"></a>00428                 }
+<a name="l00429"></a>00429                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#aff0d87f9c667d01f7e37a114afa321fa" title="Accessor for infrared.">getIr</a>() &lt; min)
+<a name="l00430"></a>00430                 {
+<a name="l00431"></a>00431                     min = currentReading.<a class="code" href="classMoteReading.html#aff0d87f9c667d01f7e37a114afa321fa" title="Accessor for infrared.">getIr</a>();
+<a name="l00432"></a>00432                 }
+<a name="l00433"></a>00433             }
+<a name="l00434"></a>00434             <span class="keywordflow">if</span>(attached[VL])
+<a name="l00435"></a>00435             {
+<a name="l00436"></a>00436                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#a88ed6ea245c7af79e38ff8976f849f36" title="Accessor for visual light.">getVl</a>() &gt; max)
+<a name="l00437"></a>00437                 {
+<a name="l00438"></a>00438                     max = currentReading.<a class="code" href="classMoteReading.html#a88ed6ea245c7af79e38ff8976f849f36" title="Accessor for visual light.">getVl</a>();
+<a name="l00439"></a>00439                 }
+<a name="l00440"></a>00440                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#a88ed6ea245c7af79e38ff8976f849f36" title="Accessor for visual light.">getVl</a>() &lt; min)
+<a name="l00441"></a>00441                 {
+<a name="l00442"></a>00442                     min = currentReading.<a class="code" href="classMoteReading.html#a88ed6ea245c7af79e38ff8976f849f36" title="Accessor for visual light.">getVl</a>();
+<a name="l00443"></a>00443                 }
+<a name="l00444"></a>00444             }
+<a name="l00445"></a>00445             <span class="keywordflow">if</span>(attached[MIC])
+<a name="l00446"></a>00446             {
+<a name="l00447"></a>00447                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#a348cb45f4613499385a354fe6857ef5d" title="Accessor for microphone.">getMic</a>() &gt; max)
+<a name="l00448"></a>00448                 {
+<a name="l00449"></a>00449                     max = currentReading.<a class="code" href="classMoteReading.html#a348cb45f4613499385a354fe6857ef5d" title="Accessor for microphone.">getMic</a>();
+<a name="l00450"></a>00450                 }
+<a name="l00451"></a>00451                 <span class="keywordflow">if</span>(currentReading.<a class="code" href="classMoteReading.html#a348cb45f4613499385a354fe6857ef5d" title="Accessor for microphone.">getMic</a>() &lt; min)
+<a name="l00452"></a>00452                 {
+<a name="l00453"></a>00453                     min = currentReading.<a class="code" href="classMoteReading.html#a348cb45f4613499385a354fe6857ef5d" title="Accessor for microphone.">getMic</a>();
+<a name="l00454"></a>00454                 }
+<a name="l00455"></a>00455             }
+<a name="l00456"></a>00456 
+<a name="l00457"></a>00457             <a class="code" href="classDataPlot.html#abc77f48da64170d587eda09e5aaf008c">reRange</a>();
+<a name="l00458"></a>00458         }
+<a name="l00459"></a>00459        <span class="comment">// update the display</span>
+<a name="l00460"></a>00460     replot();
+<a name="l00461"></a>00461 
+<a name="l00462"></a>00462     }
+</pre></div></p>
+
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dynsection">
@@ -657,7 +1155,7 @@ Here is the call graph for this function:</div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="data__plot_8h_source.html">data_plot.h</a></li>
-<li><a class="el" href="data__plot_8cpp.html">data_plot.cpp</a></li>
+<li><a class="el" href="data__plot_8cpp_source.html">data_plot.cpp</a></li>
 </ul>
 </div>
 <!--- window showing the filter options -->
@@ -674,7 +1172,7 @@ Here is the call graph for this function:</div>
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Apr 3 23:06:33 2010 for MoteSense by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Apr 4 19:47:33 2010 for MoteSense by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

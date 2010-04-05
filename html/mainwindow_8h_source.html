@@ -62,21 +62,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00056"></a>00056 <span class="keyword">public</span> slots:
 <a name="l00058"></a>00058     <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#a5d0ce13b14ee5fe76a4f7ed7f1de81c5" title="Updates the nodeList widget when a node is added or removed from the packet stream...">nodeChange</a>();
 <a name="l00059"></a>00059 
-<a name="l00060"></a>00060 <span class="keyword">protected</span>:
-<a name="l00062"></a>00062     <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#af4ca5d0d3d18ddcb7d54b6596bbf4797" title="Needed for Qt.">changeEvent</a>(QEvent *e);
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064 <span class="keyword">private</span>:
+<a name="l00061"></a>00061     <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#ab0f207dba0ad81324d034d29988f8fd3" title="Called when connection established with serial forwarder.">connected</a>();
+<a name="l00062"></a>00062 
+<a name="l00064"></a>00064     <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#aa4f105b7d0e0c56c5051e89710c852d6" title="Called when disconnected from the server.">disconnected</a>();
 <a name="l00065"></a>00065 
-<a name="l00066"></a>00066     Ui::MainWindow *ui;
-<a name="l00067"></a>00067     <a class="code" href="classpacketHandler.html" title="Class the serve packets to the DataPlot.">packetHandler</a> * server;
-<a name="l00068"></a>00068     QList&lt;int&gt; nodeList;
+<a name="l00066"></a>00066 <span class="keyword">protected</span>:
+<a name="l00068"></a>00068     <span class="keywordtype">void</span> <a class="code" href="classMainWindow.html#af4ca5d0d3d18ddcb7d54b6596bbf4797" title="Needed for Qt.">changeEvent</a>(QEvent *e);
 <a name="l00069"></a>00069 
-<a name="l00070"></a>00070 <span class="keyword">private</span> slots:
-<a name="l00072"></a>00072 
-<a name="l00076"></a>00076     <span class="keywordtype">void</span> on_plotButton_clicked();
-<a name="l00077"></a>00077 };
+<a name="l00070"></a>00070 <span class="keyword">private</span>:
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072     Ui::MainWindow *ui;
+<a name="l00073"></a>00073     <a class="code" href="classpacketHandler.html" title="Class the serve packets to the DataPlot.">packetHandler</a> * server;
+<a name="l00074"></a>00074     QList&lt;int&gt; nodeList;
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076 <span class="keyword">private</span> slots:
 <a name="l00078"></a>00078 
-<a name="l00079"></a>00079 <span class="preprocessor">#endif // MAINWINDOW_H</span>
+<a name="l00082"></a>00082     <span class="keywordtype">void</span> on_plotButton_clicked();
+<a name="l00083"></a>00083 };
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085 <span class="preprocessor">#endif // MAINWINDOW_H</span>
 </pre></div></div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -92,7 +96,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sat Apr 3 23:06:33 2010 for MoteSense by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Apr 4 19:47:33 2010 for MoteSense by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

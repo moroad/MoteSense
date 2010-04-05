@@ -1,7 +1,7 @@
 <map id="G" name="G">
-<area shape="rect" href="$mainwindow_8h.html" title="Main Program Window." alt="" coords="91,160,192,189"/>
-<area shape="rect" href="$graphwindow_8h.html" title="Window to display the DataPlot." alt="" coords="879,83,985,112"/>
-<area shape="rect" href="$packethandler_8h.html" title="Class to serve packets to the DataPlot class." alt="" coords="151,237,263,267"/>
-<area shape="rect" href="$motereading_8h.html" title="Class to encapsulate sensor readings." alt="" coords="1355,315,1459,344"/>
-<area shape="rect" href="$data__plot_8h.html" title="Widget to graph data." alt="" coords="951,160,1036,189"/>
+<area shape="rect" href="$mainwindow_8h.html" title="Main Program Window." alt="" coords="107,160,208,189"/>
+<area shape="rect" href="$graphwindow_8h.html" title="Window to display the DataPlot." alt="" coords="895,83,1001,112"/>
+<area shape="rect" href="$packethandler_8h.html" title="Class to serve packets to the DataPlot class." alt="" coords="167,237,279,267"/>
+<area shape="rect" href="$motereading_8h.html" title="Class to encapsulate sensor readings." alt="" coords="1371,315,1475,344"/>
+<area shape="rect" href="$data__plot_8h.html" title="Widget to graph data." alt="" coords="967,160,1052,189"/>
 </map>

@@ -29,6 +29,7 @@ DataPlot::DataPlot(QWidget *parent):
 
 
 {
+
     id = 0;
     plotAccx = plotAccy = plotMgx = plotMgy = plotTemp = plotMic = plotVl = plotIr = true;
     auto_scale = false;
@@ -68,7 +69,7 @@ DataPlot::DataPlot(QWidget *parent):
 
 
     // Assign a title
-    setTitle("Moving Graph");
+    setTitle(QString("Sensors for Node %1").arg(id));
     insertLegend(new QwtLegend(), QwtPlot::BottomLegend);
 
     // Insert new curves
@@ -90,17 +91,42 @@ DataPlot::DataPlot(QWidget *parent):
     micPlot->attach(this);
     vlPlot->attach(this);
 
+//    const QColor bgColor(30,30,50);
+//#if QT_VERSION < 0x040000
+//    setPaletteBackgroundColor(bgColor);
+//#else
+//    QPalette p = palette();
+//    p.setColor(backgroundRole(), bgColor);
+//    setPalette(p);
+//#endif
 
     //! \todo Change line thickness
     // Set curve styles
-    mgxPlot->setPen(QPen(Qt::blue));
-    mgyPlot->setPen(QPen(Qt::red));
-    AccyPlot->setPen(QPen(Qt::green));
-    AccxPlot->setPen(QPen(Qt::black));
-    tempPlot->setPen(QPen(Qt::darkBlue));
-    irPlot->setPen(QPen(Qt::darkCyan));
-    micPlot->setPen(QPen(Qt::darkMagenta));
-    vlPlot->setPen(QPen(Qt::darkRed));
+
+    QPen *pen = new QPen(Qt::darkBlue);
+    pen->setWidth(2);
+    mgxPlot->setPen(*pen);
+
+    pen->setColor(Qt::red);
+    mgyPlot->setPen(*pen);
+
+    pen->setColor(Qt::green);
+    AccyPlot->setPen(*pen);
+
+    pen->setColor(Qt::darkGray);
+    AccxPlot->setPen(*pen);
+
+    pen->setColor(Qt::yellow);
+    tempPlot->setPen(*pen);
+
+    pen->setColor(Qt::darkGreen);
+    irPlot->setPen(*pen);
+
+    pen->setColor(Qt::magenta);
+    micPlot->setPen(*pen);
+
+    pen->setColor(Qt::darkRed);
+    vlPlot->setPen(*pen);
 
     // Attach (don't copy) data. Both curves use the same x array.
     mgxPlot->setRawData(d_x, d_mgx, PLOT_SIZE);
@@ -313,7 +339,7 @@ void DataPlot::timerEvent(QTimerEvent *)
         return;
 
     // Get new reading
-    this->newReading(mySource->getReading(0));
+    this->newReading(mySource->getReading(this->id));
 
         for ( int j = 0; j < PLOT_SIZE - 1; j++ )
         {

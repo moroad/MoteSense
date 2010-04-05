@@ -14,6 +14,7 @@
 
 GraphWindow::GraphWindow()
 {
+    id = 0;
     QToolBar *toolBar = new QToolBar(this);
     toolBar->setFixedHeight(80);
 
@@ -99,6 +100,12 @@ GraphWindow::GraphWindow()
     counter->setValue(50.0);
     rangeCounter->setValue(4096.0);
     minCounter->setValue(1200);
+}
+
+void GraphWindow::setId(int i)
+{
+    id = i;
+    plot->setId(i);
 }
 
 void GraphWindow::setSource(packetHandler * p)

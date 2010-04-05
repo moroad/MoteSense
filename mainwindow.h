@@ -57,6 +57,12 @@ public slots:
     //! Updates the nodeList widget when a node is added or removed from the packet stream.
     void nodeChange();
 
+    //! Called when connection established with serial forwarder
+    void connected();
+
+    //! Called when disconnected from the server
+    void disconnected();
+
 protected:
     //! Needed for Qt
     void changeEvent(QEvent *e);

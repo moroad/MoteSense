@@ -26,9 +26,15 @@ public:
     //! Sets the data source \remarks This also sets the source for the dataplot class.
     void setSource(packetHandler * p);
 
+    //! Sets the ID of the Mote we are monitoring
+    void setId(int i);
+
 private:
     //! The dataplot
     DataPlot *plot; //!< This is the actual graphing widget >
+
+    //! Mote ID
+    int id;
 
 };
 

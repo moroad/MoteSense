@@ -54,6 +54,10 @@ Class to encapsulate mote readings.
 \end{DoxyRemark}
 
 
+Definition at line 15 of file motereading.h.
+
+
+
 \subsection{Constructor \& Destructor Documentation}
 \hypertarget{classMoteReading_ad2555254ab4fd4ce31ebafeea362d255}{
 \index{MoteReading@{MoteReading}!MoteReading@{MoteReading}}
@@ -66,6 +70,20 @@ Default constructor.
 
 \begin{Desc}
 \item[\hyperlink{todo__todo000003}{Todo}]Create copy constructor \end{Desc}
+
+
+Definition at line 10 of file motereading.cpp.
+
+
+
+
+\begin{DoxyCode}
+11 {
+12 
+13 }
+\end{DoxyCode}
+
+
 \hypertarget{classMoteReading_aea4d9a40d3999ed29eb6044146a5dabc}{
 \index{MoteReading@{MoteReading}!MoteReading@{MoteReading}}
 \index{MoteReading@{MoteReading}!MoteReading@{MoteReading}}
@@ -74,6 +92,29 @@ Default constructor.
 Constructor, takes all readings as parameters 
 \begin{DoxyParams}{Parameters}
 \item[{\em id,mgx,mgy,accx,accy,temp,ir,mic,vl}]\end{DoxyParams}
+
+
+Definition at line 16 of file motereading.cpp.
+
+
+
+
+\begin{DoxyCode}
+17  {
+18 
+19      id = m_id;
+20      mgx = m_mgx;
+21      mgy = m_mgy;
+22      accx = m_accx;
+23      accy = m_accy;
+24      temp = m_temp;
+25      ir = m_ir;
+26      mic = m_mic;
+27      vl = m_vl;
+28  }
+\end{DoxyCode}
+
+
 
 
 \subsection{Member Function Documentation}
@@ -89,6 +130,18 @@ Accessor for acclerometer x.
 \begin{DoxyReturn}{Returns}
 accx 
 \end{DoxyReturn}
+
+
+Definition at line 48 of file motereading.h.
+
+
+
+
+\begin{DoxyCode}
+48 { return accx; }
+\end{DoxyCode}
+
+
 
 
 Here is the caller graph for this function:\nopagebreak
@@ -114,6 +167,18 @@ mgy
 \end{DoxyReturn}
 
 
+Definition at line 43 of file motereading.h.
+
+
+
+
+\begin{DoxyCode}
+43 { return accy; }
+\end{DoxyCode}
+
+
+
+
 Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -135,6 +200,18 @@ Accessor for id.
 \begin{DoxyReturn}{Returns}
 id 
 \end{DoxyReturn}
+
+
+Definition at line 28 of file motereading.h.
+
+
+
+
+\begin{DoxyCode}
+28 { return id; }
+\end{DoxyCode}
+
+
 \hypertarget{classMoteReading_aff0d87f9c667d01f7e37a114afa321fa}{
 \index{MoteReading@{MoteReading}!getIr@{getIr}}
 \index{getIr@{getIr}!MoteReading@{MoteReading}}
@@ -147,6 +224,18 @@ Accessor for infrared.
 \begin{DoxyReturn}{Returns}
 ir 
 \end{DoxyReturn}
+
+
+Definition at line 58 of file motereading.h.
+
+
+
+
+\begin{DoxyCode}
+58 { return ir; }
+\end{DoxyCode}
+
+
 
 
 Here is the caller graph for this function:\nopagebreak
@@ -172,6 +261,18 @@ mgx
 \end{DoxyReturn}
 
 
+Definition at line 33 of file motereading.h.
+
+
+
+
+\begin{DoxyCode}
+33 { return mgx; }
+\end{DoxyCode}
+
+
+
+
 Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -193,6 +294,18 @@ Accessor for magnetometer y.
 \begin{DoxyReturn}{Returns}
 mgy 
 \end{DoxyReturn}
+
+
+Definition at line 38 of file motereading.h.
+
+
+
+
+\begin{DoxyCode}
+38 { return mgy; }
+\end{DoxyCode}
+
+
 
 
 Here is the caller graph for this function:\nopagebreak
@@ -218,6 +331,18 @@ mic
 \end{DoxyReturn}
 
 
+Definition at line 63 of file motereading.h.
+
+
+
+
+\begin{DoxyCode}
+63 { return mic; }
+\end{DoxyCode}
+
+
+
+
 Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -239,6 +364,18 @@ Accessor for temperature.
 \begin{DoxyReturn}{Returns}
 temp 
 \end{DoxyReturn}
+
+
+Definition at line 53 of file motereading.h.
+
+
+
+
+\begin{DoxyCode}
+53 { return temp; }
+\end{DoxyCode}
+
+
 
 
 Here is the caller graph for this function:\nopagebreak
@@ -264,6 +401,18 @@ int visual\_\-light
 \end{DoxyReturn}
 
 
+Definition at line 68 of file motereading.h.
+
+
+
+
+\begin{DoxyCode}
+68 { return vl; }
+\end{DoxyCode}
+
+
+
+
 Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -285,6 +434,18 @@ Mutator for id.
 
 \begin{DoxyParams}{Parameters}
 \item[{\em i}]\end{DoxyParams}
+
+
+Definition at line 73 of file motereading.h.
+
+
+
+
+\begin{DoxyCode}
+73 { id = i; }
+\end{DoxyCode}
+
+
 \hypertarget{classMoteReading_a5e60715c001c14f3e3f4cff6f886f0ad}{
 \index{MoteReading@{MoteReading}!toString@{toString}}
 \index{toString@{toString}!MoteReading@{MoteReading}}
@@ -297,6 +458,19 @@ Accessor for string representation of reading.
 \begin{DoxyReturn}{Returns}
 QString 
 \end{DoxyReturn}
+
+
+Definition at line 78 of file motereading.h.
+
+
+
+
+\begin{DoxyCode}
+78 { return QString("%1 %2 %2 %4 %5 %6 %7 %8").arg(mgx).arg(mgy).arg(accx).arg(accy)
+      .arg(temp).arg(ir).arg(mic).arg(vl); }
+\end{DoxyCode}
+
+
 
 
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
