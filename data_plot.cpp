@@ -11,6 +11,7 @@
 #include <qwt_scale_widget.h>
 #include <qwt_legend.h>
 #include <qwt_scale_draw.h>
+#include <qwt_curve_fitter.h>
 #include <qwt_math.h>
 #include "data_plot.h"
 #include "packethandler.h"
@@ -33,6 +34,8 @@ DataPlot::DataPlot(QWidget *parent):
     id = 0;
     plotAccx = plotAccy = plotMgx = plotMgy = plotTemp = plotMic = plotVl = plotIr = true;
     auto_scale = false;
+    filter = new dataFilter();
+
     for(int i = 0; i < 8; i++)
         attached[i] = true;
     // Disable polygon clipping
@@ -59,6 +62,7 @@ DataPlot::DataPlot(QWidget *parent):
     {
         d_x[i] = 0.5 * i;     // time axis
         d_mgx[i] = 0;
+        d_fmgx[i] = 0;
         d_mgy[i] = 0;
         d_accx[i] = 0;
         d_accy[i] = 0;
@@ -74,6 +78,7 @@ DataPlot::DataPlot(QWidget *parent):
 
     // Insert new curves
     mgxPlot = new QwtPlotCurve("MGx");
+    mgxFilteredPlot = new QwtPlotCurve("Filtered MGx");
     mgyPlot = new QwtPlotCurve("MGy");
     AccyPlot = new QwtPlotCurve("ACCy");
     AccxPlot = new QwtPlotCurve("ACCx");
@@ -85,20 +90,21 @@ DataPlot::DataPlot(QWidget *parent):
     AccyPlot->attach(this);
     AccxPlot->attach(this);
     mgxPlot->attach(this);
+    //mgxFilteredPlot->attach(this);
     mgyPlot->attach(this);
     tempPlot->attach(this);
     irPlot->attach(this);
     micPlot->attach(this);
     vlPlot->attach(this);
 
-//    const QColor bgColor(30,30,50);
-//#if QT_VERSION < 0x040000
-//    setPaletteBackgroundColor(bgColor);
-//#else
-//    QPalette p = palette();
-//    p.setColor(backgroundRole(), bgColor);
-//    setPalette(p);
-//#endif
+    const QColor bgColor(255,255,255);
+#if QT_VERSION < 0x040000
+    setPaletteBackgroundColor(bgColor);
+#else
+    QPalette p = palette();
+    p.setColor(backgroundRole(), bgColor);
+    setPalette(p);
+#endif
 
     //! \todo Change line thickness
     // Set curve styles
@@ -107,29 +113,44 @@ DataPlot::DataPlot(QWidget *parent):
     pen->setWidth(2);
     mgxPlot->setPen(*pen);
 
+    QwtSplineCurveFitter *f = new QwtSplineCurveFitter();
+    f->setFitMode(QwtSplineCurveFitter::Spline);
+    mgxPlot->setCurveFitter(f);
+
+    pen->setColor(Qt::darkMagenta);
+    mgxFilteredPlot->setPen(*pen);
+
     pen->setColor(Qt::red);
     mgyPlot->setPen(*pen);
+    mgyPlot->setCurveFitter(f);
 
     pen->setColor(Qt::green);
     AccyPlot->setPen(*pen);
+    AccyPlot->setCurveFitter(f);
 
     pen->setColor(Qt::darkGray);
     AccxPlot->setPen(*pen);
+    AccxPlot->setCurveFitter(f);
 
     pen->setColor(Qt::yellow);
     tempPlot->setPen(*pen);
+    tempPlot->setCurveFitter(f);
 
     pen->setColor(Qt::darkGreen);
     irPlot->setPen(*pen);
+    irPlot->setCurveFitter(f);
 
     pen->setColor(Qt::magenta);
     micPlot->setPen(*pen);
+    micPlot->setCurveFitter(f);
 
     pen->setColor(Qt::darkRed);
     vlPlot->setPen(*pen);
+    vlPlot->setCurveFitter(f);
 
     // Attach (don't copy) data. Both curves use the same x array.
     mgxPlot->setRawData(d_x, d_mgx, PLOT_SIZE);
+    mgxFilteredPlot->setRawData(d_x, d_fmgx, PLOT_SIZE);
     mgyPlot->setRawData(d_x, d_mgy, PLOT_SIZE);
     AccyPlot->setRawData(d_x, d_accy, PLOT_SIZE);
     AccxPlot->setRawData(d_x, d_accx, PLOT_SIZE);
@@ -344,6 +365,7 @@ void DataPlot::timerEvent(QTimerEvent *)
         for ( int j = 0; j < PLOT_SIZE - 1; j++ )
         {
             d_mgx[j] = d_mgx[j+1];
+            d_fmgx[j] = d_fmgx[j+1];
             d_mgy[j] = d_mgy[j+1];
             d_accx[j] = d_accx[j+1];
             d_accy[j] = d_accy[j+1];
@@ -354,6 +376,7 @@ void DataPlot::timerEvent(QTimerEvent *)
         }
 
         d_mgx[PLOT_SIZE -1] = currentReading.getMgx();
+        d_fmgx[PLOT_SIZE -1] = filter->getFilteredData(currentReading.getSeq(),(double) currentReading.getMgx());
         d_mgy[PLOT_SIZE -1] = currentReading.getMgy();
         d_accx[PLOT_SIZE -1] = currentReading.getAccx();
         d_accy[PLOT_SIZE -1] = currentReading.getAccy();

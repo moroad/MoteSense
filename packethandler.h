@@ -63,7 +63,7 @@ private:
     QList<int> motes;
 
 
-    int mgx, mgy, accx, accy, temp, ir, vl, mic;
+    int mgx, mgy, accx, accy, temp, ir, vl, mic, seq;
     unsigned long count;
 };
 

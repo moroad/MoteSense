@@ -10,12 +10,14 @@ SOURCES += main.cpp \
     packethandler.cpp \
     motereading.cpp \
     data_plot.cpp \
-    graphwindow.cpp
+    graphwindow.cpp \
+    datafilter.cpp
 HEADERS += mainwindow.h \
     packethandler.h \
     motereading.h \
     data_plot.h \
-    graphwindow.h
+    graphwindow.h \
+    datafilter.h
 FORMS += mainwindow.ui
 INCLUDEPATH += /usr/local/qwt-5.2.0/include/
 LIBS += /usr/local/qwt-5.2.0/lib/libqwt.so.5.2.0

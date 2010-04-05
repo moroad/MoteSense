@@ -20,7 +20,7 @@ public:
     /*! Constructor, takes all readings as parameters
       * \param id, mgx, mgy, accx, accy, temp, ir, mic, vl
       */
-    MoteReading(int id, int mgx, int mgy, int accx, int accy, int temp, int ir, int mic, int vl);
+    MoteReading(int id, int mgx, int mgy, int accx, int accy, int temp, int ir, int mic, int vl, int seq);
 
     /*! \brief Accessor for id
      * \returns id
@@ -67,6 +67,11 @@ public:
      */
     int getVl(){ return vl; }
 
+    /*! \brief Accessor for sequence number
+      * \returns int seq
+      */
+    int getSeq(){ return seq; }
+
     /*! \brief Mutator for id
      * \param i
      */
@@ -89,6 +94,7 @@ private:
     int ir;
     int mic;
     int vl;
+    int seq;
 };
 
 #endif // MOTEREADING_H

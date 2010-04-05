@@ -20,6 +20,7 @@
 #include <qwt_math.h>
 #include "packethandler.h"
 #include "motereading.h"
+#include "datafilter.h"
 
 //! Size of the plot
 const int PLOT_SIZE = 201;
@@ -135,6 +136,9 @@ private:
     //! Magnetometer x
     double d_mgx[PLOT_SIZE];
 
+    //! Filtered Magnetometer x
+    double d_fmgx[PLOT_SIZE];
+
     //! Magnetometer y
     double d_mgy[PLOT_SIZE];
 
@@ -175,6 +179,7 @@ private:
     bool auto_scale;
 
     QwtPlotCurve *mgxPlot;
+    QwtPlotCurve *mgxFilteredPlot;
     QwtPlotCurve *mgyPlot;
     QwtPlotCurve *AccyPlot;
     QwtPlotCurve *AccxPlot;
@@ -183,7 +188,9 @@ private:
     QwtPlotCurve *micPlot;
     QwtPlotCurve *vlPlot;
 
+    //! The state of each graph (attached or not)
     bool attached[8];
+    dataFilter *filter;
 };
 
 #endif

@@ -13,7 +13,7 @@ MoteReading::MoteReading()
 }
 
 
-MoteReading::MoteReading(int m_id, int m_mgx, int m_mgy, int m_accx, int m_accy, int m_temp, int m_ir, int m_mic, int m_vl)
+MoteReading::MoteReading(int m_id, int m_mgx, int m_mgy, int m_accx, int m_accy, int m_temp, int m_ir, int m_mic, int m_vl, int s)
  {
 
      id = m_id;
@@ -25,4 +25,5 @@ MoteReading::MoteReading(int m_id, int m_mgx, int m_mgy, int m_accx, int m_accy,
      ir = m_ir;
      mic = m_mic;
      vl = m_vl;
+     seq = s;
  }

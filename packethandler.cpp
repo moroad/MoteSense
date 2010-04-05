@@ -45,7 +45,7 @@ MoteReading packetHandler::getReading(int i)
 {
         if(ringBuffer.count() > 0 && ringBuffer[i].count() < 0)
     {
-        MoteReading *r = new MoteReading(0,0,0,0,0,0,0,0,0);
+        MoteReading *r = new MoteReading(0,0,0,0,0,0,0,0,0,0);
         return *r;
     }
     else
@@ -135,7 +135,9 @@ void packetHandler::dataReady()
       mic = mic << 8;
       mic ^= ((uint16_t) (bytes[14] & 0xff));
 
-      MoteReading *tempReading = new MoteReading(id, mgx, mgy, accx, accy, temp, ir, mic, vl);
+      seq = ((uint16_t) bytes[12]);
+
+      MoteReading *tempReading = new MoteReading(id, mgx, mgy, accx, accy, temp, ir, mic, vl, seq);
 
       //! \remarks Up to MAX_BUFFER packets are stored in a ringBuffer for each mote.
       // Added the first case for input validation
