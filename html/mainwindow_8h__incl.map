@@ -1,4 +1,4 @@
 <map id="G" name="G">
-<area shape="rect" href="$packethandler_8h.html" title="Class to serve packets to the DataPlot class." alt="" coords="184,83,296,112"/>
-<area shape="rect" href="$motereading_8h.html" title="Class to encapsulate sensor readings." alt="" coords="440,160,544,189"/>
+<area shape="rect" href="$packethandler_8h.html" title="Class to serve packets to the DataPlot class." alt="" coords="373,83,485,112"/>
+<area shape="rect" href="$motereading_8h.html" title="Class to encapsulate sensor readings." alt="" coords="933,160,1037,189"/>
 </map>

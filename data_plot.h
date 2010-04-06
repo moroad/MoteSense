@@ -42,7 +42,7 @@ public:
      *  \param i
      *  \return void
      */
-    void setId(int i) { id = i; }
+    void setId(int i) { id = i; setTitle(QString("Sensors for Node %1").arg(id)); }
 
     /*! Mutator for packetHander
      *  Use this to set the packetHandler (server) for this plot

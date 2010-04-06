@@ -48,9 +48,11 @@ void MainWindow::nodeChange()
     nodeList = server->getNodeList();
 
     // Update user list
+    ui->nodeList->clear();
     for(int i = 0; i < nodeList.count(); i++)
     {
-        qDebug() << "Adding " << nodeList[i] << " to list.";
+        //qDebug() << "Adding " << nodeList[i] << " to list.";
+
         ui->nodeList->addItem(QString("%1").arg(nodeList[i]));
     }
 }

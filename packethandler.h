@@ -28,6 +28,9 @@ public:
     //! Default constructor
     packetHandler();
 
+    //! Destructor
+    ~packetHandler();
+
     /*! Function to return the list of nodes from which we have received packets.
       * \returns QList<int>
       */

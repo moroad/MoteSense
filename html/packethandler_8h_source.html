@@ -46,51 +46,63 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00002"></a>00002 
 <a name="l00008"></a>00008 <span class="preprocessor">#ifndef PACKETHANDLER_H</span>
 <a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define PACKETHANDLER_H</span>
-<a name="l00010"></a>00010 <span class="preprocessor"></span><span class="preprocessor">#include &lt;QTcpSocket&gt;</span>
-<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;QHostAddress&gt;</span>
-<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;QList&gt;</span>
-<a name="l00013"></a>00013 <span class="preprocessor">#include &quot;<a class="code" href="motereading_8h.html" title="Class to encapsulate sensor readings.">motereading.h</a>&quot;</span>
-<a name="l00014"></a>00014 
-<a name="l00016"></a><a class="code" href="packethandler_8h.html#a1d5dab30b404fab91608086105afc78c">00016</a> <span class="preprocessor">#define MAX_BUFFER 1</span>
-<a name="l00017"></a>00017 <span class="preprocessor"></span>
-<a name="l00019"></a><a class="code" href="classpacketHandler.html">00019</a> <span class="keyword">class </span><a class="code" href="classpacketHandler.html" title="Class the serve packets to the DataPlot.">packetHandler</a> : <span class="keyword">public</span> QObject
-<a name="l00020"></a>00020 { Q_OBJECT
-<a name="l00021"></a>00021 
-<a name="l00022"></a>00022 <span class="keyword">public</span>:
-<a name="l00024"></a>00024     <a class="code" href="classpacketHandler.html#a02936b9105618ed38701274efcfa0dfb" title="Default constructor.">packetHandler</a>();
-<a name="l00025"></a>00025 
-<a name="l00029"></a>00029     QList&lt;int&gt; <a class="code" href="classpacketHandler.html#a7d07166d577b014234ad311599ac3291">getNodeList</a>();
+<a name="l00010"></a>00010 <span class="preprocessor"></span><span class="preprocessor">#include &lt;QMessageBox&gt;</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;QSqlDatabase&gt;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;QSqlError&gt;</span>
+<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;QSqlQuery&gt;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#include &lt;QSqlTableModel&gt;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &lt;QTcpSocket&gt;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &lt;QHostAddress&gt;</span>
+<a name="l00017"></a>00017 <span class="preprocessor">#include &lt;QList&gt;</span>
+<a name="l00018"></a>00018 <span class="preprocessor">#include &quot;<a class="code" href="motereading_8h.html" title="Class to encapsulate sensor readings.">motereading.h</a>&quot;</span>
+<a name="l00019"></a>00019 
+<a name="l00021"></a><a class="code" href="packethandler_8h.html#a1d5dab30b404fab91608086105afc78c">00021</a> <span class="preprocessor">#define MAX_BUFFER 1</span>
+<a name="l00022"></a>00022 <span class="preprocessor"></span>
+<a name="l00024"></a><a class="code" href="classpacketHandler.html">00024</a> <span class="keyword">class </span><a class="code" href="classpacketHandler.html" title="Class the serve packets to the DataPlot.">packetHandler</a> : <span class="keyword">public</span> QObject
+<a name="l00025"></a>00025 { Q_OBJECT
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027 <span class="keyword">public</span>:
+<a name="l00029"></a>00029     <a class="code" href="classpacketHandler.html#a02936b9105618ed38701274efcfa0dfb" title="Default constructor.">packetHandler</a>();
 <a name="l00030"></a>00030 
-<a name="l00035"></a>00035     <a class="code" href="classMoteReading.html" title="Class to encapsulate a sensor reading.">MoteReading</a> <a class="code" href="classpacketHandler.html#aec6fa94602daa18227491b76001152cb">getReading</a>(<span class="keywordtype">int</span> i);
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037 signals:
-<a name="l00039"></a>00039     <span class="keywordtype">void</span> <a class="code" href="classpacketHandler.html#a0e8f4d081f531b5e568c052f5b8babb9" title="Signal emitted when a new node is detected.">nodesChanged</a>();
-<a name="l00040"></a>00040 
-<a name="l00042"></a>00042     <span class="keywordtype">void</span> <a class="code" href="classpacketHandler.html#a033895b001ec68791c5d0872df03e626" title="Signal emitted when disconnected from the serial forwarder.">disconnectNotice</a>();
-<a name="l00043"></a>00043 
-<a name="l00045"></a>00045     <span class="keywordtype">void</span> <a class="code" href="classpacketHandler.html#ad3e95ebbb80274b826502fb84f8f100b" title="Signal emitted when connected to the serial forwarder.">sFconnected</a>();
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047 <span class="keyword">public</span> slots:
-<a name="l00049"></a>00049     <span class="keywordtype">void</span> <a class="code" href="classpacketHandler.html#ab1a61d0c1deef1885e31b9a6aebdcc2f" title="Slot for when a connection is established. This also initializes communication with...">connected</a>();
+<a name="l00032"></a>00032     <a class="code" href="classpacketHandler.html#ad3c118caa3c1f8ace95c67af0843f01b" title="Destructor.">~packetHandler</a>();
+<a name="l00033"></a>00033 
+<a name="l00037"></a>00037     QList&lt;int&gt; <a class="code" href="classpacketHandler.html#a7d07166d577b014234ad311599ac3291">getNodeList</a>();
+<a name="l00038"></a>00038 
+<a name="l00043"></a>00043     <a class="code" href="classMoteReading.html" title="Class to encapsulate a sensor reading.">MoteReading</a> <a class="code" href="classpacketHandler.html#aec6fa94602daa18227491b76001152cb">getReading</a>(<span class="keywordtype">int</span> i);
+<a name="l00044"></a>00044 
+<a name="l00049"></a>00049     <span class="keywordtype">bool</span> <a class="code" href="classpacketHandler.html#a9366836a2e226a3193bea82dcbe80b5d">connectToDatabase</a>();
 <a name="l00050"></a>00050 
-<a name="l00052"></a>00052     <span class="keywordtype">void</span> <a class="code" href="classpacketHandler.html#a43223a8930a6af8c40c5889d8e4b9d4b" title="Slot for when we are disconnected from the serial forwarder.">disconnected</a>();
-<a name="l00053"></a>00053 
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056     <span class="keywordtype">void</span> <a class="code" href="classpacketHandler.html#a9085a61a51eccc7acb240a7b68601686" title="Slot for when there is new data ready from the serial forwarder.">dataReady</a>();
+<a name="l00051"></a>00051 signals:
+<a name="l00053"></a>00053     <span class="keywordtype">void</span> <a class="code" href="classpacketHandler.html#a0e8f4d081f531b5e568c052f5b8babb9" title="Signal emitted when a new node is detected.">nodesChanged</a>();
+<a name="l00054"></a>00054 
+<a name="l00056"></a>00056     <span class="keywordtype">void</span> <a class="code" href="classpacketHandler.html#a033895b001ec68791c5d0872df03e626" title="Signal emitted when disconnected from the serial forwarder.">disconnectNotice</a>();
 <a name="l00057"></a>00057 
-<a name="l00058"></a>00058 <span class="keyword">private</span>:
-<a name="l00059"></a>00059     QTcpSocket * source;
-<a name="l00060"></a>00060     QList&lt; QList&lt;MoteReading&gt; &gt; ringBuffer;
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062     QList&lt;int&gt; ringIndex;
-<a name="l00063"></a>00063     QList&lt;int&gt; motes;
+<a name="l00059"></a>00059     <span class="keywordtype">void</span> <a class="code" href="classpacketHandler.html#ad3e95ebbb80274b826502fb84f8f100b" title="Signal emitted when connected to the serial forwarder.">sFconnected</a>();
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061 <span class="keyword">public</span> slots:
+<a name="l00063"></a>00063     <span class="keywordtype">void</span> <a class="code" href="classpacketHandler.html#ab1a61d0c1deef1885e31b9a6aebdcc2f" title="Slot for when a connection is established. This also initializes communication with...">connected</a>();
 <a name="l00064"></a>00064 
-<a name="l00065"></a>00065 
-<a name="l00066"></a>00066     <span class="keywordtype">int</span> mgx, mgy, accx, accy, temp, ir, vl, mic;
-<a name="l00067"></a>00067     <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> count;
-<a name="l00068"></a>00068 };
+<a name="l00066"></a>00066     <span class="keywordtype">void</span> <a class="code" href="classpacketHandler.html#a43223a8930a6af8c40c5889d8e4b9d4b" title="Slot for when we are disconnected from the serial forwarder.">disconnected</a>();
+<a name="l00067"></a>00067 
 <a name="l00069"></a>00069 
-<a name="l00070"></a>00070 <span class="preprocessor">#endif // PACKETHANDLER_H</span>
+<a name="l00070"></a>00070     <span class="keywordtype">void</span> <a class="code" href="classpacketHandler.html#a9085a61a51eccc7acb240a7b68601686" title="Slot for when there is new data ready from the serial forwarder.">dataReady</a>();
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072 <span class="keyword">private</span>:
+<a name="l00073"></a>00073     QTcpSocket * source;
+<a name="l00074"></a>00074     QList&lt; QList&lt;MoteReading&gt; &gt; ringBuffer;
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076     QList&lt;int&gt; ringIndex;
+<a name="l00077"></a>00077     QList&lt;int&gt; motes;
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080     <span class="keywordtype">int</span> mgx, mgy, accx, accy, temp, ir, vl, mic, seq;
+<a name="l00081"></a>00081     <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> count;
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083     QSqlDatabase db;
+<a name="l00084"></a>00084     QSqlTableModel model;
+<a name="l00085"></a>00085 };
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087 <span class="preprocessor">#endif // PACKETHANDLER_H</span>
 </pre></div></div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -106,7 +118,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Apr 4 19:47:33 2010 for MoteSense by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Apr 5 21:43:39 2010 for MoteSense by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

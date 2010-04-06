@@ -79,7 +79,6 @@
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList">
     <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-tXjuU0GY76,guid=3f1f07817fbc1e30014490dc4bb92b90</value>
-    <value type="QString">DESKTOP_AUTOSTART_ID=10b634f486a8426873127032722120913000000020720130</value>
     <value type="QString">DESKTOP_SESSION=gnome</value>
     <value type="QString">DISPLAY=:0.0</value>
     <value type="QString">GDMSESSION=gnome</value>
@@ -92,6 +91,7 @@
     <value type="QString">GTK_RC_FILES=/etc/gtk/gtkrc:/home/jlafon/.gtkrc-1.2-gnome2</value>
     <value type="QString">HOME=/home/jlafon</value>
     <value type="QString">LANG=en_US.UTF-8</value>
+    <value type="QString">LD_LIBRARY_PATH=/home/jlafon/qtsdk-2010.02/lib/qtcreator:</value>
     <value type="QString">LIBGL_DRIVERS_PATH=/usr/lib/dri:/usr/lib32/dri</value>
     <value type="QString">LOGNAME=jlafon</value>
     <value type="QString">ORBIT_SOCKETDIR=/tmp/orbit-jlafon</value>
@@ -110,7 +110,7 @@
     <value type="QString">XDG_SESSION_COOKIE=c1f01b869a2b11e338f32d0c4b7bfd18-1270426512.260797-202720106</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList">
-    <value type="QString">/home/jlafon/workspace/qwt-5.2.0/examples/data_plot/MoteSense/MoteSense.pro</value>
+    <value type="QString">/home/jlafon/MoteSense/MoteSense.pro</value>
     <value type="QString">-spec</value>
     <value type="QString">linux-g++-64</value>
     <value type="QString">-r</value>
@@ -118,7 +118,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString">/home/jlafon/qtsdk-2010.02/qt/bin/qmake</value>
    <value key="abstractProcess.enabled" type="bool">false</value>
-   <value key="abstractProcess.workingDirectory" type="QString">/home/jlafon/workspace/qwt-5.2.0/examples/data_plot/MoteSense</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/home/jlafon/MoteSense</value>
   </valuemap>
  </data>
  <data>
@@ -127,7 +127,6 @@
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList">
     <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-tXjuU0GY76,guid=3f1f07817fbc1e30014490dc4bb92b90</value>
-    <value type="QString">DESKTOP_AUTOSTART_ID=10b634f486a8426873127032722120913000000020720130</value>
     <value type="QString">DESKTOP_SESSION=gnome</value>
     <value type="QString">DISPLAY=:0.0</value>
     <value type="QString">GDMSESSION=gnome</value>
@@ -140,6 +139,7 @@
     <value type="QString">GTK_RC_FILES=/etc/gtk/gtkrc:/home/jlafon/.gtkrc-1.2-gnome2</value>
     <value type="QString">HOME=/home/jlafon</value>
     <value type="QString">LANG=en_US.UTF-8</value>
+    <value type="QString">LD_LIBRARY_PATH=/home/jlafon/qtsdk-2010.02/lib/qtcreator:</value>
     <value type="QString">LIBGL_DRIVERS_PATH=/usr/lib/dri:/usr/lib32/dri</value>
     <value type="QString">LOGNAME=jlafon</value>
     <value type="QString">ORBIT_SOCKETDIR=/tmp/orbit-jlafon</value>
@@ -163,7 +163,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString">/usr/bin/make</value>
    <value key="abstractProcess.enabled" type="bool">true</value>
-   <value key="abstractProcess.workingDirectory" type="QString">/home/jlafon/workspace/qwt-5.2.0/examples/data_plot/MoteSense</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/home/jlafon/MoteSense</value>
   </valuemap>
  </data>
  <data>

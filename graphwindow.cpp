@@ -16,6 +16,8 @@ GraphWindow::GraphWindow()
 {
     id = 0;
     QToolBar *toolBar = new QToolBar(this);
+    QToolBar *lowerToolBar = new QToolBar(this);
+    lowerToolBar->setFixedHeight(80);
     toolBar->setFixedHeight(80);
 
 #if QT_VERSION < 0x040000
@@ -23,26 +25,28 @@ GraphWindow::GraphWindow()
     setRightJustification(true);
 #else
     toolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
+    lowerToolBar->setAllowedAreas(Qt::BottomToolBarArea);
 #endif
     QWidget *hBox = new QWidget(toolBar);
-    QLabel *label = new QLabel("Timer Interval", hBox);
+    QWidget *lowerBox = new QWidget(lowerToolBar);
+    QLabel *label = new QLabel("Frequency", hBox);
     QLabel *clabel = new QLabel("Range Max", hBox);
     QLabel *mlabel = new QLabel("Range Min", hBox);
-
 
 
     QwtCounter *counter = new QwtCounter(hBox);
     QwtCounter *rangeCounter = new QwtCounter(hBox);
     QwtCounter *minCounter = new QwtCounter(hBox);
-    QPushButton *mgxButton = new QPushButton("MG&x", this);
-    QPushButton *mgyButton = new QPushButton("MG&y", this);
-    QPushButton *accxButton = new QPushButton("Accx", this);
-    QPushButton *accyButton = new QPushButton("Accy", this);
-    QPushButton *vlButton = new QPushButton("&Vl", this);
-    QPushButton *micButton = new QPushButton("&Mic", this);
-    QPushButton *irButton = new QPushButton("&Ir", this);
-    QPushButton *tempButton = new QPushButton("&Temp", this);
-    QPushButton *scaleButton = new QPushButton("&Autoscale", this);
+    QPushButton *scaleButton = new QPushButton("&Autoscale", hBox);
+    QPushButton *mgxButton = new QPushButton("MG&x", lowerBox);
+    QPushButton *mgyButton = new QPushButton("MG&y", lowerBox);
+    QPushButton *accxButton = new QPushButton("Accx", lowerBox);
+    QPushButton *accyButton = new QPushButton("Accy", lowerBox);
+    QPushButton *vlButton = new QPushButton("&Vl", lowerBox);
+    QPushButton *micButton = new QPushButton("&Mic", lowerBox);
+    QPushButton *irButton = new QPushButton("&Ir", lowerBox);
+    QPushButton *tempButton = new QPushButton("&Temp", lowerBox);
+
 
 
 
@@ -59,27 +63,36 @@ GraphWindow::GraphWindow()
     layout->addWidget(rangeCounter);
     layout->addWidget(mlabel);
     layout->addWidget(minCounter);
-    layout->addWidget(mgxButton);
-    layout->addWidget(mgyButton);
-    layout->addWidget(accxButton);
-    layout->addWidget(accyButton);
-    layout->addWidget(micButton);
-    layout->addWidget(irButton);
-    layout->addWidget(vlButton);
-    layout->addWidget(tempButton);
     layout->addWidget(scaleButton);
+
+    QHBoxLayout *lowerLayout = new QHBoxLayout(lowerBox);
+    
+    lowerLayout->addWidget(mgxButton);
+    lowerLayout->addWidget(mgyButton);
+    lowerLayout->addWidget(accxButton);
+    lowerLayout->addWidget(accyButton);
+    lowerLayout->addWidget(micButton);
+    lowerLayout->addWidget(irButton);
+    lowerLayout->addWidget(vlButton);
+    lowerLayout->addWidget(tempButton);
 
 
   //  layout->addWidget(new QWidget(hBox), 10); // spacer);
 
 #if QT_VERSION >= 0x040000
     toolBar->addWidget(hBox);
-#endif
+    lowerToolBar->addWidget(lowerBox);
+  #endif
     addToolBar(toolBar);
+    
 
     // Instantiates the plot, this being the parent widget
     plot = new DataPlot(this);
     setCentralWidget(plot);
+    addToolBarBreak(Qt::TopToolBarArea);
+    addToolBar(lowerToolBar);
+    
+
 
    // Connect signals
     connect(counter, SIGNAL(valueChanged(double)),

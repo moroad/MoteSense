@@ -54,7 +54,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00016"></a>00016 {
 <a name="l00017"></a>00017 <span class="keyword">public</span>:
 <a name="l00019"></a>00019     <a class="code" href="classMoteReading.html#ad2555254ab4fd4ce31ebafeea362d255" title="Default constructor.">MoteReading</a>();
-<a name="l00023"></a>00023     <a class="code" href="classMoteReading.html#ad2555254ab4fd4ce31ebafeea362d255" title="Default constructor.">MoteReading</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">int</span> mgx, <span class="keywordtype">int</span> mgy, <span class="keywordtype">int</span> accx, <span class="keywordtype">int</span> accy, <span class="keywordtype">int</span> temp, <span class="keywordtype">int</span> ir, <span class="keywordtype">int</span> mic, <span class="keywordtype">int</span> vl);
+<a name="l00023"></a>00023     <a class="code" href="classMoteReading.html#ad2555254ab4fd4ce31ebafeea362d255" title="Default constructor.">MoteReading</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">int</span> mgx, <span class="keywordtype">int</span> mgy, <span class="keywordtype">int</span> accx, <span class="keywordtype">int</span> accy, <span class="keywordtype">int</span> temp, <span class="keywordtype">int</span> ir, <span class="keywordtype">int</span> mic, <span class="keywordtype">int</span> vl, <span class="keywordtype">int</span> seq);
 <a name="l00024"></a>00024 
 <a name="l00028"></a><a class="code" href="classMoteReading.html#a123a08348d6a1ba80a4055cb5f5afaa6">00028</a>     <span class="keywordtype">int</span> <a class="code" href="classMoteReading.html#a123a08348d6a1ba80a4055cb5f5afaa6" title="Accessor for id.">getId</a>(){ <span class="keywordflow">return</span> id; }
 <a name="l00029"></a>00029 
@@ -74,24 +74,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00064"></a>00064 
 <a name="l00068"></a><a class="code" href="classMoteReading.html#a88ed6ea245c7af79e38ff8976f849f36">00068</a>     <span class="keywordtype">int</span> <a class="code" href="classMoteReading.html#a88ed6ea245c7af79e38ff8976f849f36" title="Accessor for visual light.">getVl</a>(){ <span class="keywordflow">return</span> vl; }
 <a name="l00069"></a>00069 
-<a name="l00073"></a><a class="code" href="classMoteReading.html#a61f08f015a9f833ff7352c378b7799c2">00073</a>     <span class="keywordtype">void</span> <a class="code" href="classMoteReading.html#a61f08f015a9f833ff7352c378b7799c2" title="Mutator for id.">setId</a>(<span class="keywordtype">int</span> i){ <span class="keywordtype">id</span> = i; }
+<a name="l00073"></a><a class="code" href="classMoteReading.html#a7164d52474f2541952d44926cc79671d">00073</a>     <span class="keywordtype">int</span> <a class="code" href="classMoteReading.html#a7164d52474f2541952d44926cc79671d" title="Accessor for sequence number.">getSeq</a>(){ <span class="keywordflow">return</span> seq; }
 <a name="l00074"></a>00074 
-<a name="l00078"></a><a class="code" href="classMoteReading.html#a5e60715c001c14f3e3f4cff6f886f0ad">00078</a>     QString <a class="code" href="classMoteReading.html#a5e60715c001c14f3e3f4cff6f886f0ad" title="Accessor for string representation of reading.">toString</a>(){ <span class="keywordflow">return</span> QString(<span class="stringliteral">&quot;%1 %2 %2 %4 %5 %6 %7 %8&quot;</span>).arg(mgx).arg(mgy).arg(accx).arg(accy).arg(temp).arg(ir).arg(mic).arg(vl); }
+<a name="l00078"></a><a class="code" href="classMoteReading.html#a61f08f015a9f833ff7352c378b7799c2">00078</a>     <span class="keywordtype">void</span> <a class="code" href="classMoteReading.html#a61f08f015a9f833ff7352c378b7799c2" title="Mutator for id.">setId</a>(<span class="keywordtype">int</span> i){ <span class="keywordtype">id</span> = i; }
 <a name="l00079"></a>00079 
-<a name="l00080"></a>00080 <span class="keyword">private</span>:
-<a name="l00081"></a>00081 
-<a name="l00083"></a>00083     <span class="keywordtype">int</span> id;
-<a name="l00084"></a>00084     <span class="keywordtype">int</span> mgx;
-<a name="l00085"></a>00085     <span class="keywordtype">int</span> mgy;
-<a name="l00086"></a>00086     <span class="keywordtype">int</span> accx;
-<a name="l00087"></a>00087     <span class="keywordtype">int</span> accy;
-<a name="l00088"></a>00088     <span class="keywordtype">int</span> temp;
-<a name="l00089"></a>00089     <span class="keywordtype">int</span> ir;
-<a name="l00090"></a>00090     <span class="keywordtype">int</span> mic;
-<a name="l00091"></a>00091     <span class="keywordtype">int</span> vl;
-<a name="l00092"></a>00092 };
-<a name="l00093"></a>00093 
-<a name="l00094"></a>00094 <span class="preprocessor">#endif // MOTEREADING_H</span>
+<a name="l00083"></a><a class="code" href="classMoteReading.html#a5e60715c001c14f3e3f4cff6f886f0ad">00083</a>     QString <a class="code" href="classMoteReading.html#a5e60715c001c14f3e3f4cff6f886f0ad" title="Accessor for string representation of reading.">toString</a>(){ <span class="keywordflow">return</span> QString(<span class="stringliteral">&quot;%1 %2 %2 %4 %5 %6 %7 %8&quot;</span>).arg(mgx).arg(mgy).arg(accx).arg(accy).arg(temp).arg(ir).arg(mic).arg(vl); }
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085 <span class="keyword">private</span>:
+<a name="l00086"></a>00086 
+<a name="l00088"></a>00088     <span class="keywordtype">int</span> id;
+<a name="l00089"></a>00089     <span class="keywordtype">int</span> mgx;
+<a name="l00090"></a>00090     <span class="keywordtype">int</span> mgy;
+<a name="l00091"></a>00091     <span class="keywordtype">int</span> accx;
+<a name="l00092"></a>00092     <span class="keywordtype">int</span> accy;
+<a name="l00093"></a>00093     <span class="keywordtype">int</span> temp;
+<a name="l00094"></a>00094     <span class="keywordtype">int</span> ir;
+<a name="l00095"></a>00095     <span class="keywordtype">int</span> mic;
+<a name="l00096"></a>00096     <span class="keywordtype">int</span> vl;
+<a name="l00097"></a>00097     <span class="keywordtype">int</span> seq;
+<a name="l00098"></a>00098 };
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100 <span class="preprocessor">#endif // MOTEREADING_H</span>
 </pre></div></div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -107,7 +110,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Apr 4 19:47:33 2010 for MoteSense by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Apr 5 21:43:39 2010 for MoteSense by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

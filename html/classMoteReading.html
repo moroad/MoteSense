@@ -55,7 +55,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMoteReading.html#ad2555254ab4fd4ce31ebafeea362d255">MoteReading</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Default constructor.  <a href="#ad2555254ab4fd4ce31ebafeea362d255"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMoteReading.html#aea4d9a40d3999ed29eb6044146a5dabc">MoteReading</a> (int id, int mgx, int mgy, int accx, int accy, int temp, int ir, int mic, int vl)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMoteReading.html#a1ccca01ed95b7a3091e9de29acc99350">MoteReading</a> (int id, int mgx, int mgy, int accx, int accy, int temp, int ir, int mic, int vl, int seq)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMoteReading.html#a123a08348d6a1ba80a4055cb5f5afaa6">getId</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Accessor for id.  <a href="#a123a08348d6a1ba80a4055cb5f5afaa6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMoteReading.html#a318b7e6afba062ee3df207495070e277">getMgx</a> ()</td></tr>
@@ -74,6 +74,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Accessor for microphone.  <a href="#a348cb45f4613499385a354fe6857ef5d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMoteReading.html#a88ed6ea245c7af79e38ff8976f849f36">getVl</a> ()</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Accessor for visual light.  <a href="#a88ed6ea245c7af79e38ff8976f849f36"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMoteReading.html#a7164d52474f2541952d44926cc79671d">getSeq</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Accessor for sequence number.  <a href="#a7164d52474f2541952d44926cc79671d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMoteReading.html#a61f08f015a9f833ff7352c378b7799c2">setId</a> (int i)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Mutator for id.  <a href="#a61f08f015a9f833ff7352c378b7799c2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">QString&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMoteReading.html#a5e60715c001c14f3e3f4cff6f886f0ad">toString</a> ()</td></tr>
@@ -114,7 +116,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 </div>
 </div>
-<a class="anchor" id="aea4d9a40d3999ed29eb6044146a5dabc"></a><!-- doxytag: member="MoteReading::MoteReading" ref="aea4d9a40d3999ed29eb6044146a5dabc" args="(int id, int mgx, int mgy, int accx, int accy, int temp, int ir, int mic, int vl)" -->
+<a class="anchor" id="a1ccca01ed95b7a3091e9de29acc99350"></a><!-- doxytag: member="MoteReading::MoteReading" ref="a1ccca01ed95b7a3091e9de29acc99350" args="(int id, int mgx, int mgy, int accx, int accy, int temp, int ir, int mic, int vl, int seq)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -170,7 +172,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>vl</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>vl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>seq</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -201,7 +209,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025      ir = m_ir;
 <a name="l00026"></a>00026      mic = m_mic;
 <a name="l00027"></a>00027      vl = m_vl;
-<a name="l00028"></a>00028  }
+<a name="l00028"></a>00028      seq = s;
+<a name="l00029"></a>00029  }
 </pre></div></p>
 
 </div>
@@ -436,6 +445,40 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a class="anchor" id="a7164d52474f2541952d44926cc79671d"></a><!-- doxytag: member="MoteReading::getSeq" ref="a7164d52474f2541952d44926cc79671d" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MoteReading::getSeq </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Accessor for sequence number. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>int seq </dd></dl>
+
+<p>Definition at line <a class="el" href="motereading_8h_source.html#l00073">73</a> of file <a class="el" href="motereading_8h_source.html">motereading.h</a>.</p>
+
+<p><div class="fragment"><pre class="fragment"><a name="l00073"></a>00073 { <span class="keywordflow">return</span> seq; }
+</pre></div></p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dynsection">
+<div class="center"><img src="classMoteReading_a7164d52474f2541952d44926cc79671d_icgraph.png" border="0" usemap="#classMoteReading_a7164d52474f2541952d44926cc79671d_icgraph_map" alt=""></div>
+<map name="classMoteReading_a7164d52474f2541952d44926cc79671d_icgraph_map" id="classMoteReading_a7164d52474f2541952d44926cc79671d_icgraph">
+<area shape="rect" href="classDataPlot.html#a41c9c4bc12d8d3e3abdf893c4fcfad7b" title="DataPlot::timerEvent" alt="" coords="200,5,341,35"/></map>
+</div>
+</p>
+
+</div>
+</div>
 <a class="anchor" id="a3f7526c29f2bf61feeb5e24298133332"></a><!-- doxytag: member="MoteReading::getTemp" ref="a3f7526c29f2bf61feeb5e24298133332" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -528,9 +571,9 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="motereading_8h_source.html#l00073">73</a> of file <a class="el" href="motereading_8h_source.html">motereading.h</a>.</p>
+<p>Definition at line <a class="el" href="motereading_8h_source.html#l00078">78</a> of file <a class="el" href="motereading_8h_source.html">motereading.h</a>.</p>
 
-<p><div class="fragment"><pre class="fragment"><a name="l00073"></a>00073 { <span class="keywordtype">id</span> = i; }
+<p><div class="fragment"><pre class="fragment"><a name="l00078"></a>00078 { <span class="keywordtype">id</span> = i; }
 </pre></div></p>
 
 </div>
@@ -553,9 +596,9 @@ Here is the caller graph for this function:</div>
 <p>Accessor for string representation of reading. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>QString </dd></dl>
 
-<p>Definition at line <a class="el" href="motereading_8h_source.html#l00078">78</a> of file <a class="el" href="motereading_8h_source.html">motereading.h</a>.</p>
+<p>Definition at line <a class="el" href="motereading_8h_source.html#l00083">83</a> of file <a class="el" href="motereading_8h_source.html">motereading.h</a>.</p>
 
-<p><div class="fragment"><pre class="fragment"><a name="l00078"></a>00078 { <span class="keywordflow">return</span> QString(<span class="stringliteral">&quot;%1 %2 %2 %4 %5 %6 %7 %8&quot;</span>).arg(mgx).arg(mgy).arg(accx).arg(accy).arg(temp).arg(ir).arg(mic).arg(vl); }
+<p><div class="fragment"><pre class="fragment"><a name="l00083"></a>00083 { <span class="keywordflow">return</span> QString(<span class="stringliteral">&quot;%1 %2 %2 %4 %5 %6 %7 %8&quot;</span>).arg(mgx).arg(mgy).arg(accx).arg(accy).arg(temp).arg(ir).arg(mic).arg(vl); }
 </pre></div></p>
 
 </div>
@@ -579,7 +622,7 @@ Here is the caller graph for this function:</div>
 </iframe>
 </div>
 
-<hr class="footer"/><address style="text-align: right;"><small>Generated on Sun Apr 4 19:47:33 2010 for MoteSense by&nbsp;
+<hr class="footer"/><address style="text-align: right;"><small>Generated on Mon Apr 5 21:43:49 2010 for MoteSense by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.3 </small></address>
 </body>

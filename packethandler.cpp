@@ -14,7 +14,7 @@ packetHandler::packetHandler()
     // Initialize variables and objects
     count = 0;
     //! \todo Remove this line after debugging
-    ringIndex.push_back(0);   QList<MoteReading> temp; ringBuffer.push_back(temp); motes.push_back(0);
+//    ringIndex.push_back(0);   QList<MoteReading> temp; ringBuffer.push_back(temp); motes.push_back(0);
 
     // Initialize socket
     //! \todo Make this connection user configurable.
@@ -30,6 +30,12 @@ packetHandler::packetHandler()
     connect(source, SIGNAL(disconnected()), this, SLOT(disconnected()));
 
 
+
+}
+packetHandler::~packetHandler()
+{
+    db.commit();
+    db.close();
 
 }
 
@@ -75,6 +81,7 @@ QList<int> packetHandler::getNodeList()
 
 void packetHandler::dataReady()
 {
+
     QByteArray bytes = source->readAll();
 // Uncomment this to view the data
 //    for(int j = 0; j < bytes.length(); j++)
@@ -167,12 +174,22 @@ void packetHandler::dataReady()
 
 //      printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n\n\n",tempReading->getVl(), tempReading->getMic(),tempReading->getIr(),tempReading->getTemp(),tempReading->getAccx(),tempReading->getAccy(),tempReading->getMgx(),tempReading->getMgy());
       //fflush(stdout);
+        QSqlQuery query;
+        if(!query.exec(QString("insert into readings values(%1, %2, %3, %4, %5, %6, %7, %8, %9, 0)").arg(id).arg(seq).arg(mgx).arg(mgy).arg(accx).arg(accy).arg(vl).arg(ir).arg(mic)))
+            qDebug() << query.lastError();
+        db.commit();
+
+
+
+
 }
 
 bool packetHandler::connectToDatabase()
 {
+
         db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName(":memory:");
+
+        db.setDatabaseName("motesense");
         if (!db.open()) {
             QMessageBox::critical(0, tr("Cannot open database"),
                 tr("Unable to establish a database connection.\n"
@@ -185,14 +202,11 @@ bool packetHandler::connectToDatabase()
 
         QSqlQuery query;
 
-        query.exec("create table if not exists readings (id int primary key, "
-                   "seq int, mgx int, mgy int, accx int, accy int, vl int, ir int, mic int, timeStamp date)");
-        qDebug() << "Success: " << query.exec("create trigger insert_readings_timeStamp AFTER INSERT ON readings "
-                   "BEGIN"
-                   " UPDATE readings SET timeStamp = DATETIME('NOW')"
-                   " WHERE rowid = new.rowid;"
-                   " END;");
-
+        if(!query.exec("create table if not exists readings (id int, "
+                   "seq int, mgx int, mgy int, accx int, accy int, vl int, ir int, mic int, timeStamp date)"))
+            QMessageBox::critical(0, tr("Cannot execute query"),
+                tr("Unable to execute query.\n"
+                         "Click Cancel to exit."), QMessageBox::Cancel);
     return true;
 }
 
