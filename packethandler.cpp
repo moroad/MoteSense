@@ -202,11 +202,21 @@ bool packetHandler::connectToDatabase()
 
         QSqlQuery query;
 
+        //! Database is created
         if(!query.exec("create table if not exists readings (id int, "
                    "seq int, mgx int, mgy int, accx int, accy int, vl int, ir int, mic int, timeStamp date)"))
             QMessageBox::critical(0, tr("Cannot execute query"),
-                tr("Unable to execute query.\n"
-                         "Click Cancel to exit."), QMessageBox::Cancel);
+                query.lastError().text(), QMessageBox::Cancel);
+
+        //! Trigger is created for inserting the timestamp
+
+        if(!query.exec("create trigger if not exists insert_timeStamp after insert on readings "
+                   "begin "
+                   " update readings set timeStamp = datetime('now') "
+                   " where rowid = new.rowid; "
+                   "end;"))
+            QMessageBox::critical(0, tr("Cannot execute trigger"),
+                query.lastError().text(), QMessageBox::Cancel);
     return true;
 }
 
