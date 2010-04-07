@@ -48,12 +48,14 @@ FilterWindow::FilterWindow()
     QwtKnob *rcKnob = new QwtKnob(lowerBox);
     rcKnob->setRange(0,5,.1,0);
     rcKnob->setScaleMaxMajor(10);
+    rcKnob->setValue(5.0);
     QLabel *rcLabel = new QLabel("RC", rcKnob);
     rcLabel->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
 
     QwtKnob *dtKnob = new QwtKnob(lowerBox);
-    dtKnob->setRange(0,25,.25,0);
+    dtKnob->setRange(0,5,.1,0);
     dtKnob->setScaleMaxMajor(10);
+    dtKnob->setValid(1.0);
     QLabel *dtLabel = new QLabel("Dt", dtKnob);
     dtLabel->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
 
@@ -61,8 +63,8 @@ FilterWindow::FilterWindow()
 
     // Sets the range and increment of the widgets
     counter->setRange(-1.0, 2000.0, 10.0);
-    rangeCounter->setRange(-1048576.0,INT_MAX,10000.0);
-    minCounter->setRange(-1048576.0, INT_MAX, 10000.0);
+    rangeCounter->setRange(-1048576.0,INT_MAX,100.0);
+    minCounter->setRange(-1048576.0, INT_MAX, 100.0);
 
     QHBoxLayout *layout = new QHBoxLayout(hBox);
     layout->addWidget(label);
@@ -113,11 +115,13 @@ FilterWindow::FilterWindow()
     connect(fButton, SIGNAL(clicked()), plot, SLOT(detachF()));
     connect(mavgButton, SIGNAL(clicked()), plot, SLOT(detachMavg()));
     connect(scaleButton, SIGNAL(clicked()), plot, SLOT(autoScale()));
+    connect(scaleButton, SIGNAL(clicked()), plot->getDataFilter(), SLOT(resetLocalMax()));
     connect(rcKnob, SIGNAL(valueChanged(double)), plot->getDataFilter(), SLOT(setRc(double)) );
     connect(dtKnob, SIGNAL(valueChanged(double)), plot->getDataFilter(), SLOT(setDt(double)) );
     counter->setValue(50.0);
-    rangeCounter->setValue(10000000.0);
-    minCounter->setValue(5000000);
+    rangeCounter->setValue(10000.0);
+    minCounter->setValue(2000);
+
 }
 
 void FilterWindow::setId(int i)

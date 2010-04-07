@@ -55,8 +55,10 @@ double dataFilter::getFilteredData(double d)
     movingAverage = sum/NUM_READINGS;
     last_result = result;
 
-  //  qDebug() << "State = " << state << " stateCounter = " << stateCounter[state] << " getSlope() = " << getSlope();
+    //qDebug() << "State = " << state << " stateCounter = " << stateCounter[state] << " getSlope() = " << getSlope();
     //qDebug() << " slope = " << readings[NUM_READINGS-1] << " - " << readings[NUM_READINGS-2] << " = " << readings[NUM_READINGS-1] - readings[NUM_READINGS-2];
+    qDebug() << doLocalMax();
+    qDebug() << doLocalMin();
     minMaxDetection();
     return result;
 
@@ -153,7 +155,7 @@ bool dataFilter::minMaxDetection()
 
    if(state == hill_count_down && slope == negative && stateCounter[hill_count_down] >= parameter_m)
    {
-       if(doLocalMax() - doLocalMin() > 25)
+       qDebug() << (doLocalMax() - doLocalMin());
            qDebug() << "Vehicle Detected";
        state = flat;
        stateCounter[flat] = 0;

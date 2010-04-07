@@ -54,6 +54,8 @@ public slots:
     void setU(int u){ delta_u = u; }
     void setT(int t){ parameter_t = t; }
     void setDt(double d){ dt = d; }
+    void setLocalMax(double d){ localMax = d; }
+    void resetLocalMax(){ localMax = 0; }
 
 private:
     int parameter_n;

@@ -318,7 +318,7 @@ void FilteredDataPlot::timerEvent(QTimerEvent *)
         }
 
 
-        d_mgx[FPLOT_SIZE -1] = currentReading.getMgx()*1000;
+        d_mgx[FPLOT_SIZE -1] = currentReading.getMgx();
         d_avg[FPLOT_SIZE -1] = filter->getLocalAverage();
         d_f[FPLOT_SIZE -1] = filter->getFilteredData(currentReading.getValue(myType));
         d_e[FPLOT_SIZE -1] = filter->getE();
