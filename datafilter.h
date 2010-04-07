@@ -42,6 +42,8 @@ public:
     //! Returns filtered data
     double getFilteredData(int c, double d);
     bool minMaxDetection();
+    double getMovingAverage(){ return movingAverage; }
+    double getE(){ return e; }
 
 private:
 

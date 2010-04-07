@@ -20,7 +20,7 @@ dataFilter::dataFilter()
         readings[i] = 0.0;
     for(int i = 0; i < NUM_STATES; i++)
         stateCounter[i] = 0;
-    rc = 10.0;
+    rc = 5.0;
     dt = 1.0;
     state = flat;
 }
@@ -31,10 +31,12 @@ double dataFilter::getFilteredData(int c, double d)
     double sum = 0.0;
     rawData = d;
     localAverage = 0.9*localAverage + 0.1 * rawData;
-    e = (rawData-localAverage)*(rawData-localAverage);
+    e = pow((rawData-localAverage),2.0);
     // Low pass filter
+
     double alpha = dt/(rc + dt);
-    result = alpha * rawData + (1-alpha) * last_result;
+    result = alpha * e + (1-alpha) * last_result;
+
 
     for(int i = 0; i < NUM_READINGS - 1; i++)
     {
@@ -46,8 +48,9 @@ double dataFilter::getFilteredData(int c, double d)
     sum+=readings[NUM_READINGS-1];
     movingAverage = sum/NUM_READINGS;
     last_result = result;
-    qDebug() << "State = " << state << " stateCounter = " << stateCounter[state] << " getSlope() = " << getSlope();
-    qDebug() << " slope = " << readings[NUM_READINGS-1] << " - " << readings[NUM_READINGS-2] << " = " << readings[NUM_READINGS-1] - readings[NUM_READINGS-2];
+
+  //  qDebug() << "State = " << state << " stateCounter = " << stateCounter[state] << " getSlope() = " << getSlope();
+    //qDebug() << " slope = " << readings[NUM_READINGS-1] << " - " << readings[NUM_READINGS-2] << " = " << readings[NUM_READINGS-1] - readings[NUM_READINGS-2];
     minMaxDetection();
     return result;
 
@@ -55,29 +58,29 @@ double dataFilter::getFilteredData(int c, double d)
 
 bool dataFilter::minMaxDetection()
 {
-
+    int slope = getSlope();
    // flat
-   if(state == flat && getSlope() == positive)
+   if(state == flat && slope == positive)
     {
        state = flat_count_up;
        stateCounter[flat_count_up] = 0;
     }
 
    // flat_count_up
-   if(state == flat_count_up && getSlope() == positive && stateCounter[flat_count_up] < CONSTANT_N)
+   if(state == flat_count_up && slope == positive && stateCounter[flat_count_up] < CONSTANT_N)
    {
        stateCounter[flat_count_up]= stateCounter[flat_count_up]+1;
    }
 
    // The state machine jumps from flat_count_up to flat_count_down if the current slope is not positive
-   if(state == flat_count_up && getSlope() == negative)
+   if(state == flat_count_up && slope == negative)
    {
        state = flat_count_down;
        stateCounter[flat_count_down] = 0;
    }
    // The state machine can jump from flat_count_up to hill_count_up when the slope is positive and the
    // counter for flat_count_up has value not less than n.
-   if(state == flat_count_up && getSlope() == positive && stateCounter[flat_count_up] >= CONSTANT_N)
+   if(state == flat_count_up && slope == positive && stateCounter[flat_count_up] >= CONSTANT_N)
    {
        state = hill_count_up;
        stateCounter[hill_count_up] = 0;
@@ -86,21 +89,21 @@ bool dataFilter::minMaxDetection()
    // flat_count_down
 
    // The state machine stays at flat_count_down and the counter increments if the slope is not positive.
-   if(state == flat_count_down && getSlope() == negative && stateCounter[flat_count_down] < CONSTANT_M)
+   if(state == flat_count_down && slope == negative && stateCounter[flat_count_down] < CONSTANT_M)
    {
        stateCounter[flat_count_down] = stateCounter[flat_count_down] + 1;
    }
 
    // The state machine jumps back to flat if the slope if not positive and the counter
    // has value not less than M
-   if(state == flat_count_down && getSlope() == negative && stateCounter[flat_count_down] >= CONSTANT_M)
+   if(state == flat_count_down && slope == negative && stateCounter[flat_count_down] >= CONSTANT_M)
    {
        state = flat;
        stateCounter[flat] = 0;
    }
 
    // The state machine jumps from flat_count_down to flat_count_up if the slope is positive
-   if(state == flat_count_down && getSlope() == positive)
+   if(state == flat_count_down && slope == positive)
    {
        state = flat_count_up;
        stateCounter[flat_count_up] = 0;
@@ -110,14 +113,14 @@ bool dataFilter::minMaxDetection()
 
    // When the state machine enters hill_count_up, the state machine keeps this state if the slope
    // is not negative
-   if(state == hill_count_up && getSlope() == positive)
+   if(state == hill_count_up && slope == positive)
    {
        stateCounter[hill_count_up] = stateCounter[hill_count_up] + 1;
    }
 
    // If the state is hill_count_up and the slope is negative the state machine jumps to
    // hill_count_down and the counter at this state resets.
-   if(state == hill_count_up && getSlope() == negative)
+   if(state == hill_count_up && slope == negative)
    {
        state = hill_count_down;
        stateCounter[hill_count_down] = 0;
@@ -127,13 +130,13 @@ bool dataFilter::minMaxDetection()
 
    // The state machine stays at this state and the counter counts up if the slope if engative and
    // the counter has value less than M
-   if(state == hill_count_down && getSlope() == negative && stateCounter[hill_count_down] < CONSTANT_M)
+   if(state == hill_count_down && slope == negative && stateCounter[hill_count_down] < CONSTANT_M)
    {
        stateCounter[hill_count_down] = stateCounter[hill_count_down]+1;
    }
 
    // The state machine will jump back to hill_count_up if the slope is not negative
-   if(state == hill_count_down && getSlope() == positive)
+   if(state == hill_count_down && slope == positive)
    {
        state = hill_count_up;
        stateCounter[hill_count_up] = 0;
@@ -142,7 +145,7 @@ bool dataFilter::minMaxDetection()
    // The state machine will jump back to flat state if the slope is negative and the counter
    // has a value not less than M
 
-   if(state == hill_count_down && getSlope() == negative && stateCounter[hill_count_down] >= CONSTANT_M)
+   if(state == hill_count_down && slope == negative && stateCounter[hill_count_down] >= CONSTANT_M)
    {
        if(doLocalMax() - doLocalMin() > 25)
            qDebug() << "Vehicle Detected";

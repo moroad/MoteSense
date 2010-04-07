@@ -34,7 +34,7 @@ void SimServer::connected()
 
     QTimer *t = new QTimer(this);
     connect(t, SIGNAL(timeout()), this, SLOT(sendRandom()));
-    t->start(250);
+    t->start(1500);
 
 }
 void SimServer::dataReady()
@@ -57,7 +57,7 @@ void SimServer::sendRandom()
     data->append((char)0x00); //always 0xff       2
     data->append((char)0x00); //always 0xff       3
     data->append((char)0x00); //id                4
-    data->append(rand() % 2); //always 14         5
+    data->append(rand() % NUM_MOTES); //always 14         5
     data->append((char)0x00); //                  6
     data->append((char)0x00); //                  7
     data->append((char)0x00); //                  8

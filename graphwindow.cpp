@@ -52,9 +52,8 @@ GraphWindow::GraphWindow()
 
     // Sets the range and increment of the widgets
     counter->setRange(-1.0, 2000.0, 10.0);
-    rangeCounter->setRange(-1048576.0,1048576.0,10.0);
-    minCounter->setRange(-1048576.0, 1048576.0, 10.0);
-
+    rangeCounter->setRange(-1048576.0,INT_MAX,10.0);
+    minCounter->setRange(-1048576.0, INT_MAX, 10.0);
 
     QHBoxLayout *layout = new QHBoxLayout(hBox);
     layout->addWidget(label);

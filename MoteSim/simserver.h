@@ -10,6 +10,9 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 
+//! Number of motes to simulate
+#define NUM_MOTES 1
+
 //! Class to simulate a mote data source
 class SimServer : public QObject
 {

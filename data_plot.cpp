@@ -78,9 +78,14 @@ DataPlot::DataPlot(QWidget *parent):
 
     // Insert new curves
     mgxPlot = new QwtPlotCurve("MGx");
-    mgxFilteredPlot = new QwtPlotCurve("Filtered MGx");
+    //mgxFilteredPlot = new QwtPlotCurve("Filtered MGx");
+
     mgyPlot = new QwtPlotCurve("MGy");
+    //mgyPlot = new QwtPlotCurve("Moving Average");
+
     AccyPlot = new QwtPlotCurve("ACCy");
+    //AccyPlot = new QwtPlotCurve("e");
+
     AccxPlot = new QwtPlotCurve("ACCx");
     tempPlot = new QwtPlotCurve("Temp");
     irPlot = new QwtPlotCurve("IR");
@@ -90,7 +95,7 @@ DataPlot::DataPlot(QWidget *parent):
     AccyPlot->attach(this);
     AccxPlot->attach(this);
     mgxPlot->attach(this);
-    mgxFilteredPlot->attach(this);
+    //mgxFilteredPlot->attach(this);
     mgyPlot->attach(this);
     tempPlot->attach(this);
     irPlot->attach(this);
@@ -118,7 +123,7 @@ DataPlot::DataPlot(QWidget *parent):
     mgxPlot->setCurveFitter(f);
 
     pen->setColor(Qt::darkMagenta);
-    mgxFilteredPlot->setPen(*pen);
+    //mgxFilteredPlot->setPen(*pen);
 
     pen->setColor(Qt::red);
     mgyPlot->setPen(*pen);
@@ -150,7 +155,7 @@ DataPlot::DataPlot(QWidget *parent):
 
     // Attach (don't copy) data. Both curves use the same x array.
     mgxPlot->setRawData(d_x, d_mgx, PLOT_SIZE);
-    mgxFilteredPlot->setRawData(d_x, d_fmgx, PLOT_SIZE);
+//    mgxFilteredPlot->setRawData(d_x, d_fmgx, PLOT_SIZE);
     mgyPlot->setRawData(d_x, d_mgy, PLOT_SIZE);
     AccyPlot->setRawData(d_x, d_accy, PLOT_SIZE);
     AccxPlot->setRawData(d_x, d_accx, PLOT_SIZE);
@@ -378,9 +383,15 @@ void DataPlot::timerEvent(QTimerEvent *)
 
         d_mgx[PLOT_SIZE -1] = currentReading.getMgx();
         d_fmgx[PLOT_SIZE -1] = filter->getFilteredData(currentReading.getSeq(),(double) currentReading.getMgx());
+
         d_mgy[PLOT_SIZE -1] = currentReading.getMgy();
+        //d_mgy[PLOT_SIZE -1] = filter->getMovingAverage();
+
         d_accx[PLOT_SIZE -1] = currentReading.getAccx();
+
         d_accy[PLOT_SIZE -1] = currentReading.getAccy();
+        //d_accy[PLOT_SIZE -1] = filter->getE();
+
         d_temp[PLOT_SIZE -1] = currentReading.getTemp();
         d_ir[PLOT_SIZE -1] = currentReading.getIr();
         d_mic[PLOT_SIZE -1] = currentReading.getMic();
