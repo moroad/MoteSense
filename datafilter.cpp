@@ -6,6 +6,7 @@
 #include "datafilter.h"
 #include <QDebug>
 #include <cmath>
+
 dataFilter::dataFilter()
 {
     // Initialize values
@@ -16,6 +17,10 @@ dataFilter::dataFilter()
     localMin = 0.0;
     localMax = 0.0;
     last_result = 0.0;
+    parameter_t = CONSTANT_T;
+    parameter_n = CONSTANT_N;
+    parameter_m = CONSTANT_M;
+    delta_u = MIN_DELTA_U;
     for(int i = 0; i < NUM_READINGS; i++)
         readings[i] = 0.0;
     for(int i = 0; i < NUM_STATES; i++)
@@ -23,9 +28,10 @@ dataFilter::dataFilter()
     rc = 5.0;
     dt = 1.0;
     state = flat;
+
 }
 
-double dataFilter::getFilteredData(int c, double d)
+double dataFilter::getFilteredData(double d)
 {
     double result = 0.0;
     double sum = 0.0;
@@ -67,7 +73,7 @@ bool dataFilter::minMaxDetection()
     }
 
    // flat_count_up
-   if(state == flat_count_up && slope == positive && stateCounter[flat_count_up] < CONSTANT_N)
+   if(state == flat_count_up && slope == positive && stateCounter[flat_count_up] < parameter_n)
    {
        stateCounter[flat_count_up]= stateCounter[flat_count_up]+1;
    }
@@ -80,7 +86,7 @@ bool dataFilter::minMaxDetection()
    }
    // The state machine can jump from flat_count_up to hill_count_up when the slope is positive and the
    // counter for flat_count_up has value not less than n.
-   if(state == flat_count_up && slope == positive && stateCounter[flat_count_up] >= CONSTANT_N)
+   if(state == flat_count_up && slope == positive && stateCounter[flat_count_up] >= parameter_n)
    {
        state = hill_count_up;
        stateCounter[hill_count_up] = 0;
@@ -89,14 +95,14 @@ bool dataFilter::minMaxDetection()
    // flat_count_down
 
    // The state machine stays at flat_count_down and the counter increments if the slope is not positive.
-   if(state == flat_count_down && slope == negative && stateCounter[flat_count_down] < CONSTANT_M)
+   if(state == flat_count_down && slope == negative && stateCounter[flat_count_down] < parameter_m)
    {
        stateCounter[flat_count_down] = stateCounter[flat_count_down] + 1;
    }
 
    // The state machine jumps back to flat if the slope if not positive and the counter
    // has value not less than M
-   if(state == flat_count_down && slope == negative && stateCounter[flat_count_down] >= CONSTANT_M)
+   if(state == flat_count_down && slope == negative && stateCounter[flat_count_down] >= parameter_m)
    {
        state = flat;
        stateCounter[flat] = 0;
@@ -130,7 +136,7 @@ bool dataFilter::minMaxDetection()
 
    // The state machine stays at this state and the counter counts up if the slope if engative and
    // the counter has value less than M
-   if(state == hill_count_down && slope == negative && stateCounter[hill_count_down] < CONSTANT_M)
+   if(state == hill_count_down && slope == negative && stateCounter[hill_count_down] < parameter_m)
    {
        stateCounter[hill_count_down] = stateCounter[hill_count_down]+1;
    }
@@ -145,7 +151,7 @@ bool dataFilter::minMaxDetection()
    // The state machine will jump back to flat state if the slope is negative and the counter
    // has a value not less than M
 
-   if(state == hill_count_down && slope == negative && stateCounter[hill_count_down] >= CONSTANT_M)
+   if(state == hill_count_down && slope == negative && stateCounter[hill_count_down] >= parameter_m)
    {
        if(doLocalMax() - doLocalMin() > 25)
            qDebug() << "Vehicle Detected";
@@ -160,7 +166,7 @@ return false;
 double dataFilter::getSlope()
 {
     int result = positive;
-    if(MIN_DELTA_U < fabs(readings[NUM_READINGS-1] - readings[NUM_READINGS-2]))
+    if(delta_u < fabs(readings[NUM_READINGS-1] - readings[NUM_READINGS-2]))
         // Return 0 for negative, 1 for positive
         result = ((readings[NUM_READINGS-1] - readings[NUM_READINGS-2]) > 0)?positive:negative;
     else
@@ -172,7 +178,7 @@ double dataFilter::getSlope()
 /*! local min function
   *
   *                   min(f[n] - localMin[n-1] if state == flat or flat_count_down
-  *   localMin[n] =   f[n] if state == hill_count_down and localMax[n] - localMin[n] > CONSTANT_T
+  *   localMin[n] =   f[n] if state == hill_count_down and localMax[n] - localMin[n] > parameter_t
   *                   unchanged otherwise
   */
 double dataFilter::doLocalMin()
@@ -182,7 +188,7 @@ double dataFilter::doLocalMin()
     if(state == flat || state == flat_count_down)
         result = min(readings[NUM_READINGS-1], localMin);
 
-    else if(state == hill_count_down && (doLocalMax() - readings[NUM_READINGS-1] > CONSTANT_T))
+    else if(state == hill_count_down && (doLocalMax() - readings[NUM_READINGS-1] > parameter_t))
         result = readings[NUM_READINGS-1];
     else
         result = localMin;

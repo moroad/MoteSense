@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>254</width>
-    <height>390</height>
+    <width>287</width>
+    <height>391</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -50,13 +50,26 @@
      <string>Nodes Available</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>240</y>
+      <width>93</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Filtered Plot</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>254</width>
+     <width>287</width>
      <height>25</height>
     </rect>
    </property>

@@ -41,6 +41,8 @@
 #include <QMainWindow>
 #include <QList>
 #include "packethandler.h"
+#include "filterwindow.h"
+
 namespace Ui {
     class MainWindow;
 }
@@ -79,6 +81,7 @@ private slots:
      *  Launches graphWindow tracking the node selected in the
      *  nodeList widget.
      */
+    void on_pushButton_clicked();
     void on_plotButton_clicked();
 };
 

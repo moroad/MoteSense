@@ -10,6 +10,8 @@
 
 #include <QObject>
 #include <QString>
+//! Enumeration for sensors
+enum { MGX, MGY, ACCX, ACCY, IR, TEMP, VL, MIC, AVG, E, F, MAVG };
 
 //! Class to encapsulate a sensor reading
 class MoteReading
@@ -71,6 +73,13 @@ public:
       * \returns int seq
       */
     int getSeq(){ return seq; }
+
+    /*! \brief Accessor for value by enumeration.
+      * If called with MGX, returns mgx, etc.
+      * \param type type from the enum in motereading.h
+      * \returns sensor reading
+      */
+    int getValue(int type);
 
     /*! \brief Mutator for id
      * \param i

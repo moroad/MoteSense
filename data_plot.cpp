@@ -62,7 +62,6 @@ DataPlot::DataPlot(QWidget *parent):
     {
         d_x[i] = 0.5 * i;     // time axis
         d_mgx[i] = 0;
-        d_fmgx[i] = 0;
         d_mgy[i] = 0;
         d_accx[i] = 0;
         d_accy[i] = 0;
@@ -370,7 +369,6 @@ void DataPlot::timerEvent(QTimerEvent *)
         for ( int j = 0; j < PLOT_SIZE - 1; j++ )
         {
             d_mgx[j] = d_mgx[j+1];
-            d_fmgx[j] = d_fmgx[j+1];
             d_mgy[j] = d_mgy[j+1];
             d_accx[j] = d_accx[j+1];
             d_accy[j] = d_accy[j+1];
@@ -382,16 +380,9 @@ void DataPlot::timerEvent(QTimerEvent *)
 
 
         d_mgx[PLOT_SIZE -1] = currentReading.getMgx();
-        d_fmgx[PLOT_SIZE -1] = filter->getFilteredData(currentReading.getSeq(),(double) currentReading.getMgx());
-
         d_mgy[PLOT_SIZE -1] = currentReading.getMgy();
-        //d_mgy[PLOT_SIZE -1] = filter->getMovingAverage();
-
         d_accx[PLOT_SIZE -1] = currentReading.getAccx();
-
         d_accy[PLOT_SIZE -1] = currentReading.getAccy();
-        //d_accy[PLOT_SIZE -1] = filter->getE();
-
         d_temp[PLOT_SIZE -1] = currentReading.getTemp();
         d_ir[PLOT_SIZE -1] = currentReading.getIr();
         d_mic[PLOT_SIZE -1] = currentReading.getMic();

@@ -27,3 +27,20 @@ MoteReading::MoteReading(int m_id, int m_mgx, int m_mgy, int m_accx, int m_accy,
      vl = m_vl;
      seq = s;
  }
+int MoteReading::getValue(int type)
+{
+    int ret = 0;
+    switch(type)
+    {
+
+    case MGX: ret = mgx; break;
+    case MGY: ret = mgx; break;
+    case ACCX: ret = accx; break;
+    case ACCY: ret = accy; break;
+    case TEMP: ret = temp; break;
+    case IR: ret = ir; break;
+    case MIC: ret = mic; break;
+    case VL: ret = vl; break;
+    }
+    return ret;
+}

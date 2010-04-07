@@ -7,6 +7,7 @@
 #define DATAFILTER_H
 
 #include <QObject>
+#include <QDebug>
 
 //! Number of readings to remember
 #define NUM_READINGS 40
@@ -34,19 +35,31 @@ enum signs { positive, negative };
 
 //! Class to implement a filter
 class dataFilter : public QObject
-{
+{ Q_OBJECT
 public:
     //! Default constructor
     dataFilter();
 
     //! Returns filtered data
-    double getFilteredData(int c, double d);
+    double getFilteredData(double d);
     bool minMaxDetection();
     double getMovingAverage(){ return movingAverage; }
+    double getLocalAverage(){ return localAverage; }
     double getE(){ return e; }
 
-private:
+public slots:
+    void setRc(double r) { rc = r;}
+    void setN(int n){ parameter_n = n; }
+    void setM(int m){ parameter_m = m; }
+    void setU(int u){ delta_u = u; }
+    void setT(int t){ parameter_t = t; }
+    void setDt(double d){ dt = d; }
 
+private:
+    int parameter_n;
+    int parameter_m;
+    int parameter_t;
+    int delta_u;
     int state;
     int stateCounter[5];
     double min(double num1, double num2){ return (num1 < num2)?num1:num2; }

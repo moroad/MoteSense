@@ -25,10 +25,6 @@
 //! Size of the plot
 const int PLOT_SIZE = 201;
 
-//! Used for turning them on or off on the plot
-//! \enum
-enum { MGX, MGY, ACCX, ACCY, IR, TEMP, VL, MIC };
-
 
 //! The widget class that graphs the data
 class DataPlot : public QwtPlot
@@ -135,9 +131,6 @@ private:
 
     //! Magnetometer x
     double d_mgx[PLOT_SIZE];
-
-    //! Filtered Magnetometer x
-    double d_fmgx[PLOT_SIZE];
 
     //! Magnetometer y
     double d_mgy[PLOT_SIZE];

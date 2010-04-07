@@ -78,45 +78,47 @@
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList">
-    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-zkXlB7gORX,guid=4a6482949fec4303d61830db4bbb8626</value>
-    <value type="QString">DESKTOP_SESSION=default</value>
+    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-tXjuU0GY76,guid=3f1f07817fbc1e30014490dc4bb92b90</value>
+    <value type="QString">DESKTOP_SESSION=gnome</value>
     <value type="QString">DISPLAY=:0.0</value>
-    <value type="QString">GDMSESSION=default</value>
+    <value type="QString">GDMSESSION=gnome</value>
+    <value type="QString">GDM_KEYBOARD_LAYOUT=us</value>
     <value type="QString">GDM_LANG=en_US.UTF-8</value>
-    <value type="QString">GDM_XSERVER_LOCATION=local</value>
     <value type="QString">GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
-    <value type="QString">GNOME_KEYRING_PID=18869</value>
-    <value type="QString">GNOME_KEYRING_SOCKET=/tmp/keyring-nO62su/socket</value>
-    <value type="QString">GPG_AGENT_INFO=/tmp/seahorse-JrWwQn/S.gpg-agent:18951:1</value>
+    <value type="QString">GNOME_KEYRING_PID=2550</value>
+    <value type="QString">GNOME_KEYRING_SOCKET=/tmp/keyring-KiwvEs/socket</value>
+    <value type="QString">GTK_MODULES=canberra-gtk-module</value>
     <value type="QString">GTK_RC_FILES=/etc/gtk/gtkrc:/home/jlafon/.gtkrc-1.2-gnome2</value>
     <value type="QString">HOME=/home/jlafon</value>
     <value type="QString">LANG=en_US.UTF-8</value>
-    <value type="QString">LD_LIBRARY_PATH=/opt/qtsdk-2010.02/lib/qtcreator:</value>
+    <value type="QString">LD_LIBRARY_PATH=/home/jlafon/qtsdk-2010.02/lib/qtcreator:</value>
+    <value type="QString">LIBGL_DRIVERS_PATH=/usr/lib/dri:/usr/lib32/dri</value>
     <value type="QString">LOGNAME=jlafon</value>
     <value type="QString">ORBIT_SOCKETDIR=/tmp/orbit-jlafon</value>
-    <value type="QString">PATH=/opt/qtsdk-2010.02/qt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
+    <value type="QString">PATH=/home/jlafon/qtsdk-2010.02/qt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
     <value type="QString">PWD=/home/jlafon</value>
-    <value type="QString">QTDIR=/opt/qtsdk-2010.02/qt</value>
-    <value type="QString">SESSION_MANAGER=local/blackhole:/tmp/.ICE-unix/18879</value>
+    <value type="QString">QTDIR=/home/jlafon/qtsdk-2010.02/qt</value>
+    <value type="QString">SESSION_MANAGER=local/jlafon-desktop:@/tmp/.ICE-unix/2565,unix/jlafon-desktop:/tmp/.ICE-unix/2565</value>
     <value type="QString">SHELL=/bin/bash</value>
-    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-nO62su/ssh</value>
+    <value type="QString">SPEECHD_PORT=7560</value>
+    <value type="QString">SSH_AGENT_PID=2634</value>
+    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-KiwvEs/socket.ssh</value>
     <value type="QString">USER=jlafon</value>
     <value type="QString">USERNAME=jlafon</value>
-    <value type="QString">WINDOWPATH=7:7:7:7:7:7:7:7:7:7:7:7:7:7:7:7</value>
-    <value type="QString">XAUTHORITY=/home/jlafon/.Xauthority</value>
-    <value type="QString">XDG_DATA_DIRS=/usr/local/share/:/usr/share/:/usr/share/gdm/</value>
-    <value type="QString">XDG_SESSION_COOKIE=3b4632d2571e3f3edd033e764b83278b-1270580773.440633-1399456392</value>
+    <value type="QString">XAUTHORITY=/var/run/gdm/auth-for-jlafon-NU6B5U/database</value>
+    <value type="QString">XDG_DATA_DIRS=/usr/share/gnome:/usr/local/share/:/usr/share/</value>
+    <value type="QString">XDG_SESSION_COOKIE=c1f01b869a2b11e338f32d0c4b7bfd18-1270426512.260797-202720106</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList">
-    <value type="QString">/research/jlafon/MoteSense/MoteSense.pro</value>
+    <value type="QString">/home/jlafon/MoteSense/MoteSense.pro</value>
     <value type="QString">-spec</value>
     <value type="QString">linux-g++-64</value>
     <value type="QString">-r</value>
     <value type="QString">CONFIG+=debug</value>
    </valuelist>
-   <value key="abstractProcess.command" type="QString">/opt/qtsdk-2010.02/qt/bin/qmake</value>
+   <value key="abstractProcess.command" type="QString">/home/jlafon/qtsdk-2010.02/qt/bin/qmake</value>
    <value key="abstractProcess.enabled" type="bool">false</value>
-   <value key="abstractProcess.workingDirectory" type="QString">/research/jlafon/MoteSense</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/home/jlafon/MoteSense</value>
   </valuemap>
  </data>
  <data>
@@ -124,34 +126,36 @@
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">Debug</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList">
-    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-zkXlB7gORX,guid=4a6482949fec4303d61830db4bbb8626</value>
-    <value type="QString">DESKTOP_SESSION=default</value>
+    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-tXjuU0GY76,guid=3f1f07817fbc1e30014490dc4bb92b90</value>
+    <value type="QString">DESKTOP_SESSION=gnome</value>
     <value type="QString">DISPLAY=:0.0</value>
-    <value type="QString">GDMSESSION=default</value>
+    <value type="QString">GDMSESSION=gnome</value>
+    <value type="QString">GDM_KEYBOARD_LAYOUT=us</value>
     <value type="QString">GDM_LANG=en_US.UTF-8</value>
-    <value type="QString">GDM_XSERVER_LOCATION=local</value>
     <value type="QString">GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
-    <value type="QString">GNOME_KEYRING_PID=18869</value>
-    <value type="QString">GNOME_KEYRING_SOCKET=/tmp/keyring-nO62su/socket</value>
-    <value type="QString">GPG_AGENT_INFO=/tmp/seahorse-JrWwQn/S.gpg-agent:18951:1</value>
+    <value type="QString">GNOME_KEYRING_PID=2550</value>
+    <value type="QString">GNOME_KEYRING_SOCKET=/tmp/keyring-KiwvEs/socket</value>
+    <value type="QString">GTK_MODULES=canberra-gtk-module</value>
     <value type="QString">GTK_RC_FILES=/etc/gtk/gtkrc:/home/jlafon/.gtkrc-1.2-gnome2</value>
     <value type="QString">HOME=/home/jlafon</value>
     <value type="QString">LANG=en_US.UTF-8</value>
-    <value type="QString">LD_LIBRARY_PATH=/opt/qtsdk-2010.02/lib/qtcreator:</value>
+    <value type="QString">LD_LIBRARY_PATH=/home/jlafon/qtsdk-2010.02/lib/qtcreator:</value>
+    <value type="QString">LIBGL_DRIVERS_PATH=/usr/lib/dri:/usr/lib32/dri</value>
     <value type="QString">LOGNAME=jlafon</value>
     <value type="QString">ORBIT_SOCKETDIR=/tmp/orbit-jlafon</value>
-    <value type="QString">PATH=/opt/qtsdk-2010.02/qt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
+    <value type="QString">PATH=/home/jlafon/qtsdk-2010.02/qt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games</value>
     <value type="QString">PWD=/home/jlafon</value>
-    <value type="QString">QTDIR=/opt/qtsdk-2010.02/qt</value>
-    <value type="QString">SESSION_MANAGER=local/blackhole:/tmp/.ICE-unix/18879</value>
+    <value type="QString">QTDIR=/home/jlafon/qtsdk-2010.02/qt</value>
+    <value type="QString">SESSION_MANAGER=local/jlafon-desktop:@/tmp/.ICE-unix/2565,unix/jlafon-desktop:/tmp/.ICE-unix/2565</value>
     <value type="QString">SHELL=/bin/bash</value>
-    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-nO62su/ssh</value>
+    <value type="QString">SPEECHD_PORT=7560</value>
+    <value type="QString">SSH_AGENT_PID=2634</value>
+    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-KiwvEs/socket.ssh</value>
     <value type="QString">USER=jlafon</value>
     <value type="QString">USERNAME=jlafon</value>
-    <value type="QString">WINDOWPATH=7:7:7:7:7:7:7:7:7:7:7:7:7:7:7:7</value>
-    <value type="QString">XAUTHORITY=/home/jlafon/.Xauthority</value>
-    <value type="QString">XDG_DATA_DIRS=/usr/local/share/:/usr/share/:/usr/share/gdm/</value>
-    <value type="QString">XDG_SESSION_COOKIE=3b4632d2571e3f3edd033e764b83278b-1270580773.440633-1399456392</value>
+    <value type="QString">XAUTHORITY=/var/run/gdm/auth-for-jlafon-NU6B5U/database</value>
+    <value type="QString">XDG_DATA_DIRS=/usr/share/gnome:/usr/local/share/:/usr/share/</value>
+    <value type="QString">XDG_SESSION_COOKIE=c1f01b869a2b11e338f32d0c4b7bfd18-1270426512.260797-202720106</value>
    </valuelist>
    <value key="abstractProcess.IgnoreReturnValue" type="bool">false</value>
    <valuelist key="abstractProcess.arguments" type="QVariantList">
@@ -159,7 +163,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString">/usr/bin/make</value>
    <value key="abstractProcess.enabled" type="bool">true</value>
-   <value key="abstractProcess.workingDirectory" type="QString">/research/jlafon/MoteSense</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/home/jlafon/MoteSense</value>
   </valuemap>
  </data>
  <data>

@@ -86,3 +86,18 @@ void MainWindow::on_plotButton_clicked()
     graphWindow->show();
 
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    if(ui->nodeList->selectedItems().count() < 1)
+        return;
+    int id = ui->nodeList->selectedItems().at(0)->text().toInt();
+
+    // Create new graphWindow
+    FilterWindow * fgraphWindow = new FilterWindow();
+    fgraphWindow->setSource(this->server);
+    fgraphWindow->resize(800,600);
+    fgraphWindow->setId(id);
+    fgraphWindow->show();
+
+}
