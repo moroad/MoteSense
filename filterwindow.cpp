@@ -59,6 +59,15 @@ FilterWindow::FilterWindow()
     QLabel *dtLabel = new QLabel("Dt", dtKnob);
     dtLabel->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
 
+    QwtKnob *duKnob = new QwtKnob(lowerBox);
+    duKnob->setRange(0,5000,10,1);
+
+    duKnob->setScaleMaxMajor(10);
+    duKnob->setValid(1.0);
+
+    QLabel *duLabel = new QLabel("Du", duKnob);
+
+    duLabel->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
 
 
     // Sets the range and increment of the widgets
@@ -84,6 +93,7 @@ FilterWindow::FilterWindow()
     lowerLayout->addWidget(mavgButton);
     lowerLayout->addWidget(rcKnob);
     lowerLayout->addWidget(dtKnob);
+    lowerLayout->addWidget(duKnob);
 
   //  layout->addWidget(new QWidget(hBox), 10); // spacer);
 
@@ -118,6 +128,7 @@ FilterWindow::FilterWindow()
     connect(scaleButton, SIGNAL(clicked()), plot->getDataFilter(), SLOT(resetLocalMax()));
     connect(rcKnob, SIGNAL(valueChanged(double)), plot->getDataFilter(), SLOT(setRc(double)) );
     connect(dtKnob, SIGNAL(valueChanged(double)), plot->getDataFilter(), SLOT(setDt(double)) );
+    connect(duKnob, SIGNAL(valueChanged(double)), plot->getDataFilter(), SLOT(setU(double)));
     counter->setValue(50.0);
     rangeCounter->setValue(10000.0);
     minCounter->setValue(2000);

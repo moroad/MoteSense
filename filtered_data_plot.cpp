@@ -329,90 +329,57 @@ void FilteredDataPlot::timerEvent(QTimerEvent *)
         {
             if(attached[MGX])
             {
-                if(currentReading.getMgx() > max)
+                if(d_mgx[FPLOT_SIZE -1] > max)
                 {
-                    max = currentReading.getMgx();
+                    max = d_mgx[FPLOT_SIZE -1];
                 }
-                if(currentReading.getMgx() < min)
+                if(d_mgx[FPLOT_SIZE -1] < min)
                 {
-                    min = currentReading.getMgx();
-                }
-            }
-            if(attached[MGY])
-            {
-                if(currentReading.getMgy() > max)
-                {
-                    max = currentReading.getMgy();
-                }
-                if(currentReading.getMgy() < min)
-                {
-                    min = currentReading.getMgy();
+                    min = d_mgx[FPLOT_SIZE -1];
                 }
             }
-            if(attached[ACCX])
+            if(attached[AVG])
             {
-                if(currentReading.getAccx() > max)
+                if(d_avg[FPLOT_SIZE -1] > max)
                 {
-                    max = currentReading.getAccx();
+                    max = d_avg[FPLOT_SIZE -1];
                 }
-                if(currentReading.getAccx() < min)
+                if(d_avg[FPLOT_SIZE -1] < min)
                 {
-                    min = currentReading.getAccx();
+                    min = d_avg[FPLOT_SIZE -1];
                 }
             }
-            if(attached[ACCY])
+            if(attached[F])
             {
-                if(currentReading.getAccy() > max)
+                if(d_f[FPLOT_SIZE -1] > max)
                 {
-                    max = currentReading.getAccy();
+                    max = d_f[FPLOT_SIZE -1];
                 }
-                if(currentReading.getAccy() < min)
+                if(d_f[FPLOT_SIZE -1] < min)
                 {
-                    min = currentReading.getAccy();
+                    min = d_f[FPLOT_SIZE -1];
                 }
             }
-            if(attached[TEMP])
+            if(attached[E])
             {
-                if(currentReading.getTemp() > max)
+                if(d_e[FPLOT_SIZE -1] > max)
                 {
-                    max = currentReading.getTemp();
+                    max = d_e[FPLOT_SIZE -1];
                 }
-                if(currentReading.getTemp() < min)
+                if(d_e[FPLOT_SIZE -1] < min)
                 {
-                    min = currentReading.getTemp();
+                    min = d_e[FPLOT_SIZE -1];
                 }
             }
-            if(attached[IR])
+            if(attached[MAVG])
             {
-                if(currentReading.getIr() > max)
+                if(d_mavg[FPLOT_SIZE -1] > max)
                 {
-                    max = currentReading.getIr();
+                    max = d_mavg[FPLOT_SIZE -1];
                 }
-                if(currentReading.getIr() < min)
+                if(d_mavg[FPLOT_SIZE -1] < min)
                 {
-                    min = currentReading.getIr();
-                }
-            }
-            if(attached[VL])
-            {
-                if(currentReading.getVl() > max)
-                {
-                    max = currentReading.getVl();
-                }
-                if(currentReading.getVl() < min)
-                {
-                    min = currentReading.getVl();
-                }
-            }
-            if(attached[MIC])
-            {
-                if(currentReading.getMic() > max)
-                {
-                    max = currentReading.getMic();
-                }
-                if(currentReading.getMic() < min)
-                {
-                    min = currentReading.getMic();
+                    min = d_mavg[FPLOT_SIZE -1];
                 }
             }
 

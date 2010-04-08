@@ -13,16 +13,16 @@
 #define NUM_READINGS 40
 
 //! Positive constant
-#define MIN_DELTA_U 3
+#define MIN_DELTA_U 2000
 
 //! Constant T
 #define CONSTANT_T 70000
 
 //! Constant N
-#define CONSTANT_N 3
+#define CONSTANT_N 5
 
 //! Constant M
-#define CONSTANT_M 3
+#define CONSTANT_M 5
 
 //! Number of states
 #define NUM_STATES 5
@@ -43,6 +43,7 @@ public:
     //! Returns filtered data
     double getFilteredData(double d);
     bool minMaxDetection();
+    //bool AdaptiveThreshold();
     double getMovingAverage(){ return movingAverage; }
     double getLocalAverage(){ return localAverage; }
     double getE(){ return e; }
@@ -52,6 +53,7 @@ public slots:
     void setN(int n){ parameter_n = n; }
     void setM(int m){ parameter_m = m; }
     void setU(int u){ delta_u = u; }
+    void setU(double u){ delta_u = (int) u; }
     void setT(int t){ parameter_t = t; }
     void setDt(double d){ dt = d; }
     void setLocalMax(double d){ localMax = d; }

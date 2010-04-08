@@ -57,12 +57,14 @@ double dataFilter::getFilteredData(double d)
 
     //qDebug() << "State = " << state << " stateCounter = " << stateCounter[state] << " getSlope() = " << getSlope();
     //qDebug() << " slope = " << readings[NUM_READINGS-1] << " - " << readings[NUM_READINGS-2] << " = " << readings[NUM_READINGS-1] - readings[NUM_READINGS-2];
-    qDebug() << doLocalMax();
-    qDebug() << doLocalMin();
+    //qDebug() << doLocalMax();
+    //qDebug() << doLocalMin();
     minMaxDetection();
     return result;
 
 }
+
+
 
 bool dataFilter::minMaxDetection()
 {

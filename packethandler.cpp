@@ -174,9 +174,9 @@ void packetHandler::dataReady()
 
 //      printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n\n\n",tempReading->getVl(), tempReading->getMic(),tempReading->getIr(),tempReading->getTemp(),tempReading->getAccx(),tempReading->getAccy(),tempReading->getMgx(),tempReading->getMgy());
       //fflush(stdout);
-//        QSqlQuery query;
-//        if(!query.exec(QString("insert into readings values(%1, %2, %3, %4, %5, %6, %7, %8, %9, 0)").arg(id).arg(seq).arg(mgx).arg(mgy).arg(accx).arg(accy).arg(vl).arg(ir).arg(mic)))
-//            qDebug() << query.lastError();
+        QSqlQuery query;
+        if(!query.exec(QString("insert into readings values(%1, %2, %3, %4, %5, %6, %7, %8, %9, 0)").arg(id).arg(seq).arg(mgx).arg(mgy).arg(accx).arg(accy).arg(vl).arg(ir).arg(mic)))
+            qDebug() << query.lastError();
 //        db.commit();
 
 
